@@ -7,6 +7,7 @@ export default defineConfig({
     port: 5173,
   },
   preview: {
+    allowedHosts: ["mach-learning-1.onrender.com"],
     port: 4173,
   },
 });
