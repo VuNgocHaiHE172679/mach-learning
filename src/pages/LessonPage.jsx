@@ -22,6 +22,10 @@ import {
   microQuiz,
 } from "../data/learningContent";
 import { lessonAudioScripts } from "../data/lessonAudioScripts";
+import {
+  chapterHistoryFeatures,
+  lessonCoreContent,
+} from "../data/lessonCoreContent";
 import { lessonProfiles } from "../data/lessonProfiles";
 import { getTextbookSourceHref } from "../utils/textbookSource";
 
@@ -294,6 +298,15 @@ export default function LessonPage({
   const lessonChapter =
     chapters.find((chapter) => chapter.id === lesson.chapterId) ?? chapters[0];
   const profile = lessonProfiles[lesson.id] ?? buildFallbackProfile(lesson);
+  const coreContent = lessonCoreContent[lesson.id] ?? {
+    lead: lesson.summary,
+    sections: profile.blocks.map((block) => ({
+      title: block.title,
+      summary: block.text,
+      points: [],
+    })),
+  };
+  const historyFeature = chapterHistoryFeatures[lesson.chapterId];
   const fullAudio = lessonAudioScripts[lesson.id];
   const audio = fullAudio ? {
     ...fullAudio,
@@ -306,7 +319,7 @@ export default function LessonPage({
     chapterId: lesson.chapterId,
     title: `Tóm tắt ${lesson.number}: ${lesson.title}`,
     description: lesson.summary,
-    transcript: `${profile.thesis} ${profile.thesisDetail} ${profile.contextParagraphs.join(" ")}`,
+    transcript: `${profile.thesis} ${profile.thesisDetail} ${profile.contextParagraphs.join(" ")} ${coreContent.lead}`,
     duration: "≈ 02 phút",
     sourcePages: lesson.sourcePages,
     status: "ready",
@@ -359,6 +372,7 @@ export default function LessonPage({
           {[
             ["context", "Luận đề và câu hỏi"],
             ["conditions", "Cơ sở hiện thực"],
+            ["core-content", "Nội dung cốt lõi"],
             ["discoveries", "Hệ khái niệm"],
             ["relations", "Quan hệ lý luận"],
             ["quiz", "Phản tư và tự kiểm tra"],
@@ -471,6 +485,73 @@ export default function LessonPage({
               </a>
             </div>
           </section>
+
+          <section
+            className={`core-content ${readingMode === "full" ? "is-full" : "is-visual"}`}
+            id="core-content"
+          >
+            <header className="core-content-head">
+              <div>
+                <p className="eyebrow">NỘI DUNG CỐT LÕI</p>
+                <h2>Đủ ý để hiểu — gọn lớp để nhớ</h2>
+              </div>
+              <span>{coreContent.sections.length} luận điểm trọng tâm</span>
+            </header>
+            <p className="core-content-lead">{coreContent.lead}</p>
+            <div className="core-content-grid">
+              {coreContent.sections.map((section, index) => (
+                <article key={`${lesson.id}-core-${index + 1}`}>
+                  <div className="core-content-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div>
+                    <h3>{section.title}</h3>
+                    <p>{section.summary}</p>
+                    {section.points?.length > 0 && (
+                      <ul>
+                        {section.points.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="core-content-note">
+              Chế độ “Đọc đầy đủ” chuyển các luận điểm về một cột để đọc sâu;
+              chế độ “Bằng sơ đồ” đặt chúng cạnh nhau để so sánh nhanh.
+            </p>
+          </section>
+
+          {historyFeature && (
+            <figure className="history-feature">
+              <div className="history-feature-image">
+                <img
+                  src={historyFeature.image}
+                  alt={historyFeature.alt}
+                  width="1200"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ objectPosition: historyFeature.focalPoint }}
+                />
+                <span>{historyFeature.year}</span>
+              </div>
+              <figcaption>
+                <p className="eyebrow">LÁT CẮT LỊCH SỬ VIỆT NAM</p>
+                <h2>{historyFeature.title}</h2>
+                <p>{historyFeature.caption}</p>
+                <a
+                  href={historyFeature.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {historyFeature.credit} <ExternalLinkIcon />
+                </a>
+              </figcaption>
+            </figure>
+          )}
 
           <section className="visual-stack">
             <div className="visual-stack-head">

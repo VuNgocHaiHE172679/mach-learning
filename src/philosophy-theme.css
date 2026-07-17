@@ -1130,6 +1130,64 @@ h3,
   border-color: rgba(135, 0, 0, 0.19);
 }
 
+.core-content {
+  background:
+    linear-gradient(rgba(135, 0, 0, 0.035) 1px, transparent 1px),
+    #f3eee4;
+  background-size: 100% 32px;
+  border-color: rgba(135, 0, 0, 0.16);
+  border-top-color: var(--brick);
+}
+
+.core-content-head h2,
+.core-content-grid h3 {
+  color: var(--brick-dark);
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+.core-content-grid article {
+  background: rgba(255, 250, 239, 0.96);
+  border-color: rgba(135, 0, 0, 0.13);
+  border-top: 4px solid var(--brick);
+}
+
+.core-content-grid article:nth-child(2) {
+  border-top-color: var(--mustard);
+}
+
+.core-content-grid article:nth-child(3) {
+  border-top-color: var(--brick-dark);
+}
+
+.core-content-index,
+.core-content-grid li::marker {
+  color: var(--brick);
+}
+
+.history-feature {
+  background: linear-gradient(135deg, #6b0000, #220606);
+  border-bottom-color: var(--mustard);
+}
+
+.history-feature-image::after {
+  background: linear-gradient(90deg, transparent 60%, rgba(65, 0, 0, 0.42));
+}
+
+.history-feature figcaption h2 {
+  color: #fff4cf;
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+.history-feature figcaption > p:not(.eyebrow) {
+  color: #f6ead1;
+}
+
+.history-feature figcaption a {
+  color: #ffe276;
+}
+
 .visual-stack {
   color: #fff5d3;
   background:

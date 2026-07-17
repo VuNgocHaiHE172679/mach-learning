@@ -9,6 +9,10 @@ import learningContent, {
   podcasts,
 } from "../src/data/learningContent.js";
 import { lessonProfiles } from "../src/data/lessonProfiles.js";
+import {
+  chapterHistoryFeatures,
+  lessonCoreContent,
+} from "../src/data/lessonCoreContent.js";
 import { lessonAudioScripts } from "../src/data/lessonAudioScripts.js";
 import {
   TEXTBOOK_PDF_PATH,
@@ -51,6 +55,27 @@ for (const chapter of chapters) {
     statSync(illustrationPath).size < 400_000,
     `${chapter.id} có file minh họa lớn hơn 400 KB.`,
   );
+
+  const historyFeature = chapterHistoryFeatures[chapter.id];
+  assert.ok(historyFeature, `${chapter.id} thiếu lát cắt lịch sử Việt Nam.`);
+  for (const field of ["image", "alt", "year", "title", "caption", "credit", "sourceUrl"]) {
+    assert.ok(historyFeature[field], `${chapter.id} thiếu trường ảnh lịch sử ${field}.`);
+  }
+  assert.match(
+    historyFeature.sourceUrl,
+    /^https:\/\//,
+    `${chapter.id} có nguồn ảnh lịch sử không hợp lệ.`,
+  );
+  const historyImagePath = join(
+    process.cwd(),
+    "public",
+    historyFeature.image.replace(/^\//, ""),
+  );
+  assert.ok(existsSync(historyImagePath), `${chapter.id} thiếu file ảnh lịch sử.`);
+  assert.ok(
+    statSync(historyImagePath).size < 200_000,
+    `${chapter.id} có ảnh lịch sử lớn hơn 200 KB.`,
+  );
 }
 
 const modules = chapters.flatMap((chapter) => chapter.modules);
@@ -59,6 +84,23 @@ assert.equal(modules.length, 9, "Ba chương phải có tổng cộng chín họ
 for (const module of modules) {
   const profile = lessonProfiles[module.id];
   assert.ok(profile, `${module.id} chưa có nội dung bài học riêng.`);
+  const coreContent = lessonCoreContent[module.id];
+  assert.ok(coreContent?.lead, `${module.id} thiếu dẫn nhập nội dung cốt lõi.`);
+  assert.ok(
+    coreContent.sections.length >= 3 && coreContent.sections.length <= 4,
+    `${module.id} cần có từ ba đến bốn luận điểm cốt lõi.`,
+  );
+  for (const section of coreContent.sections) {
+    assert.ok(section.title && section.summary, `${module.id} có luận điểm thiếu nội dung.`);
+    assert.ok(
+      section.points.length >= 3 && section.points.length <= 5,
+      `${module.id} có luận điểm cần từ ba đến năm ý chính.`,
+    );
+    assert.ok(
+      section.summary.length <= 420,
+      `${module.id} có phần giải thích quá dài.`,
+    );
+  }
 
   for (const field of [
     "thesis",
