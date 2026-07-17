@@ -35,13 +35,13 @@ export default function AppShell({
           className="brand"
           type="button"
           onClick={() => navigate("home")}
-          aria-label="Về trang chủ MẠCH"
+          aria-label="Về trang chủ Group 2"
         >
           <span className="brand-mark" aria-hidden="true">
-            M
+            G2
           </span>
           <span className="brand-copy">
-            <strong>MẠCH</strong>
+            <strong>Group 2</strong>
             <small>Dialectic Learning Lab</small>
           </span>
         </button>
@@ -66,7 +66,7 @@ export default function AppShell({
             onClick={onOpenAssistant}
           >
             <Sparkles size={16} aria-hidden="true" />
-            <span>Hỏi Mạch AI</span>
+            <span>Hỏi Group 2 AI</span>
           </button>
           <button
             className="icon-button search-button"
@@ -109,7 +109,7 @@ export default function AppShell({
       <footer className="site-footer">
         <div>
           <span className="brand-mark small" aria-hidden="true">
-            M
+            G2
           </span>
           <p>
             Một không gian học tập thử nghiệm dựa trên ba chương đầu của Giáo
@@ -139,7 +139,7 @@ export default function AppShell({
         ))}
         <button type="button" onClick={onOpenAssistant}>
           <BrainCircuit size={20} />
-          <span>Mạch AI</span>
+          <span>Group 2 AI</span>
         </button>
       </nav>
     </div>

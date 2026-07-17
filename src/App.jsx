@@ -79,7 +79,7 @@ export default function App() {
       found ?? {
         term: termName,
         definition:
-          "Thuật ngữ này đang được biên tập. MẠCH sẽ chỉ hiển thị nội dung sau khi đã đối chiếu với giáo trình.",
+          "Thuật ngữ này đang được biên tập. Group 2 sẽ chỉ hiển thị nội dung sau khi đã đối chiếu với giáo trình.",
         source: "Chờ kiểm duyệt học thuật",
       },
     );

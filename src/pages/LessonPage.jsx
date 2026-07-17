@@ -594,7 +594,7 @@ export default function LessonPage({
             <div className="inspector-icon">
               <Sparkles size={18} />
             </div>
-            <p className="eyebrow">MẠCH AI ĐANG THEO BÀI</p>
+            <p className="eyebrow">GROUP 2 AI ĐANG THEO BÀI</p>
             <h3>Gặp một thuật ngữ khó?</h3>
             <p>
               Chạm vào từ có gạch cyan để nhận giải thích theo đúng ngữ cảnh.

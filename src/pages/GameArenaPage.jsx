@@ -170,7 +170,7 @@ export default function GameArenaPage({ navigate }) {
           </div>
 
           <div className="sequence-zone">
-            <p>MẠCH SẮP XẾP</p>
+            <p>TRÌNH TỰ SẮP XẾP</p>
             <div className="sequence-slots">
               {[0, 1, 2, 3].map((slot) => {
                 const item = selected[slot];

@@ -21,7 +21,7 @@ import {
   splitIntoSpeechChunks,
 } from "../src/utils/audioScript.js";
 
-assert.equal(chapters.length, 3, "MẠCH phải có đúng ba chương cốt lõi.");
+assert.equal(chapters.length, 3, "Group 2 phải có đúng ba chương cốt lõi.");
 assert.deepEqual(
   chapters.map((chapter) => chapter.sourcePages),
   ["11–49", "51–84", "86–124"],

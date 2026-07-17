@@ -1,5 +1,5 @@
 /**
- * Dữ liệu nội dung mẫu cho prototype MẠCH.
+ * Dữ liệu nội dung mẫu cho prototype Group 2.
  *
  * Các diễn giải dưới đây được viết theo hướng nhập môn, thận trọng và luôn gắn
  * với phạm vi trang của bản in. Khi sản phẩm đi vào vận hành, nội dung cần được

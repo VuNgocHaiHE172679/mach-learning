@@ -83,7 +83,7 @@ export default function TermDrawer({
         <div className="drawer-header">
           <div className="ai-label">
             <Sparkles size={14} />
-            Mạch AI · Đã nối nguồn
+            Group 2 AI · Đã nối nguồn
           </div>
           <button
             ref={closeButtonRef}

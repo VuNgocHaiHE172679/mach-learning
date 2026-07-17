@@ -1,4 +1,4 @@
-# MẠCH — Dialectic Learning Lab
+# Group 2 — Dialectic Learning Lab
 
 Website học tập tương tác số hóa ba chương đầu của Giáo trình Chủ nghĩa xã hội khoa học. Giao diện được xây bằng React và Vite, sẵn cấu hình triển khai dưới dạng Static Site trên Render.
 

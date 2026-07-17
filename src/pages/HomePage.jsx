@@ -136,7 +136,7 @@ export default function HomePage({
               Lý luận bắt đầu từ hiện thực và trở lại soi sáng thực tiễn.
             </h2>
             <p>
-              MẠCH tổ chức mỗi bài học như một quá trình tư duy: nhận diện điều
+              Group 2 tổ chức mỗi bài học như một quá trình tư duy: nhận diện điều
               kiện, hình thành khái niệm, phát hiện quan hệ và thử vận dụng để
               giải thích một vấn đề mới.
             </p>
