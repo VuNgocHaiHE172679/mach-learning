@@ -10,7 +10,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "check": "node scripts/validate-content.mjs && npm run build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "start": "node scripts/render-start.mjs"
   },
   "dependencies": {
     "lucide-react": "1.24.0",
