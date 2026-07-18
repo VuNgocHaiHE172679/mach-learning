@@ -30,13 +30,10 @@ import {
   normalizeSearch,
 } from "../src/utils/hubFilters.js";
 import {
-  DUCK_RACERS,
-  DUCK_RACE_ROUNDS,
-  advanceDuckRace,
-  buildDuckRaceQuestions,
-  createRaceProgress,
-  rankDuckRacers,
-} from "../src/utils/duckRaceGame.js";
+  QUIZ_CHALLENGE_ROUNDS,
+  buildChapterQuizQuestions,
+  getQuizAssessment,
+} from "../src/utils/quizChallenge.js";
 
 assert.equal(chapters.length, 3, "Group 2 phải có đúng ba chương cốt lõi.");
 assert.deepEqual(
@@ -57,6 +54,11 @@ for (const chapter of chapters) {
       chapter.illustration?.alt &&
       chapter.illustration?.caption,
     `${chapter.id} thiếu dữ liệu minh họa có khả năng tiếp cận.`,
+  );
+  assert.match(
+    chapter.illustration.src,
+    /^\/images\/history\//,
+    `${chapter.id} phải dùng ảnh tư liệu lịch sử Việt Nam đã kiểm tra nguồn.`,
   );
   const illustrationPath = join(
     process.cwd(),
@@ -235,60 +237,33 @@ assert.equal(
 );
 
 for (const chapter of chapters) {
-  const raceQuestions = buildDuckRaceQuestions(
+  const quizQuestions = buildChapterQuizQuestions(
     chapters,
     lessonProfiles,
     chapter.id,
     () => 0.5,
   );
   assert.equal(
-    raceQuestions.length,
-    DUCK_RACE_ROUNDS,
-    `${chapter.id} phải cấp đủ sáu câu hỏi cho đường đua.`,
+    quizQuestions.length,
+    QUIZ_CHALLENGE_ROUNDS,
+    `${chapter.id} phải cấp đủ sáu câu hỏi tự kiểm tra.`,
   );
   assert.equal(
-    new Set(raceQuestions.map((question) => question.id)).size,
-    DUCK_RACE_ROUNDS,
-    `${chapter.id} không được lặp câu hỏi trong một lượt đua.`,
+    new Set(quizQuestions.map((question) => question.id)).size,
+    QUIZ_CHALLENGE_ROUNDS,
+    `${chapter.id} không được lặp câu hỏi trong một lượt tự kiểm tra.`,
   );
 }
 
-const initialRaceProgress = createRaceProgress();
-assert.deepEqual(
-  Object.keys(initialRaceProgress),
-  DUCK_RACERS.map((duck) => duck.id),
-  "Đường đua phải khởi tạo đủ bốn vịt.",
-);
-const correctRaceStep = advanceDuckRace(
-  initialRaceProgress,
-  "red",
-  true,
-  () => 0.5,
+assert.equal(
+  getQuizAssessment(6, 6).label,
+  "Nắm chắc mạch kiến thức",
+  "Kết quả cao phải trả về mức đánh giá phù hợp.",
 );
 assert.equal(
-  correctRaceStep.progress.red,
-  21,
-  "Câu trả lời đúng phải tạo lợi thế rõ ràng cho người chơi.",
-);
-assert.equal(
-  correctRaceStep.progress.gold,
-  12,
-  "Đối thủ phải tự tiến về phía trước.",
-);
-const cappedRaceStep = advanceDuckRace(
-  Object.fromEntries(DUCK_RACERS.map((duck) => [duck.id, 99])),
-  "red",
-  true,
-  () => 0.5,
-);
-assert.ok(
-  Object.values(cappedRaceStep.progress).every((value) => value === 100),
-  "Tiến độ đường đua không được vượt quá 100%.",
-);
-assert.equal(
-  rankDuckRacers({ red: 30, gold: 70, blue: 40, brown: 10 })[0].id,
-  "gold",
-  "Bảng xếp hạng phải đưa vịt có tiến độ cao nhất lên đầu.",
+  getQuizAssessment(3, 6).percentage,
+  50,
+  "Tỷ lệ kết quả tự kiểm tra phải được tính đúng.",
 );
 
 assert.equal(

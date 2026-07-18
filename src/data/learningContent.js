@@ -23,11 +23,11 @@ export const chapters = [
     totalModules: 3,
     accent: "brick",
     illustration: {
-      src: "/images/chapters/chapter-01.webp",
-      alt: "Collage về thành phố công nghiệp thế kỷ XIX, máy dệt, công nhân và tư liệu lý luận được nối bằng các đường quan hệ.",
+      src: "/images/history/nguyen-ai-quoc-tours-1920.webp",
+      alt: "Nguyễn Ái Quốc tại Đại hội lần thứ XVIII Đảng Xã hội Pháp ở Tours năm 1920.",
       caption:
-        "Đại công nghiệp, phong trào công nhân và nhu cầu hình thành một lý luận khoa học.",
-      focalPoint: "50% 48%",
+        "Năm 1920, Nguyễn Ái Quốc tiếp cận chủ nghĩa Mác – Lênin và lựa chọn con đường cách mạng vô sản cho sự nghiệp giải phóng dân tộc Việt Nam.",
+      focalPoint: "50% 34%",
     },
     keyConcepts: [
       "Chủ nghĩa xã hội khoa học",
@@ -122,11 +122,11 @@ export const chapters = [
     totalModules: 3,
     accent: "mustard",
     illustration: {
-      src: "/images/chapters/chapter-02.webp",
-      alt: "Collage về người lao động trong sản xuất cơ khí, tự động hóa, logistics và môi trường kỹ thuật số hiện đại.",
+      src: "/images/history/cong-nhan-ba-son-1925.webp",
+      alt: "Tập thể công nhân Xưởng Ba Son trong giai đoạn 1925–1926.",
       caption:
-        "Giai cấp công nhân biến đổi cùng nền sản xuất nhưng vẫn cần được xem xét trong các quan hệ kinh tế và xã hội.",
-      focalPoint: "50% 48%",
+        "Cuộc đấu tranh của công nhân Ba Son là dấu mốc về tổ chức, ý thức chính trị và tinh thần đoàn kết của phong trào công nhân Việt Nam.",
+      focalPoint: "50% 43%",
     },
     keyConcepts: [
       "Giai cấp công nhân",
@@ -222,11 +222,11 @@ export const chapters = [
     totalModules: 3,
     accent: "cyan",
     illustration: {
-      src: "/images/chapters/chapter-03.webp",
-      alt: "Collage nhiều lớp về hạ tầng cũ và mới, giao thông, giáo dục, y tế và không gian công cộng cùng tồn tại trong quá trình chuyển tiếp.",
+      src: "/images/history/dai-hoi-vi-1986.webp",
+      alt: "Toàn cảnh Đại hội đại biểu toàn quốc lần thứ VI của Đảng tại Hà Nội năm 1986.",
       caption:
-        "Thời kỳ quá độ là quá trình nhiều lớp, nơi cái cũ và cái mới đan xen, tác động qua lại.",
-      focalPoint: "50% 50%",
+        "Đại hội VI mở đầu công cuộc Đổi mới, một dấu mốc quan trọng trong tư duy và thực tiễn xây dựng chủ nghĩa xã hội ở Việt Nam.",
+      focalPoint: "50% 42%",
     },
     keyConcepts: [
       "Hình thái kinh tế – xã hội cộng sản chủ nghĩa",

@@ -6,7 +6,6 @@ import {
   Check,
   CheckCircle2,
   Clock3,
-  Flag,
   Gamepad2,
   Headphones,
   Network,
@@ -19,12 +18,9 @@ import {
 import { chapters, games } from "../data/learningContent";
 import { lessonProfiles } from "../data/lessonProfiles";
 import {
-  DUCK_RACERS,
-  advanceDuckRace,
-  buildDuckRaceQuestions,
-  createRaceProgress,
-  rankDuckRacers,
-} from "../utils/duckRaceGame";
+  buildChapterQuizQuestions,
+  getQuizAssessment,
+} from "../utils/quizChallenge";
 
 const SEQUENCE = [
   { id: "industry", label: "Đại công nghiệp phát triển", order: 0 },
@@ -42,88 +38,73 @@ export default function GameArenaPage({ navigate }) {
   const [activeMindModuleId, setActiveMindModuleId] = useState(
     MISSION_CHAPTER?.modules[0]?.id,
   );
-  const [raceChapterId, setRaceChapterId] = useState(chapters[0].id);
-  const [playerDuckId, setPlayerDuckId] = useState(DUCK_RACERS[0].id);
-  const [raceStatus, setRaceStatus] = useState("setup");
-  const [raceQuestions, setRaceQuestions] = useState([]);
-  const [raceQuestionIndex, setRaceQuestionIndex] = useState(0);
-  const [raceSelectedOption, setRaceSelectedOption] = useState(null);
-  const [raceFeedback, setRaceFeedback] = useState(null);
-  const [raceProgress, setRaceProgress] = useState(createRaceProgress);
-  const [raceScore, setRaceScore] = useState(0);
+  const [quizChapterId, setQuizChapterId] = useState(chapters[0].id);
+  const [quizStatus, setQuizStatus] = useState("setup");
+  const [quizQuestions, setQuizQuestions] = useState([]);
+  const [quizQuestionIndex, setQuizQuestionIndex] = useState(0);
+  const [quizSelectedOption, setQuizSelectedOption] = useState(null);
+  const [quizFeedback, setQuizFeedback] = useState(null);
+  const [quizScore, setQuizScore] = useState(0);
 
   const remaining = useMemo(
     () => SHUFFLED.filter((item) => !selected.some((pick) => pick.id === item.id)),
     [selected],
   );
 
-  const raceChapter =
-    chapters.find((chapter) => chapter.id === raceChapterId) ?? chapters[0];
+  const quizChapter =
+    chapters.find((chapter) => chapter.id === quizChapterId) ?? chapters[0];
   const activeMindModule =
     MISSION_CHAPTER?.modules.find(
       (module) => module.id === activeMindModuleId,
     ) ?? MISSION_CHAPTER?.modules[0];
-  const currentRaceQuestion = raceQuestions[raceQuestionIndex];
-  const raceRanking = useMemo(
-    () => rankDuckRacers(raceProgress),
-    [raceProgress],
-  );
+  const currentQuizQuestion = quizQuestions[quizQuestionIndex];
+  const quizAssessment = getQuizAssessment(quizScore, quizQuestions.length);
 
-  const startDuckRace = () => {
-    const questions = buildDuckRaceQuestions(
+  const startQuiz = () => {
+    const questions = buildChapterQuizQuestions(
       chapters,
       lessonProfiles,
-      raceChapterId,
+      quizChapterId,
     );
-    setRaceQuestions(questions);
-    setRaceQuestionIndex(0);
-    setRaceSelectedOption(null);
-    setRaceFeedback(null);
-    setRaceProgress(createRaceProgress());
-    setRaceScore(0);
-    setRaceStatus("racing");
+    setQuizQuestions(questions);
+    setQuizQuestionIndex(0);
+    setQuizSelectedOption(null);
+    setQuizFeedback(null);
+    setQuizScore(0);
+    setQuizStatus("answering");
   };
 
-  const checkRaceAnswer = () => {
-    if (!currentRaceQuestion || raceSelectedOption === null || raceFeedback) return;
+  const checkQuizAnswer = () => {
+    if (!currentQuizQuestion || quizSelectedOption === null || quizFeedback) return;
     const isCorrect =
-      raceSelectedOption === currentRaceQuestion.correctOptionId;
-    const outcome = advanceDuckRace(
-      raceProgress,
-      playerDuckId,
-      isCorrect,
-    );
-    const reachedFinish = Math.max(...Object.values(outcome.progress)) >= 100;
-    const isLastQuestion = raceQuestionIndex === raceQuestions.length - 1;
+      quizSelectedOption === currentQuizQuestion.correctOptionId;
+    const isLastQuestion = quizQuestionIndex === quizQuestions.length - 1;
 
-    setRaceProgress(outcome.progress);
-    if (isCorrect) setRaceScore((score) => score + 1);
-    setRaceFeedback({
+    if (isCorrect) setQuizScore((score) => score + 1);
+    setQuizFeedback({
       isCorrect,
-      event: outcome.event,
-      finished: reachedFinish || isLastQuestion,
+      finished: isLastQuestion,
     });
   };
 
-  const continueDuckRace = () => {
-    if (!raceFeedback) return;
-    if (raceFeedback.finished) {
-      setRaceStatus("finished");
+  const continueQuiz = () => {
+    if (!quizFeedback) return;
+    if (quizFeedback.finished) {
+      setQuizStatus("finished");
       return;
     }
-    setRaceQuestionIndex((index) => index + 1);
-    setRaceSelectedOption(null);
-    setRaceFeedback(null);
+    setQuizQuestionIndex((index) => index + 1);
+    setQuizSelectedOption(null);
+    setQuizFeedback(null);
   };
 
-  const returnToRaceSetup = () => {
-    setRaceStatus("setup");
-    setRaceQuestions([]);
-    setRaceQuestionIndex(0);
-    setRaceSelectedOption(null);
-    setRaceFeedback(null);
-    setRaceProgress(createRaceProgress());
-    setRaceScore(0);
+  const returnToQuizSetup = () => {
+    setQuizStatus("setup");
+    setQuizQuestions([]);
+    setQuizQuestionIndex(0);
+    setQuizSelectedOption(null);
+    setQuizFeedback(null);
+    setQuizScore(0);
   };
 
   const addItem = (item) => {
@@ -169,12 +150,12 @@ export default function GameArenaPage({ navigate }) {
               className="game-hero-cta"
               onClick={() =>
                 document
-                  .getElementById("duck-race")
+                  .getElementById("knowledge-quiz")
                   ?.scrollIntoView({ behavior: "smooth", block: "start" })
               }
             >
-              <span aria-hidden="true">🦆</span>
-              Vào đường đua biện chứng
+              <BrainCircuit size={18} aria-hidden="true" />
+              Bắt đầu câu hỏi kiến thức
               <ArrowRight size={17} />
             </button>
           </div>
@@ -325,125 +306,82 @@ export default function GameArenaPage({ navigate }) {
         </section>
       )}
 
-      <section className="section-shell duck-race-section" id="duck-race">
-        <header className="duck-race-header">
+      <section
+        className="section-shell knowledge-quiz-section"
+        id="knowledge-quiz"
+      >
+        <header className="knowledge-quiz-header">
           <div>
-            <p className="eyebrow">TRÒ CHƠI THỬ NGHIỆM / KHÔNG CẦN TÀI KHOẢN</p>
-            <h2>Đường đua Biện chứng</h2>
+            <p className="eyebrow">TỰ KIỂM TRA / KHÔNG CẦN TÀI KHOẢN</p>
+            <h2>Trả lời câu hỏi kiến thức</h2>
             <p>
-              Chọn một chú vịt và trả lời sáu câu hỏi. Đáp án đúng tạo lợi thế
-              lớn; sự kiện ngẫu nhiên chỉ đóng vai trò phụ để đường đua luôn bất ngờ.
+              Chọn một chương và hoàn thành sáu câu hỏi ngắn. Mỗi câu đều có
+              phản hồi và giải thích ngay để bạn tự đối chiếu cách hiểu.
             </p>
           </div>
-          <div className="duck-race-balance">
-            <span>70%</span>
-            <strong>kiến thức quyết định</strong>
-            <small>30% nhịp đua và bất ngờ</small>
+          <div className="knowledge-quiz-summary">
+            <span>06</span>
+            <strong>câu hỏi mỗi lượt</strong>
+            <small>Không giới hạn thời gian</small>
           </div>
         </header>
 
-        {raceStatus === "setup" && (
-          <div className="duck-race-setup">
+        {quizStatus === "setup" && (
+          <div className="knowledge-quiz-setup">
             <fieldset>
-              <legend>1. Chọn chương kiến thức</legend>
-              <div className="race-choice-grid chapter-choices">
+              <legend>Chọn chương kiến thức</legend>
+              <div className="quiz-chapter-grid">
                 {chapters.map((chapter) => (
                   <button
                     type="button"
-                    className={raceChapterId === chapter.id ? "active" : ""}
-                    aria-pressed={raceChapterId === chapter.id}
+                    className={quizChapterId === chapter.id ? "active" : ""}
+                    aria-pressed={quizChapterId === chapter.id}
                     key={chapter.id}
-                    onClick={() => setRaceChapterId(chapter.id)}
+                    onClick={() => setQuizChapterId(chapter.id)}
                   >
                     <span>{chapter.number}</span>
-                    <strong>{chapter.shortTitle}</strong>
+                    <strong>{chapter.title}</strong>
+                    <small>{chapter.modules.length} học phần · {chapter.sourcePages}</small>
                   </button>
                 ))}
               </div>
             </fieldset>
-            <fieldset>
-              <legend>2. Chọn vịt đại diện</legend>
-              <div className="race-choice-grid duck-choices">
-                {DUCK_RACERS.map((duck) => (
-                  <button
-                    type="button"
-                    className={playerDuckId === duck.id ? "active" : ""}
-                    aria-pressed={playerDuckId === duck.id}
-                    key={duck.id}
-                    onClick={() => setPlayerDuckId(duck.id)}
-                    style={{ "--duck-color": duck.color }}
-                  >
-                    <span aria-hidden="true">🦆</span>
-                    <strong>{duck.name}</strong>
-                    <small>{duck.lane}</small>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-            <button type="button" className="race-start-button" onClick={startDuckRace}>
-              <Play size={18} fill="currentColor" /> Bắt đầu cuộc đua
+            <button type="button" className="quiz-start-button" onClick={startQuiz}>
+              <Play size={18} fill="currentColor" /> Bắt đầu trả lời
             </button>
           </div>
         )}
 
-        <div className="duck-track" aria-label="Tiến độ đường đua">
-          <div className="duck-track-head" aria-hidden="true">
-            <span>VẠCH XUẤT PHÁT</span>
-            <span>ĐÍCH ĐẾN <Flag size={14} /></span>
-          </div>
-          {DUCK_RACERS.map((duck, index) => {
-            const progress = raceProgress[duck.id] ?? 0;
-            const isPlayer = duck.id === playerDuckId;
-
-            return (
-              <div
-                className={`duck-lane ${isPlayer ? "is-player" : ""}`}
-                key={duck.id}
-                style={{
-                  "--duck-color": duck.color,
-                  "--race-progress": progress,
-                }}
-              >
-                <div className="duck-lane-label">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{duck.name}</strong>
-                  {isPlayer && <small>VỊT CỦA BẠN</small>}
-                </div>
-                <div
-                  className="duck-lane-course"
-                  role="progressbar"
-                  aria-label={`${duck.name}: ${progress}% đường đua`}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  aria-valuenow={progress}
-                >
-                  <div className="duck-runner">
-                    <span aria-hidden="true">🦆</span>
-                    <small>{progress}%</small>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {raceStatus === "racing" && currentRaceQuestion && (
-          <div className="duck-race-round">
-            <div className="race-round-meta">
-              <span>
-                LƯỢT {raceQuestionIndex + 1}/{raceQuestions.length}
-              </span>
-              <strong>{raceChapter.title}</strong>
-              <span>{raceScore} câu đúng</span>
+        {quizStatus === "answering" && currentQuizQuestion && (
+          <div className="knowledge-quiz-card">
+            <div className="quiz-progress-meta">
+              <span>CÂU {quizQuestionIndex + 1}/{quizQuestions.length}</span>
+              <strong>{quizChapter.title}</strong>
+              <span>{quizScore} câu đúng</span>
             </div>
-            <h3>{currentRaceQuestion.prompt}</h3>
-            <div className="race-answer-grid">
-              {currentRaceQuestion.options.map((option, index) => {
-                const isSelected = raceSelectedOption === option.id;
+            <div
+              className="quiz-progress-track"
+              role="progressbar"
+              aria-label={`Tiến độ: câu ${quizQuestionIndex + 1} trên ${quizQuestions.length}`}
+              aria-valuemin="1"
+              aria-valuemax={quizQuestions.length}
+              aria-valuenow={quizQuestionIndex + 1}
+            >
+              <span
+                style={{
+                  width: `${((quizQuestionIndex + 1) / quizQuestions.length) * 100}%`,
+                }}
+              />
+            </div>
+
+            <h3>{currentQuizQuestion.prompt}</h3>
+            <div className="quiz-answer-grid">
+              {currentQuizQuestion.options.map((option, index) => {
+                const isSelected = quizSelectedOption === option.id;
                 const isCorrectOption =
-                  raceFeedback && option.id === currentRaceQuestion.correctOptionId;
+                  quizFeedback && option.id === currentQuizQuestion.correctOptionId;
                 const isIncorrectSelection =
-                  raceFeedback && isSelected && !isCorrectOption;
+                  quizFeedback && isSelected && !isCorrectOption;
 
                 return (
                   <button
@@ -451,9 +389,9 @@ export default function GameArenaPage({ navigate }) {
                     className={`${isSelected ? "selected" : ""} ${
                       isCorrectOption ? "correct" : ""
                     } ${isIncorrectSelection ? "incorrect" : ""}`}
-                    disabled={Boolean(raceFeedback)}
+                    disabled={Boolean(quizFeedback)}
                     key={option.id}
-                    onClick={() => setRaceSelectedOption(option.id)}
+                    onClick={() => setQuizSelectedOption(option.id)}
                   >
                     <span>{String.fromCharCode(65 + index)}</span>
                     {option.label}
@@ -464,39 +402,37 @@ export default function GameArenaPage({ navigate }) {
               })}
             </div>
 
-            {raceFeedback && (
-              <div className={`race-feedback ${raceFeedback.isCorrect ? "good" : ""}`}>
-                <Sparkles size={21} />
+            {quizFeedback && (
+              <div className={`quiz-feedback ${quizFeedback.isCorrect ? "good" : ""}`}>
+                {quizFeedback.isCorrect ? (
+                  <CheckCircle2 size={22} />
+                ) : (
+                  <BrainCircuit size={22} />
+                )}
                 <div>
                   <strong>
-                    {raceFeedback.isCorrect
-                      ? "Chính xác — vịt của bạn tăng tốc!"
-                      : "Chưa đúng — vịt vẫn tiến lên nhưng chậm hơn."}
+                    {quizFeedback.isCorrect
+                      ? "Chính xác."
+                      : "Chưa đúng — hãy xem lại cách lập luận."}
                   </strong>
-                  <p>{currentRaceQuestion.explanation}</p>
-                  {raceFeedback.event && (
-                    <p className="race-random-event">
-                      <b>{raceFeedback.event.title}</b>{" "}
-                      {raceFeedback.event.description}
-                    </p>
-                  )}
+                  <p>{currentQuizQuestion.explanation}</p>
                 </div>
               </div>
             )}
 
-            <div className="race-round-actions">
-              {!raceFeedback ? (
+            <div className="quiz-card-actions">
+              {!quizFeedback ? (
                 <button
                   type="button"
                   className="button primary"
-                  disabled={raceSelectedOption === null}
-                  onClick={checkRaceAnswer}
+                  disabled={quizSelectedOption === null}
+                  onClick={checkQuizAnswer}
                 >
                   Xác nhận đáp án <ArrowRight size={17} />
                 </button>
               ) : (
-                <button type="button" className="button primary" onClick={continueDuckRace}>
-                  {raceFeedback.finished ? "Xem kết quả" : "Câu tiếp theo"}
+                <button type="button" className="button primary" onClick={continueQuiz}>
+                  {quizFeedback.finished ? "Xem kết quả" : "Câu tiếp theo"}
                   <ArrowRight size={17} />
                 </button>
               )}
@@ -504,46 +440,34 @@ export default function GameArenaPage({ navigate }) {
           </div>
         )}
 
-        {raceStatus === "finished" && (
-          <div className="duck-race-result">
-            <Trophy size={38} />
-            <div>
-              <p className="eyebrow">KẾT QUẢ ĐƯỜNG ĐUA</p>
-              <h3>
-                {raceRanking[0].id === playerDuckId
-                  ? `${raceRanking[0].name} về nhất!`
-                  : `${raceRanking[0].name} dẫn đầu đường đua.`}
-              </h3>
-              <p>
-                Bạn trả lời đúng <strong>{raceScore}/{raceQuestionIndex + 1}</strong>{" "}
-                câu. Kết quả đua chỉ được lưu trong lượt chơi hiện tại.
-              </p>
+        {quizStatus === "finished" && (
+          <div className="knowledge-quiz-result">
+            <div className="quiz-result-score">
+              <Trophy size={30} aria-hidden="true" />
+              <strong>{quizAssessment.percentage}%</strong>
+              <span>{quizScore}/{quizQuestions.length} câu đúng</span>
             </div>
-            <ol>
-              {raceRanking.map((duck, index) => (
-                <li key={duck.id} className={duck.id === playerDuckId ? "is-player" : ""}>
-                  <span>#{index + 1}</span>
-                  <b>{duck.name}</b>
-                  <strong>{raceProgress[duck.id]}%</strong>
-                </li>
-              ))}
-            </ol>
-            <div className="duck-result-actions">
-              <button type="button" className="button primary" onClick={startDuckRace}>
-                <RotateCcw size={17} /> Đua lại cùng lựa chọn
+            <div>
+              <p className="eyebrow">KẾT QUẢ TỰ KIỂM TRA</p>
+              <h3>{quizAssessment.label}</h3>
+              <p>{quizAssessment.message}</p>
+            </div>
+            <div className="quiz-result-actions">
+              <button type="button" className="button primary" onClick={startQuiz}>
+                <RotateCcw size={17} /> Làm bộ câu hỏi mới
               </button>
-              <button type="button" className="button secondary" onClick={returnToRaceSetup}>
-                Chọn lại chương hoặc vịt
+              <button type="button" className="button secondary" onClick={returnToQuizSetup}>
+                Chọn chương khác
               </button>
             </div>
           </div>
         )}
 
-        <footer className="duck-race-note">
-          <span>Không backend</span>
+        <footer className="knowledge-quiz-note">
+          <span>Không lưu dữ liệu</span>
           <p>
-            Không lưu tên, điểm hay lịch sử chơi. Mỗi lượt tạo lại thứ tự câu hỏi
-            và nhịp chạy của đối thủ ngay trên thiết bị.
+            Câu hỏi được tạo lại từ ba học phần của chương đã chọn. Website
+            không lưu tên, điểm số hoặc lịch sử trả lời.
           </p>
         </footer>
       </section>
