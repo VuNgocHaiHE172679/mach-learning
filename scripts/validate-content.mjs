@@ -29,6 +29,14 @@ import {
   filterLearningChapters,
   normalizeSearch,
 } from "../src/utils/hubFilters.js";
+import {
+  DUCK_RACERS,
+  DUCK_RACE_ROUNDS,
+  advanceDuckRace,
+  buildDuckRaceQuestions,
+  createRaceProgress,
+  rankDuckRacers,
+} from "../src/utils/duckRaceGame.js";
 
 assert.equal(chapters.length, 3, "Group 2 phải có đúng ba chương cốt lõi.");
 assert.deepEqual(
@@ -221,6 +229,63 @@ assert.ok(glossary.length >= 7, "Từ điển mẫu cần tối thiểu bảy th
 assert.ok(podcasts.length >= 3, "Cần tối thiểu một audio cho mỗi chương.");
 assert.equal(games.length, 3, "Cần đúng một game lõi cho mỗi chương.");
 
+for (const chapter of chapters) {
+  const raceQuestions = buildDuckRaceQuestions(
+    chapters,
+    lessonProfiles,
+    chapter.id,
+    () => 0.5,
+  );
+  assert.equal(
+    raceQuestions.length,
+    DUCK_RACE_ROUNDS,
+    `${chapter.id} phải cấp đủ sáu câu hỏi cho đường đua.`,
+  );
+  assert.equal(
+    new Set(raceQuestions.map((question) => question.id)).size,
+    DUCK_RACE_ROUNDS,
+    `${chapter.id} không được lặp câu hỏi trong một lượt đua.`,
+  );
+}
+
+const initialRaceProgress = createRaceProgress();
+assert.deepEqual(
+  Object.keys(initialRaceProgress),
+  DUCK_RACERS.map((duck) => duck.id),
+  "Đường đua phải khởi tạo đủ bốn vịt.",
+);
+const correctRaceStep = advanceDuckRace(
+  initialRaceProgress,
+  "red",
+  true,
+  () => 0.5,
+);
+assert.equal(
+  correctRaceStep.progress.red,
+  21,
+  "Câu trả lời đúng phải tạo lợi thế rõ ràng cho người chơi.",
+);
+assert.equal(
+  correctRaceStep.progress.gold,
+  12,
+  "Đối thủ phải tự tiến về phía trước.",
+);
+const cappedRaceStep = advanceDuckRace(
+  Object.fromEntries(DUCK_RACERS.map((duck) => [duck.id, 99])),
+  "red",
+  true,
+  () => 0.5,
+);
+assert.ok(
+  Object.values(cappedRaceStep.progress).every((value) => value === 100),
+  "Tiến độ đường đua không được vượt quá 100%.",
+);
+assert.equal(
+  rankDuckRacers({ red: 30, gold: 70, blue: 40, brown: 10 })[0].id,
+  "gold",
+  "Bảng xếp hạng phải đưa vịt có tiến độ cao nhất lên đầu.",
+);
+
 assert.equal(
   normalizeSearch("Sứ mệnh lịch sử"),
   "su menh lich su",
@@ -294,5 +359,5 @@ for (const personalField of [
 }
 
 console.log(
-  `✓ ${chapters.length} chương · ${modules.length} học phần riêng · ${glossary.length} thuật ngữ · ${modules.reduce((total, module) => total + lessonProfiles[module.id].quiz.length, 0)} câu tự kiểm tra · ${Object.values(lessonAudioScripts).reduce((total, audio) => total + estimateAudioMinutes(audio.transcript), 0)} phút bài nghe · ${games.length} thử thách`,
+  `✓ ${chapters.length} chương · ${modules.length} học phần riêng · ${glossary.length} thuật ngữ · ${modules.reduce((total, module) => total + lessonProfiles[module.id].quiz.length, 0)} câu tự kiểm tra · ${Object.values(lessonAudioScripts).reduce((total, audio) => total + estimateAudioMinutes(audio.transcript), 0)} phút bài nghe · ${games.length + 1} thử thách`,
 );
