@@ -13,7 +13,7 @@ Mạch thứ ba là các tiền đề khoa học tự nhiên và tư tưởng l�
 
 Bây giờ, hãy cùng ôn lại. Ý thứ nhất: đại công nghiệp tạo ra những biến đổi trong phương thức sản xuất và cấu trúc đời sống xã hội, qua đó đặt ra các câu hỏi mới. Ý thứ hai: phong trào công nhân từng bước trưởng thành, làm cho một lực lượng xã hội và những vấn đề của thời đại biểu hiện rõ trong thực tiễn. Ý thứ ba: các thành tựu khoa học tự nhiên và di sản tư tưởng lý luận cung cấp những nguồn lực nhận thức khác nhau. Ba lớp này có liên hệ, nhưng không lớp nào có thể một mình giải thích toàn bộ sự ra đời của Chủ nghĩa xã hội khoa học.
 
-Trước khi kết thúc, bạn có thể thử một thao tác nhỏ. Hãy chọn một yếu tố trong bài và nói thành hai câu: câu đầu xác định nó thuộc nhóm nào; câu sau giải thích nó liên hệ với các nhóm còn lại ra sao. Nếu làm được, bạn đã chuyển từ ghi nhớ sang phân tích. Audio này chỉ là phần dẫn đường. Để hiểu đầy đủ các khái niệm, lập luận và phạm vi trình bày, bạn hãy mở nguồn đối chiếu và đọc lại phần tương ứng trong giáo trình. Khi gặp một kết luận quan trọng, hãy kiểm tra ngữ cảnh, xem kết luận ấy dựa trên những điều kiện nào, và tránh rút nó khỏi toàn bộ mạch lập luận của bài.`,
+Trước khi kết thúc, bạn có thể thử một thao tác nhỏ. Hãy chọn một yếu tố trong bài và nói thành hai câu: câu đầu xác định nó thuộc nhóm nào; câu sau giải thích nó liên hệ với các nhóm còn lại ra sao. Nếu làm được, bạn đã chuyển từ ghi nhớ sang phân tích. Bài nghe này chỉ là phần dẫn đường. Để hiểu đầy đủ các khái niệm, lập luận và phạm vi trình bày, bạn hãy mở nguồn đối chiếu và đọc lại phần tương ứng trong giáo trình. Khi gặp một kết luận quan trọng, hãy kiểm tra ngữ cảnh, xem kết luận ấy dựa trên những điều kiện nào, và tránh rút nó khỏi toàn bộ mạch lập luận của bài.`,
   },
 
   "chapter-1-module-2": {
@@ -32,7 +32,7 @@ Bây giờ, ta nối ba mạch lại với nhau. Chủ nghĩa duy vật lịch s
 
 Hãy ôn lại bằng ba câu hỏi ngắn. Một: phát kiến nào giúp định hướng cách giải thích sự vận động của xã hội? Đó là chủ nghĩa duy vật lịch sử. Hai: phát kiến nào trực tiếp mở lớp phân tích cơ chế kinh tế của sản xuất tư bản chủ nghĩa? Đó là học thuyết giá trị thặng dư. Ba: phát kiến nào đặt vấn đề chủ thể của quá trình cải biến? Đó là học thuyết về sứ mệnh lịch sử của giai cấp công nhân. Sau khi trả lời riêng từng câu, hãy thêm câu thứ tư: chúng liên hệ với nhau như thế nào?
 
-Audio này giúp bạn nhận ra cấu trúc của bài, nhưng không thay thế văn bản gốc. Bạn hãy mở nguồn đối chiếu trong giáo trình để đọc kỹ cách từng phát kiến được trình bày, khái niệm nào được dùng để lập luận, và mối quan hệ giữa các phần được triển khai ra sao. Khi ghi chú, thử lập ba cột mang tên lịch sử, kinh tế và chủ thể. Dưới mỗi cột, viết chức năng của phát kiến tương ứng; cuối cùng, dùng một câu để nối cả ba. Cách làm đó sẽ giúp bạn ghi nhớ bằng quan hệ thay vì chỉ ghi nhớ tên gọi.`,
+Bài nghe này giúp bạn nhận ra cấu trúc của bài, nhưng không thay thế văn bản gốc. Bạn hãy mở nguồn đối chiếu trong giáo trình để đọc kỹ cách từng phát kiến được trình bày, khái niệm nào được dùng để lập luận, và mối quan hệ giữa các phần được triển khai ra sao. Khi ghi chú, thử lập ba cột mang tên lịch sử, kinh tế và chủ thể. Dưới mỗi cột, viết chức năng của phát kiến tương ứng; cuối cùng, dùng một câu để nối cả ba. Cách làm đó sẽ giúp bạn ghi nhớ bằng quan hệ thay vì chỉ ghi nhớ tên gọi.`,
   },
 
   "chapter-1-module-3": {
@@ -51,6 +51,6 @@ Bây giờ, hãy nối ba mạch thành một bản đồ. Đối tượng trả
 
 Ta cùng ôn lại. Thứ nhất, không đồng nhất Chủ nghĩa xã hội khoa học với toàn bộ mọi vấn đề lý luận và xã hội có liên quan; cần xác định đúng phạm vi nghiên cứu ở mức nhập môn. Thứ hai, phương pháp luận cùng sự kết hợp lịch sử và lôgic định hướng cách phân tích sự vật trong quá trình và trong quan hệ. Thứ ba, việc học hướng tới năng lực phân tích và trình bày nhận định có căn cứ, không chỉ ghi nhớ các mệnh đề tách rời. Ba lớp có quan hệ nhưng không thay thế nhau.
 
-Trước khi rời học phần, bạn hãy thử hoàn thành ba câu cho một nội dung bất kỳ trong chương. Câu một: tôi đang nghiên cứu vấn đề gì? Câu hai: tôi sẽ xem xét nó theo quá trình và quan hệ ra sao? Câu ba: căn cứ nào cho phép tôi đưa ra kết luận? Sau đó, hãy mở nguồn đối chiếu trong giáo trình để kiểm tra lại thuật ngữ, phạm vi và mạch lập luận. Audio này là công cụ định hướng nghe; giáo trình vẫn là nguồn cần đọc kỹ khi học, trích dẫn hoặc giải thích một vấn đề cụ thể.`,
+Trước khi rời học phần, bạn hãy thử hoàn thành ba câu cho một nội dung bất kỳ trong chương. Câu một: tôi đang nghiên cứu vấn đề gì? Câu hai: tôi sẽ xem xét nó theo quá trình và quan hệ ra sao? Câu ba: căn cứ nào cho phép tôi đưa ra kết luận? Sau đó, hãy mở nguồn đối chiếu trong giáo trình để kiểm tra lại thuật ngữ, phạm vi và mạch lập luận. Bài nghe này là công cụ định hướng; giáo trình vẫn là nguồn cần đọc kỹ khi học, trích dẫn hoặc giải thích một vấn đề cụ thể.`,
   },
 };

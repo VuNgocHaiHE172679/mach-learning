@@ -59,7 +59,7 @@ export default function GameArenaPage({ navigate }) {
           <div>
             <div className="status-pill dark">
               <Gamepad2 size={15} />
-              GAME ARENA / BETA
+              THỬ THÁCH TƯ DUY / BẢN THỬ NGHIỆM
             </div>
             <h1>
               Đừng chỉ nhớ.
@@ -137,7 +137,7 @@ export default function GameArenaPage({ navigate }) {
       >
         <div className="challenge-header">
           <div>
-            <p className="eyebrow light">XƯỞNG LỊCH SỬ / ROUND 01</p>
+            <p className="eyebrow light">XƯỞNG LỊCH SỬ / LƯỢT 01</p>
             <h2>Sắp xếp mạch nhân quả</h2>
             <p>
               Chọn bốn thẻ theo thứ tự hợp lý. Sau đó kiểm tra và xem giải

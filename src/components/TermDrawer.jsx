@@ -83,7 +83,7 @@ export default function TermDrawer({
         <div className="drawer-header">
           <div className="ai-label">
             <Sparkles size={14} />
-            Group 2 AI · Đã nối nguồn
+            Trợ lý Group 2 · Đã nối nguồn
           </div>
           <button
             ref={closeButtonRef}
@@ -147,8 +147,8 @@ export default function TermDrawer({
 
         <div className="drawer-footer">
           <p>
-            Nội dung được truy cập công khai, không yêu cầu tài khoản. AI có
-            thể diễn giải sai; hãy mở nguồn khi cần trích dẫn.
+            Nội dung được truy cập công khai, không yêu cầu tài khoản. Trợ lý
+            tự động có thể diễn giải sai; hãy mở nguồn khi cần trích dẫn.
           </p>
         </div>
       </aside>

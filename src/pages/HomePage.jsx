@@ -271,7 +271,7 @@ export default function HomePage({
 
         <article className="audio-feature">
           <div className="audio-cover">
-            <span className="vertical-word">AUDIO</span>
+            <span className="vertical-word">BÀI NGHE</span>
             <Headphones size={36} />
             <strong>{nextAudio?.duration ?? "≈ 08 phút"}</strong>
           </div>
@@ -299,7 +299,7 @@ export default function HomePage({
 
       <section className="section-shell game-teaser">
         <div className="teaser-copy">
-          <p className="eyebrow light">GAME ARENA / THỬ THÁCH 03 PHÚT</p>
+          <p className="eyebrow light">THỬ THÁCH TƯ DUY / 03 PHÚT</p>
           <h2>Bạn có dựng đúng mạch lịch sử?</h2>
           <p>
             Sắp xếp các điều kiện kinh tế–xã hội, phong trào thực tiễn và phát
@@ -321,7 +321,7 @@ export default function HomePage({
           <div className="board-node active">Mâu thuẫn xã hội</div>
           <span className="board-link link-b" />
           <div className="board-node">Phong trào công nhân</div>
-          <div className="board-stamp">BUILD THE LOGIC</div>
+          <div className="board-stamp">DỰNG MẠCH LẬP LUẬN</div>
         </div>
       </section>
     </div>

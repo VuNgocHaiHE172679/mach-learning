@@ -11,9 +11,14 @@ import {
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Trang chủ", icon: Home },
-  { id: "hub", label: "Learning Hub", icon: BookOpen },
-  { id: "games", label: "Game Arena", icon: Gamepad2 },
+  { id: "home", label: "Trang chủ", shortLabel: "Trang chủ", icon: Home },
+  { id: "hub", label: "Kho tri thức", shortLabel: "Tri thức", icon: BookOpen },
+  {
+    id: "games",
+    label: "Thử thách tư duy",
+    shortLabel: "Thử thách",
+    icon: Gamepad2,
+  },
 ];
 
 export default function AppShell({
@@ -42,7 +47,7 @@ export default function AppShell({
           </span>
           <span className="brand-copy">
             <strong>Group 2</strong>
-            <small>Dialectic Learning Lab</small>
+            <small>Không gian triết học Việt Nam</small>
           </span>
         </button>
 
@@ -66,7 +71,7 @@ export default function AppShell({
             onClick={onOpenAssistant}
           >
             <Sparkles size={16} aria-hidden="true" />
-            <span>Hỏi Group 2 AI</span>
+            <span>Hỏi trợ lý Group 2</span>
           </button>
           <button
             className="icon-button search-button"
@@ -79,7 +84,7 @@ export default function AppShell({
           <button
             className="icon-button menu-button"
             type="button"
-            aria-label={menuOpen ? "Đóng menu" : "Mở menu"}
+            aria-label={menuOpen ? "Đóng trình đơn" : "Mở trình đơn"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((current) => !current)}
           >
@@ -88,7 +93,7 @@ export default function AppShell({
         </div>
 
         {menuOpen && (
-          <nav className="mobile-menu" aria-label="Menu di động">
+          <nav className="mobile-menu" aria-label="Trình đơn di động">
             {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
               <button
                 type="button"
@@ -121,12 +126,12 @@ export default function AppShell({
           <span>Truy cập công khai</span>
           <span>Không cần tài khoản</span>
           <span>Thiết kế cho khả năng tiếp cận</span>
-          <span>AI có kiểm duyệt</span>
+          <span>Trợ lý có đối chiếu nguồn</span>
         </div>
       </footer>
 
       <nav className="bottom-nav" aria-label="Điều hướng di động">
-        {NAV_ITEMS.map(({ id, label, icon: Icon }) => (
+        {NAV_ITEMS.map(({ id, shortLabel, icon: Icon }) => (
           <button
             className={activeRoute === id ? "active" : ""}
             type="button"
@@ -134,12 +139,12 @@ export default function AppShell({
             onClick={() => navigate(id)}
           >
             <Icon size={20} strokeWidth={activeRoute === id ? 2.4 : 1.8} />
-            <span>{label === "Learning Hub" ? "Học tập" : label}</span>
+            <span>{shortLabel}</span>
           </button>
         ))}
         <button type="button" onClick={onOpenAssistant}>
           <BrainCircuit size={20} />
-          <span>Group 2 AI</span>
+          <span>Trợ lý Group 2</span>
         </button>
       </nav>
     </div>

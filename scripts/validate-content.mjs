@@ -227,5 +227,5 @@ for (const personalField of [
 }
 
 console.log(
-  `✓ ${chapters.length} chương · ${modules.length} học phần riêng · ${glossary.length} thuật ngữ · ${modules.reduce((total, module) => total + lessonProfiles[module.id].quiz.length, 0)} câu micro-quiz · ${Object.values(lessonAudioScripts).reduce((total, audio) => total + estimateAudioMinutes(audio.transcript), 0)} phút audio · ${games.length} game`,
+  `✓ ${chapters.length} chương · ${modules.length} học phần riêng · ${glossary.length} thuật ngữ · ${modules.reduce((total, module) => total + lessonProfiles[module.id].quiz.length, 0)} câu tự kiểm tra · ${Object.values(lessonAudioScripts).reduce((total, audio) => total + estimateAudioMinutes(audio.transcript), 0)} phút bài nghe · ${games.length} thử thách`,
 );

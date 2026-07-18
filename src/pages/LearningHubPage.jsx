@@ -18,11 +18,11 @@ export default function LearningHubPage({ navigate }) {
       <section className="hub-hero">
         <div className="section-shell hub-hero-inner">
           <div>
-            <p className="eyebrow light">LEARNING HUB / BẢN ĐỒ TRI THỨC</p>
+            <p className="eyebrow light">KHO TRI THỨC / BẢN ĐỒ KIẾN THỨC</p>
             <h1>Chọn một mạch.<br />Đi đến tận bản chất.</h1>
             <p>
               9 học phần được nối thành ba tuyến kiến thức. Mỗi điểm dừng có
-              nội dung, sơ đồ và micro-quiz riêng để người xem đọc theo đúng mạch.
+              nội dung, sơ đồ và câu hỏi ngắn riêng để người xem đọc theo đúng mạch.
             </p>
           </div>
           <div className="hub-score">
@@ -59,7 +59,7 @@ export default function LearningHubPage({ navigate }) {
               Tất cả
             </button>
             <button type="button">Bài đọc</button>
-            <button type="button">Audio</button>
+            <button type="button">Bài nghe</button>
           </div>
           <button type="button" className="filter-button">
             <Filter size={17} /> Bộ lọc
@@ -167,7 +167,7 @@ export default function LearningHubPage({ navigate }) {
           <article className="knowledge-map-card">
             <div>
               <Network size={23} />
-              <p className="eyebrow">KNOWLEDGE GRAPH</p>
+              <p className="eyebrow">BẢN ĐỒ KHÁI NIỆM</p>
               <h2>Không biết nên bắt đầu từ đâu?</h2>
               <p>
                 Mở bản đồ khái niệm để nhìn toàn bộ quan hệ trước khi chọn một

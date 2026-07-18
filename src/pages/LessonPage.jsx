@@ -168,7 +168,7 @@ function QuizPanel({ questions, sourcePages }) {
           </span>
         </div>
         <div>
-          <p className="eyebrow">MICRO-QUIZ HOÀN TẤT</p>
+          <p className="eyebrow">TỰ KIỂM TRA HOÀN TẤT</p>
           <h3>
             {finalScore === normalized.length
               ? "Mạch kiến thức đã nối liền."
@@ -177,7 +177,7 @@ function QuizPanel({ questions, sourcePages }) {
           <p>
             {finalScore === normalized.length
               ? "Ba câu trả lời đã được đối chiếu với nội dung và nguồn của chuyên đề."
-              : "Hãy quay lại Visual Block liên quan, sau đó thử trả lời lại bằng lập luận của bạn."}
+              : "Hãy quay lại khối kiến thức trực quan liên quan, sau đó thử trả lời lại bằng lập luận của bạn."}
           </p>
           <button type="button" className="button secondary" onClick={reset}>
             <RotateCcw size={17} /> Làm lại
@@ -191,7 +191,7 @@ function QuizPanel({ questions, sourcePages }) {
     <div className="quiz-panel">
       <div className="quiz-head">
         <div>
-          <span>MICRO-QUIZ · 03 CÂU</span>
+          <span>TỰ KIỂM TRA · 03 CÂU</span>
           <strong>
             Câu {questionIndex + 1}/{normalized.length}
           </strong>
@@ -347,7 +347,7 @@ export default function LessonPage({
     <div className="page lesson-page">
       <div className="lesson-topbar">
         <button type="button" onClick={() => navigate("hub")}>
-          <ArrowLeft size={17} /> Learning Hub
+          <ArrowLeft size={17} /> Kho tri thức
         </button>
         <div className="lesson-breadcrumb">
           <span>CHƯƠNG {Number(lessonChapter.number)}</span>
@@ -405,7 +405,7 @@ export default function LessonPage({
         <article className="lesson-article">
           <header className="article-header" id="context">
             <div className="lesson-labels">
-              <span>LEARNING CAPSULE {lesson.number}</span>
+              <span>CHUYÊN ĐỀ {lesson.number}</span>
               <span>
                 <Clock3 size={14} /> {lesson.estimatedMinutes} phút
               </span>
@@ -660,7 +660,7 @@ export default function LessonPage({
             <div className="quiz-section-title">
               <p className="eyebrow">PHẢN TƯ & TỰ NHỚ LẠI</p>
               <h2>Ba câu để nối chắc mạch vừa học</h2>
-              <p>Không trừ điểm. Mỗi câu sai sẽ dẫn về đúng Visual Block.</p>
+              <p>Không trừ điểm. Mỗi câu sai sẽ dẫn về đúng khối kiến thức trực quan.</p>
             </div>
             <QuizPanel
               key={lesson.id}
@@ -675,7 +675,7 @@ export default function LessonPage({
             <div className="inspector-icon">
               <Sparkles size={18} />
             </div>
-            <p className="eyebrow">GROUP 2 AI ĐANG THEO BÀI</p>
+            <p className="eyebrow">TRỢ LÝ GROUP 2 ĐANG THEO BÀI</p>
             <h3>Gặp một thuật ngữ khó?</h3>
             <p>
               Chạm vào từ có gạch cyan để nhận giải thích theo đúng ngữ cảnh.
@@ -697,7 +697,7 @@ export default function LessonPage({
           <div className="inspector-card compact">
             <Volume2 size={18} />
             <div>
-              <small>CÓ AUDIO</small>
+              <small>CÓ BÀI NGHE</small>
               <strong>{audio?.duration ?? "≈ 05 phút"}</strong>
             </div>
           </div>

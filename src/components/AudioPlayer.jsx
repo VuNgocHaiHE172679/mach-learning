@@ -36,7 +36,7 @@ export default function AudioPlayer({ audio, onClose }) {
 
   if (!audio) return null;
 
-  const title = audio.title ?? "Audio lý luận";
+  const title = audio.title ?? "Bài nghe lý luận";
 
   const speakChunk = (index, session) => {
     if (session !== sessionRef.current) return;
@@ -111,7 +111,7 @@ export default function AudioPlayer({ audio, onClose }) {
   }[status];
 
   return (
-    <section className="floating-player" aria-label="Trình phát audio">
+    <section className="floating-player" aria-label="Trình phát bài nghe">
       <div className="player-cover" aria-hidden="true">
         <Headphones size={22} />
       </div>
@@ -119,7 +119,7 @@ export default function AudioPlayer({ audio, onClose }) {
         type="button"
         className="player-control"
         onClick={togglePlayback}
-        aria-label={status === "playing" ? "Tạm dừng" : "Phát audio"}
+        aria-label={status === "playing" ? "Tạm dừng" : "Phát bài nghe"}
       >
         {status === "playing" ? <Pause size={18} /> : <Play size={18} />}
       </button>

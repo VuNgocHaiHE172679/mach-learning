@@ -388,7 +388,7 @@ export const featuredLesson = {
     {
       id: "discovery-map",
       type: "three-column",
-      overline: "Visual block trọng tâm",
+      overline: "Khối trực quan trọng tâm",
       title: "Ba lăng kính lý luận",
       description:
         "Chọn từng thẻ để xem phát kiến đó góp phần trả lời câu hỏi nào trong toàn bộ mạch lập luận.",
@@ -632,7 +632,7 @@ export const microQuiz = [
 export const podcasts = [
   {
     id: "podcast-01",
-    episode: "EP. 01",
+    episode: "TẬP 01",
     chapterId: "chapter-1",
     title: "Vì sao một học thuyết luôn có bối cảnh?",
     description:
@@ -648,7 +648,7 @@ export const podcasts = [
   },
   {
     id: "podcast-02",
-    episode: "EP. 02",
+    episode: "TẬP 02",
     chapterId: "chapter-1",
     title: "Ba phát kiến trong bảy phút",
     description:
@@ -664,7 +664,7 @@ export const podcasts = [
   },
   {
     id: "podcast-03",
-    episode: "EP. 03",
+    episode: "TẬP 03",
     chapterId: "chapter-2",
     title: "Sứ mệnh lịch sử: điều kiện hay định mệnh?",
     description:
@@ -680,13 +680,13 @@ export const podcasts = [
   },
   {
     id: "podcast-04",
-    episode: "EP. 04",
+    episode: "TẬP 04",
     chapterId: "chapter-3",
     title: "Thời kỳ quá độ không phải một đường thẳng",
     description:
       "Hình dung sự đan xen của cái cũ và cái mới trên các phương diện kinh tế, chính trị, xã hội và văn hóa.",
     duration: "09:16",
-    format: "Audio sơ đồ",
+    format: "Bài nghe sơ đồ",
     level: "Trung bình",
     sourcePages: "101–111",
     transcriptPreview:
@@ -705,8 +705,8 @@ export const games = [
     description:
       "Kéo các thẻ dữ kiện vào mạng quan hệ, đặt tên cho từng mũi tên và sửa những chuỗi nhân quả bị đơn giản hóa quá mức.",
     mission:
-      "Hoàn thiện bản đồ gồm 12 node để giải thích vì sao Chủ nghĩa xã hội khoa học xuất hiện trong một bối cảnh lịch sử xác định.",
-    mechanics: ["Kéo thả node", "Nối quan hệ", "Phát hiện ngộ nhận"],
+      "Hoàn thiện bản đồ gồm 12 nút để giải thích vì sao Chủ nghĩa xã hội khoa học xuất hiện trong một bối cảnh lịch sử xác định.",
+    mechanics: ["Kéo thả nút", "Nối quan hệ", "Phát hiện ngộ nhận"],
     skills: ["Tư duy nhân quả", "Đọc bối cảnh", "Kết nối luận điểm"],
     duration: "8–10 phút",
     difficulty: "Dễ làm quen",
