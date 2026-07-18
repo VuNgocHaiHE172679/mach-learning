@@ -320,7 +320,7 @@ export const lessonCoreContent = {
 export const chapterHistoryFeatures = {
   "chapter-1": {
     image: "/images/history/nguyen-ai-quoc-tours-1920.webp",
-    alt: "Nguyễn Ái Quốc phát biểu tại Đại hội Tours năm 1920.",
+    alt: "Nguyễn Ái Quốc tại Đại hội Tours năm 1920.",
     year: "1920",
     title: "Từ lý luận cách mạng đến con đường giải phóng dân tộc",
     caption: "Nguyễn Ái Quốc tại Đại hội lần thứ XVIII Đảng Xã hội Pháp ở Tours. Tư liệu giúp nối sự hình thành lý luận cách mạng khoa học với quá trình Nguyễn Ái Quốc tìm đường cứu nước.",
@@ -330,7 +330,7 @@ export const chapterHistoryFeatures = {
   },
   "chapter-2": {
     image: "/images/history/cong-nhan-ba-son-1925.webp",
-    alt: "Công nhân và chủ người Pháp tại Xưởng Ba Son trong những năm 1925–1926.",
+    alt: "Tập thể công nhân Xưởng Ba Son trong giai đoạn 1925–1926.",
     year: "1925–1926",
     title: "Ba Son và bước trưởng thành của phong trào công nhân Việt Nam",
     caption: "Công nhân Xưởng Ba Son trong giai đoạn cuộc đấu tranh do Công hội tổ chức tạo dấu mốc về tính tổ chức, mục tiêu kinh tế – chính trị và tinh thần đoàn kết quốc tế.",
