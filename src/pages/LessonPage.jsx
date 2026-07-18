@@ -25,14 +25,15 @@ import { lessonAudioScripts } from "../data/lessonAudioScripts";
 import {
   chapterHistoryFeatures,
   lessonCoreContent,
+  lessonVisuals,
 } from "../data/lessonCoreContent";
 import { lessonProfiles } from "../data/lessonProfiles";
-import { getTextbookSourceHref } from "../utils/textbookSource";
+import { getSourceDocumentHref } from "../utils/sourceDocument";
 
 const TERM_FALLBACKS = [
-  "Chủ nghĩa duy vật lịch sử",
-  "Giá trị thặng dư",
-  "Sứ mệnh lịch sử của giai cấp công nhân",
+  "Nhà nước xã hội chủ nghĩa",
+  "Quyền lực nhà nước thuộc về Nhân dân",
+  "Phát triển bền vững",
 ];
 
 const MODULE_CATALOG = chapters.flatMap((chapter) =>
@@ -74,7 +75,7 @@ function buildFallbackProfile(lesson) {
     })),
     caution:
       outcomes[2] ??
-      "Nội dung tóm lược không thay thế việc đọc và đối chiếu giáo trình gốc.",
+      "Nội dung tóm lược không thay thế việc đọc và đối chiếu tài liệu nguồn.",
     quiz: microQuiz,
   };
 }
@@ -102,15 +103,15 @@ function QuizPanel({ questions, sourcePages }) {
     : [
         {
           question:
-            "Phát kiến nào cung cấp cách tiếp cận khoa học đối với sự vận động của xã hội?",
+            "Nguyên tắc nào được tài liệu đặt ở trung tâm của quyền lực nhà nước?",
           options: [
-            "Chủ nghĩa duy vật lịch sử",
-            "Học thuyết tế bào",
-            "Định luật bảo toàn năng lượng",
+            "Quyền lực thuộc về Nhân dân",
+            "Quyền lực thuộc về doanh nghiệp",
+            "Quyền lực thuộc về tổ chức quốc tế",
           ],
           answer: 0,
           explanation:
-            "Chủ nghĩa duy vật lịch sử làm rõ quy luật vận động của đời sống xã hội từ những điều kiện hiện thực.",
+            "Trang 4 nhấn mạnh nguyên tắc tất cả quyền lực nhà nước thuộc về Nhân dân.",
         },
       ];
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -239,7 +240,10 @@ function QuizPanel({ questions, sourcePages }) {
       </div>
 
       {checked && (
-        <div className={isCorrect ? "quiz-feedback good" : "quiz-feedback"}>
+        <div
+          className={isCorrect ? "quiz-feedback good" : "quiz-feedback"}
+          aria-live="polite"
+        >
           <Lightbulb size={19} />
           <div>
             <strong>{isCorrect ? "Chính xác." : "Chưa đúng, nhưng rất gần."}</strong>
@@ -254,7 +258,7 @@ function QuizPanel({ questions, sourcePages }) {
       <div className="quiz-actions">
         <span>
           {checked
-            ? `Nguồn: Giáo trình, tr. ${sourcePages}`
+            ? `Nguồn: Tài liệu “Nhà nước xã hội chủ nghĩa Việt Nam”, tr. ${sourcePages}`
             : "Chọn một đáp án"}
         </span>
         {!checked ? (
@@ -288,6 +292,7 @@ export default function LessonPage({
   const [readingMode, setReadingMode] = useState("visual");
   const [highlighted, setHighlighted] = useState(false);
   const [activeOutline, setActiveOutline] = useState("context");
+  const [activeBlock, setActiveBlock] = useState(0);
 
   const moduleRecord =
     MODULE_CATALOG.find((module) => module.id === lessonId) ?? DEFAULT_MODULE;
@@ -307,6 +312,14 @@ export default function LessonPage({
     })),
   };
   const historyFeature = chapterHistoryFeatures[lesson.chapterId];
+  const lessonVisual = lessonVisuals[lesson.id] ?? {
+    image: lessonChapter.illustration.src,
+    alt: lessonChapter.illustration.alt,
+    focalPoint: lessonChapter.illustration.focalPoint,
+    caption: lessonChapter.illustration.caption,
+    credit: lessonChapter.illustration.credit,
+    sourceUrl: lessonChapter.illustration.sourceUrl,
+  };
   const fullAudio = lessonAudioScripts[lesson.id];
   const audio = fullAudio ? {
     ...fullAudio,
@@ -334,6 +347,7 @@ export default function LessonPage({
     setReadingMode("visual");
     setHighlighted(false);
     setActiveOutline("context");
+    setActiveBlock(0);
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [lesson.id]);
 
@@ -350,7 +364,7 @@ export default function LessonPage({
           <ArrowLeft size={17} /> Kho tri thức
         </button>
         <div className="lesson-breadcrumb">
-          <span>CHƯƠNG {Number(lessonChapter.number)}</span>
+          <span>TUYẾN {Number(lessonChapter.number)}</span>
           <ChevronRight size={14} />
           <strong>{lesson.number} · {lesson.title}</strong>
         </div>
@@ -358,6 +372,7 @@ export default function LessonPage({
           <button
             type="button"
             className={highlighted ? "active" : ""}
+            aria-pressed={highlighted}
             onClick={() => setHighlighted((current) => !current)}
           >
             <Highlighter size={17} />
@@ -371,7 +386,7 @@ export default function LessonPage({
           <p>TRONG BÀI NÀY</p>
           {[
             ["context", "Luận đề và câu hỏi"],
-            ["conditions", "Cơ sở hiện thực"],
+            ["conditions", "Cơ sở nội dung"],
             ["core-content", "Nội dung cốt lõi"],
             ["discoveries", "Hệ khái niệm"],
             ["relations", "Quan hệ lý luận"],
@@ -381,6 +396,7 @@ export default function LessonPage({
               type="button"
               key={id}
               className={activeOutline === id ? "active" : ""}
+              aria-current={activeOutline === id ? "location" : undefined}
               onClick={() => {
                 setActiveOutline(id);
                 document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -392,13 +408,13 @@ export default function LessonPage({
           ))}
           <a
             className="outline-source"
-            href={getTextbookSourceHref(lesson.sourcePages)}
+            href={getSourceDocumentHref(lesson.sourcePages)}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Mở giáo trình PDF tại trang ${lesson.sourcePages} ở thẻ mới`}
+            aria-label={`Mở tài liệu PDF tại trang ${lesson.sourcePages} ở thẻ mới`}
           >
             <span>NGUỒN ĐỐI CHIẾU</span>
-            <strong>Giáo trình · Tr. {lesson.sourcePages}</strong>
+            <strong>Tài liệu nguồn · Tr. {lesson.sourcePages}</strong>
           </a>
         </aside>
 
@@ -417,6 +433,7 @@ export default function LessonPage({
               <button
                 type="button"
                 className={readingMode === "quick" ? "active" : ""}
+                aria-pressed={readingMode === "quick"}
                 onClick={() => setReadingMode("quick")}
               >
                 <ZapIcon /> 60 giây
@@ -424,6 +441,7 @@ export default function LessonPage({
               <button
                 type="button"
                 className={readingMode === "visual" ? "active" : ""}
+                aria-pressed={readingMode === "visual"}
                 onClick={() => setReadingMode("visual")}
               >
                 <ListTree size={16} /> Bằng sơ đồ
@@ -431,6 +449,7 @@ export default function LessonPage({
               <button
                 type="button"
                 className={readingMode === "full" ? "active" : ""}
+                aria-pressed={readingMode === "full"}
                 onClick={() => setReadingMode("full")}
               >
                 <BookOpen size={16} /> Đọc đầy đủ
@@ -438,20 +457,42 @@ export default function LessonPage({
             </div>
           </header>
 
-          <figure className="lesson-lead-figure">
+          <figure
+            className={`lesson-lead-figure${
+              lessonVisual.fit === "contain" || lessonVisual.image.endsWith(".svg")
+                ? " is-contained"
+                : ""
+            }`}
+          >
             <img
-              src={lessonChapter.illustration.src}
-              alt={lessonChapter.illustration.alt}
+              src={lessonVisual.image}
+              alt={lessonVisual.alt}
               width="1400"
               height="933"
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              style={{ objectPosition: lessonChapter.illustration.focalPoint }}
+              style={{
+                objectPosition: lessonVisual.focalPoint,
+                objectFit:
+                  lessonVisual.fit ??
+                  (lessonVisual.image.endsWith(".svg") ? "contain" : "cover"),
+              }}
             />
             <figcaption>
-              <span>CHƯƠNG {lessonChapter.number}</span>
-              {lessonChapter.illustration.caption}
+              <span>TUYẾN {lessonChapter.number}</span>
+              <div>
+                <p>{lessonVisual.caption}</p>
+                {lessonVisual.sourceUrl && (
+                  <a
+                    href={lessonVisual.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {lessonVisual.credit} <ExternalLinkIcon />
+                  </a>
+                )}
+              </div>
             </figcaption>
           </figure>
 
@@ -475,12 +516,12 @@ export default function LessonPage({
               <p>{profile.contextParagraphs[1]}</p>
               <a
                 className="source-chip"
-                href={getTextbookSourceHref(lesson.sourcePages)}
+                href={getSourceDocumentHref(lesson.sourcePages)}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Mở giáo trình PDF tại trang ${lesson.sourcePages} ở thẻ mới`}
+                aria-label={`Mở tài liệu PDF tại trang ${lesson.sourcePages} ở thẻ mới`}
               >
-                <BookOpen size={15} /> Đối chiếu giáo trình · tr. {lesson.sourcePages}
+                <BookOpen size={15} /> Đối chiếu tài liệu nguồn · tr. {lesson.sourcePages}
                 <ExternalLinkIcon />
               </a>
             </div>
@@ -525,7 +566,11 @@ export default function LessonPage({
           </section>
 
           {historyFeature && (
-            <figure className="history-feature">
+            <figure
+              className={`history-feature${
+                historyFeature.image.endsWith(".svg") ? " is-diagram" : ""
+              }`}
+            >
               <div className="history-feature-image">
                 <img
                   src={historyFeature.image}
@@ -539,7 +584,7 @@ export default function LessonPage({
                 <span>{historyFeature.year}</span>
               </div>
               <figcaption>
-                <p className="eyebrow">LÁT CẮT LỊCH SỬ VIỆT NAM</p>
+                <p className="eyebrow">DẪN CHỨNG / SƠ ĐỒ ĐỐI CHIẾU</p>
                 <h2>{historyFeature.title}</h2>
                 <p>{historyFeature.caption}</p>
                 <a
@@ -559,13 +604,16 @@ export default function LessonPage({
                 <p className="eyebrow light">QUAN HỆ / SƠ ĐỒ KHÁI NIỆM</p>
                 <h2>{profile.relationTitle}</h2>
               </div>
-              <span>CHẠM TỪNG KHỐI ĐỂ ĐỌC</span>
+              <span>CHỌN TỪNG KHỐI ĐỂ LÀM NỔI LUẬN ĐIỂM</span>
             </div>
             <div className="condition-chain">
               {blocks.map((block, index) => (
-                <div
-                  className="condition-block"
+                <button
+                  type="button"
+                  className={`condition-block${activeBlock === index ? " active" : ""}`}
                   key={`${lesson.id}-block-${index + 1}`}
+                  aria-pressed={activeBlock === index}
+                  onClick={() => setActiveBlock(index)}
                 >
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <h3>{block.title}</h3>
@@ -575,7 +623,7 @@ export default function LessonPage({
                       →
                     </i>
                   )}
-                </div>
+                </button>
               ))}
             </div>
             <div className="chain-result">

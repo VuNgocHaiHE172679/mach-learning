@@ -79,7 +79,7 @@ export default function App() {
       found ?? {
         term: termName,
         definition:
-          "Thuật ngữ này đang được biên tập. Group 2 sẽ chỉ hiển thị nội dung sau khi đã đối chiếu với giáo trình.",
+          "Thuật ngữ này đang được biên tập. Group 2 chỉ hiển thị nội dung sau khi đã đối chiếu với tài liệu nguồn.",
         source: "Chờ kiểm duyệt học thuật",
       },
     );
@@ -103,7 +103,7 @@ export default function App() {
       <AppShell
         activeRoute={route}
         navigate={navigate}
-        onOpenAssistant={() => openTerm("Chủ nghĩa xã hội khoa học")}
+        onOpenAssistant={() => openTerm("Nhà nước xã hội chủ nghĩa")}
       >
         {pages[route]}
       </AppShell>

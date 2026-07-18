@@ -15,8 +15,8 @@ const NAV_ITEMS = [
   { id: "hub", label: "Kho tri thức", shortLabel: "Tri thức", icon: BookOpen },
   {
     id: "games",
-    label: "Thử thách tư duy",
-    shortLabel: "Thử thách",
+    label: "Tự kiểm tra",
+    shortLabel: "Kiểm tra",
     icon: Gamepad2,
   },
 ];
@@ -28,6 +28,13 @@ export default function AppShell({
   children,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const openKnowledgeSearch = () => {
+    navigate("hub");
+    window.setTimeout(() => {
+      document.getElementById("knowledge-search")?.focus();
+    }, 80);
+  };
 
   useEffect(() => {
     setMenuOpen(false);
@@ -58,6 +65,7 @@ export default function AppShell({
               type="button"
               key={id}
               onClick={() => navigate(id)}
+              aria-current={activeRoute === id ? "page" : undefined}
             >
               {label}
             </button>
@@ -77,7 +85,7 @@ export default function AppShell({
             className="icon-button search-button"
             type="button"
             aria-label="Mở tìm kiếm"
-            onClick={onOpenAssistant}
+            onClick={openKnowledgeSearch}
           >
             <Search size={19} />
           </button>
@@ -100,6 +108,7 @@ export default function AppShell({
                 className={activeRoute === id ? "active" : ""}
                 key={id}
                 onClick={() => navigate(id)}
+                aria-current={activeRoute === id ? "page" : undefined}
               >
                 <Icon size={18} />
                 {label}
@@ -117,8 +126,8 @@ export default function AppShell({
             G2
           </span>
           <p>
-            Một không gian học tập thử nghiệm dựa trên ba chương đầu của Giáo
-            trình Chủ nghĩa xã hội khoa học.
+            Không gian học tập công khai được biên soạn từ tài liệu “Nhà nước
+            xã hội chủ nghĩa Việt Nam” do nhóm cung cấp.
           </p>
         </div>
         <div className="footer-meta">
@@ -126,7 +135,7 @@ export default function AppShell({
           <span>Truy cập công khai</span>
           <span>Không cần tài khoản</span>
           <span>Thiết kế cho khả năng tiếp cận</span>
-          <span>Trợ lý có đối chiếu nguồn</span>
+          <span>Mở đúng trang tài liệu nguồn</span>
         </div>
       </footer>
 
@@ -137,6 +146,7 @@ export default function AppShell({
             type="button"
             key={id}
             onClick={() => navigate(id)}
+            aria-current={activeRoute === id ? "page" : undefined}
           >
             <Icon size={20} strokeWidth={activeRoute === id ? 2.4 : 1.8} />
             <span>{shortLabel}</span>

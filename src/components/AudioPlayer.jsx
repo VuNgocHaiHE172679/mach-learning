@@ -16,7 +16,7 @@ export default function AudioPlayer({ audio, onClose }) {
     audio?.transcriptPreview ??
     audio?.summary ??
     audio?.description ??
-    "Chủ nghĩa xã hội khoa học được tiếp cận như một hệ thống khái niệm có quan hệ với hoàn cảnh lịch sử và thực tiễn xã hội.";
+    "Nhà nước xã hội chủ nghĩa Việt Nam được tài liệu trình bày qua bản chất, quyền làm chủ của Nhân dân, các chức năng và mục tiêu phát triển đất nước.";
 
   useEffect(() => {
     sessionRef.current += 1;

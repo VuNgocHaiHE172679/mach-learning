@@ -1,759 +1,256 @@
-/**
- * Dữ liệu nội dung mẫu cho prototype Group 2.
- *
- * Các diễn giải dưới đây được viết theo hướng nhập môn, thận trọng và luôn gắn
- * với phạm vi trang của bản in. Khi sản phẩm đi vào vận hành, nội dung cần được
- * đối chiếu lại với bản OCR đã hiệu đính và được giảng viên chuyên môn phê duyệt.
- */
+import {
+  allModules,
+  learningTracks,
+  sourceDocument,
+} from "./stateContent.js";
 
-export const chapters = [
-  {
-    id: "chapter-1",
-    number: "01",
-    slug: "nhap-mon-chu-nghia-xa-hoi-khoa-hoc",
-    shortTitle: "Nguồn gốc khoa học",
-    title: "Nhập môn Chủ nghĩa xã hội khoa học",
-    eyebrow: "Từ điều kiện lịch sử đến một hệ thống lý luận",
-    guidingQuestion:
-      "Những điều kiện nào góp phần làm cho chủ nghĩa xã hội phát triển từ các dự báo không tưởng thành một lý luận có cơ sở khoa học?",
-    description:
-      "Khám phá bối cảnh kinh tế – xã hội thế kỷ XIX, các tiền đề tư tưởng và khoa học, vai trò của C. Mác và Ph. Ăngghen, cùng đối tượng nghiên cứu của Chủ nghĩa xã hội khoa học.",
-    sourcePages: "11–49",
-    estimatedMinutes: 42,
-    totalModules: 3,
-    accent: "brick",
-    illustration: {
-      src: "/images/history/nguyen-ai-quoc-tours-1920.webp",
-      alt: "Nguyễn Ái Quốc tại Đại hội lần thứ XVIII Đảng Xã hội Pháp ở Tours năm 1920.",
-      caption:
-        "Năm 1920, Nguyễn Ái Quốc tiếp cận chủ nghĩa Mác – Lênin và lựa chọn con đường cách mạng vô sản cho sự nghiệp giải phóng dân tộc Việt Nam.",
-      focalPoint: "50% 34%",
-    },
-    keyConcepts: [
-      "Chủ nghĩa xã hội khoa học",
-      "Chủ nghĩa duy vật lịch sử",
-      "Giá trị thặng dư",
-      "Sứ mệnh lịch sử của giai cấp công nhân",
-    ],
-    modules: [
-      {
-        id: "chapter-1-module-1",
-        number: "1.1",
-        title: "Hoàn cảnh lịch sử và các tiền đề",
-        subtitle: "Đọc sự ra đời của lý luận trong bối cảnh cụ thể",
-        summary:
-          "Nhận diện những biến đổi kinh tế – xã hội do đại công nghiệp tạo ra, sự trưởng thành từng bước của phong trào công nhân và các tiền đề khoa học, tư tưởng có liên quan.",
-        sourcePages: "11–20",
-        estimatedMinutes: 14,
-        learningOutcomes: [
-          "Phân biệt điều kiện kinh tế – xã hội với tiền đề khoa học và tư tưởng.",
-          "Sắp xếp các yếu tố theo quan hệ bối cảnh, tác động và nhu cầu lý luận.",
-          "Tránh giải thích sự ra đời của một học thuyết bằng một nguyên nhân duy nhất.",
-        ],
-        keyConcepts: [
-          "Đại công nghiệp",
-          "Phong trào công nhân",
-          "Tiền đề khoa học tự nhiên",
-          "Tiền đề tư tưởng lý luận",
-        ],
-        primaryFormat: "read",
-        visualType: "causal-chain",
-      },
-      {
-        id: "chapter-1-module-2",
-        number: "1.2",
-        title: "Vai trò của C. Mác và Ph. Ăngghen",
-        subtitle: "Những phát kiến đặt cơ sở cho bước chuyển về chất",
-        summary:
-          "Tìm hiểu cách các phát kiến lý luận được trình bày như những cơ sở giúp lý giải lịch sử, cơ chế của sản xuất tư bản chủ nghĩa và vai trò lịch sử của giai cấp công nhân.",
-        sourcePages: "21–35",
-        estimatedMinutes: 16,
-        learningOutcomes: [
-          "Gọi tên và mô tả ngắn gọn ba phát kiến được giáo trình nhấn mạnh.",
-          "Kết nối mỗi phát kiến với câu hỏi lý luận mà nó góp phần giải đáp.",
-          "Giải thích vì sao các phát kiến cần được xem trong một chỉnh thể.",
-        ],
-        keyConcepts: [
-          "Chủ nghĩa duy vật lịch sử",
-          "Học thuyết giá trị thặng dư",
-          "Học thuyết về sứ mệnh lịch sử của giai cấp công nhân",
-        ],
-        primaryFormat: "listen",
-        visualType: "discovery-map",
-      },
-      {
-        id: "chapter-1-module-3",
-        number: "1.3",
-        title: "Đối tượng, phương pháp và ý nghĩa nghiên cứu",
-        subtitle: "Học môn này để nhận diện và phân tích điều gì?",
-        summary:
-          "Khái quát đối tượng nghiên cứu, các phương pháp thường được vận dụng và ý nghĩa của việc học tập Chủ nghĩa xã hội khoa học trong chương trình lý luận chính trị.",
-        sourcePages: "36–49",
-        estimatedMinutes: 12,
-        learningOutcomes: [
-          "Nêu được phạm vi nghiên cứu ở mức nhập môn.",
-          "Phân biệt đối tượng nghiên cứu với phương pháp tiếp cận.",
-          "Liên hệ yêu cầu học lý luận với năng lực phân tích có căn cứ.",
-        ],
-        keyConcepts: [
-          "Đối tượng nghiên cứu",
-          "Phương pháp luận",
-          "Phương pháp lịch sử và lôgic",
-          "Ý nghĩa phương pháp luận",
-        ],
-        primaryFormat: "read",
-        visualType: "scope-map",
-      },
-    ],
-  },
-  {
-    id: "chapter-2",
-    number: "02",
-    slug: "su-menh-lich-su-cua-giai-cap-cong-nhan",
-    shortTitle: "Chủ thể lịch sử",
-    title: "Sứ mệnh lịch sử của giai cấp công nhân",
-    eyebrow: "Từ địa vị kinh tế – xã hội đến nội dung sứ mệnh",
-    guidingQuestion:
-      "Đặc điểm và những điều kiện nào được giáo trình dùng để luận giải sứ mệnh lịch sử của giai cấp công nhân?",
-    description:
-      "Làm rõ khái niệm giai cấp công nhân, nội dung sứ mệnh trên các phương diện kinh tế, chính trị, văn hóa – tư tưởng và những biểu hiện trong bối cảnh hiện nay.",
-    sourcePages: "51–84",
-    estimatedMinutes: 38,
-    totalModules: 3,
-    accent: "mustard",
-    illustration: {
-      src: "/images/history/cong-nhan-ba-son-1925.webp",
-      alt: "Tập thể công nhân Xưởng Ba Son trong giai đoạn 1925–1926.",
-      caption:
-        "Cuộc đấu tranh của công nhân Ba Son là dấu mốc về tổ chức, ý thức chính trị và tinh thần đoàn kết của phong trào công nhân Việt Nam.",
-      focalPoint: "50% 43%",
-    },
-    keyConcepts: [
-      "Giai cấp công nhân",
-      "Sứ mệnh lịch sử",
-      "Điều kiện khách quan",
-      "Nhân tố chủ quan",
-    ],
-    modules: [
-      {
-        id: "chapter-2-module-1",
-        number: "2.1",
-        title: "Khái niệm và đặc điểm của giai cấp công nhân",
-        subtitle: "Nhận diện từ phương thức lao động và vị trí trong quan hệ sản xuất",
-        summary:
-          "Tiếp cận khái niệm giai cấp công nhân qua những phương diện mà giáo trình phân tích, đồng thời lưu ý sự biến đổi đa dạng của lao động công nghiệp hiện đại.",
-        sourcePages: "51–60",
-        estimatedMinutes: 12,
-        learningOutcomes: [
-          "Nhận diện các phương diện dùng để mô tả giai cấp công nhân.",
-          "Phân biệt đặc điểm cốt lõi với biểu hiện lịch sử cụ thể.",
-          "Tránh đồng nhất máy móc giai cấp công nhân với một nghề nghiệp đơn lẻ.",
-        ],
-        keyConcepts: [
-          "Lao động công nghiệp",
-          "Quan hệ sản xuất",
-          "Tính tổ chức",
-          "Tính xã hội hóa của sản xuất",
-        ],
-        primaryFormat: "read",
-        visualType: "dual-lens",
-      },
-      {
-        id: "chapter-2-module-2",
-        number: "2.2",
-        title: "Nội dung và điều kiện của sứ mệnh lịch sử",
-        subtitle: "Ba phương diện và hai nhóm điều kiện",
-        summary:
-          "Hệ thống hóa nội dung kinh tế, chính trị, văn hóa – tư tưởng; sau đó phân biệt các điều kiện khách quan với những nhân tố chủ quan trong quá trình thực hiện sứ mệnh.",
-        sourcePages: "61–72",
-        estimatedMinutes: 15,
-        learningOutcomes: [
-          "Phân loại một luận điểm theo ba phương diện của sứ mệnh.",
-          "Giải thích mối liên hệ giữa điều kiện khách quan và nhân tố chủ quan.",
-          "Dùng dẫn chứng từ bài học để bảo vệ một cách phân loại.",
-        ],
-        keyConcepts: [
-          "Nội dung kinh tế",
-          "Nội dung chính trị – xã hội",
-          "Nội dung văn hóa – tư tưởng",
-          "Đảng Cộng sản",
-        ],
-        primaryFormat: "listen",
-        visualType: "three-lens-matrix",
-      },
-      {
-        id: "chapter-2-module-3",
-        number: "2.3",
-        title: "Giai cấp công nhân hiện nay và ở Việt Nam",
-        subtitle: "Nhận diện biến đổi mà không rời các tiêu chí phân tích",
-        summary:
-          "Xem xét các biến đổi về cơ cấu, tri thức, nghề nghiệp và những nội dung được giáo trình đặt ra đối với giai cấp công nhân Việt Nam trong bối cảnh mới.",
-        sourcePages: "73–84",
-        estimatedMinutes: 11,
-        learningOutcomes: [
-          "Nêu một số biến đổi nổi bật trong bối cảnh đương đại.",
-          "Phân biệt biến đổi về biểu hiện với câu hỏi về địa vị kinh tế – xã hội.",
-          "Tóm tắt nội dung liên hệ Việt Nam theo đúng phạm vi giáo trình.",
-        ],
-        keyConcepts: [
-          "Công nhân hiện đại",
-          "Trí thức hóa",
-          "Giai cấp công nhân Việt Nam",
-          "Công nghiệp hóa, hiện đại hóa",
-        ],
-        primaryFormat: "read",
-        visualType: "continuity-change",
-      },
-    ],
-  },
-  {
-    id: "chapter-3",
-    number: "03",
-    slug: "chu-nghia-xa-hoi-va-thoi-ky-qua-do",
-    shortTitle: "Kiến trúc chuyển tiếp",
-    title: "Chủ nghĩa xã hội và thời kỳ quá độ lên chủ nghĩa xã hội",
-    eyebrow: "Đặc trưng, tính tất yếu và những quan hệ chuyển tiếp",
-    guidingQuestion:
-      "Giáo trình trình bày chủ nghĩa xã hội qua những đặc trưng nào, và lý giải tính tất yếu của thời kỳ quá độ ra sao?",
-    description:
-      "Khám phá quan niệm về chủ nghĩa xã hội, các đặc trưng bản chất, tính tất yếu và đặc điểm của thời kỳ quá độ, cùng nội dung liên hệ con đường đi lên chủ nghĩa xã hội ở Việt Nam.",
-    sourcePages: "86–124",
-    estimatedMinutes: 44,
-    totalModules: 3,
-    accent: "cyan",
-    illustration: {
-      src: "/images/history/dai-hoi-vi-1986.webp",
-      alt: "Toàn cảnh Đại hội đại biểu toàn quốc lần thứ VI của Đảng tại Hà Nội năm 1986.",
-      caption:
-        "Đại hội VI mở đầu công cuộc Đổi mới, một dấu mốc quan trọng trong tư duy và thực tiễn xây dựng chủ nghĩa xã hội ở Việt Nam.",
-      focalPoint: "50% 42%",
-    },
-    keyConcepts: [
-      "Hình thái kinh tế – xã hội cộng sản chủ nghĩa",
-      "Chủ nghĩa xã hội",
-      "Thời kỳ quá độ",
-      "Quá độ bỏ qua chế độ tư bản chủ nghĩa",
-    ],
-    modules: [
-      {
-        id: "chapter-3-module-1",
-        number: "3.1",
-        title: "Chủ nghĩa xã hội và các đặc trưng bản chất",
-        subtitle: "Quan sát một mô hình xã hội qua nhiều phương diện",
-        summary:
-          "Tiếp cận chủ nghĩa xã hội trong quan niệm về hình thái kinh tế – xã hội cộng sản chủ nghĩa và hệ thống hóa các đặc trưng mà giáo trình trình bày.",
-        sourcePages: "86–100",
-        estimatedMinutes: 15,
-        learningOutcomes: [
-          "Xác định vị trí của chủ nghĩa xã hội trong mạch lý luận của chương.",
-          "Nhóm các đặc trưng theo phương diện kinh tế, chính trị, xã hội và văn hóa.",
-          "Giải thích vì sao các đặc trưng cần được đọc trong quan hệ tổng thể.",
-        ],
-        keyConcepts: [
-          "Hình thái kinh tế – xã hội",
-          "Giai đoạn đầu",
-          "Đặc trưng bản chất",
-          "Phát triển con người",
-        ],
-        primaryFormat: "read",
-        visualType: "layer-system",
-      },
-      {
-        id: "chapter-3-module-2",
-        number: "3.2",
-        title: "Tính tất yếu và đặc điểm của thời kỳ quá độ",
-        subtitle: "Vì sao chuyển đổi xã hội được nhìn nhận như một quá trình?",
-        summary:
-          "Phân tích lập luận về sự cần thiết của một thời kỳ chuyển tiếp và nhận diện tính đan xen, phức tạp của các yếu tố cũ – mới trên nhiều lĩnh vực.",
-        sourcePages: "101–111",
-        estimatedMinutes: 16,
-        learningOutcomes: [
-          "Trình bày lập luận về tính tất yếu ở mức nhập môn.",
-          "Nhận diện các biểu hiện đan xen trên nhiều phương diện.",
-          "Tránh mô tả thời kỳ quá độ như một thay đổi tức thời hoặc tuyến tính đơn giản.",
-        ],
-        keyConcepts: [
-          "Thời kỳ quá độ",
-          "Tính tất yếu khách quan",
-          "Cái cũ và cái mới",
-          "Tính lâu dài, phức tạp",
-        ],
-        primaryFormat: "listen",
-        visualType: "transition-layers",
-      },
-      {
-        id: "chapter-3-module-3",
-        number: "3.3",
-        title: "Thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam",
-        subtitle: "Khái niệm “bỏ qua” và những phương hướng xây dựng",
-        summary:
-          "Làm rõ cách giáo trình diễn giải quá độ bỏ qua chế độ tư bản chủ nghĩa, những đặc trưng của thời kỳ quá độ và các phương hướng lớn trong liên hệ Việt Nam.",
-        sourcePages: "112–124",
-        estimatedMinutes: 13,
-        learningOutcomes: [
-          "Diễn giải thận trọng nội hàm của khái niệm “bỏ qua”.",
-          "Phân biệt việc bỏ qua một chế độ xã hội với phủ nhận mọi thành tựu phát triển.",
-          "Hệ thống hóa các phương hướng theo nhóm thay vì ghi nhớ rời rạc.",
-        ],
-        keyConcepts: [
-          "Bỏ qua chế độ tư bản chủ nghĩa",
-          "Kinh tế thị trường định hướng xã hội chủ nghĩa",
-          "Công nghiệp hóa, hiện đại hóa",
-          "Phương hướng xây dựng",
-        ],
-        primaryFormat: "read",
-        visualType: "roadmap",
-      },
-    ],
-  },
-];
-
-export const featuredLesson = {
-  id: "chapter-1-module-2",
-  chapterId: "chapter-1",
-  moduleNumber: "1.2",
-  eyebrow: "Bài học đang tiếp tục",
-  title: "Ba phát kiến và bước chuyển từ không tưởng đến khoa học",
-  subtitle:
-    "Quan sát ba mảnh ghép lý luận như một hệ thống câu hỏi – lời giải, thay vì ba định nghĩa cần học thuộc.",
-  estimatedMinutes: 16,
-  sourcePages: "21–35",
-  objective:
-    "Sau bài học, bạn có thể mô tả đóng góp khái quát của từng phát kiến và giải thích vì sao chúng được đặt trong cùng một mạch lập luận.",
-  keyQuestion:
-    "Muốn luận giải khả năng cải biến xã hội trên cơ sở khoa học, cần trả lời đồng thời những câu hỏi nào?",
-  lead:
-    "Giáo trình trình bày vai trò của C. Mác và Ph. Ăngghen gắn với một bước chuyển về thế giới quan, phương pháp luận và các phát kiến lý luận. Bài học này dùng sơ đồ để làm rõ chức năng của từng mảnh ghép; phần diễn giải không thay thế nguyên văn giáo trình.",
-  sections: [
-    {
-      id: "historical-problem",
-      label: "01",
-      title: "Bài toán lịch sử đặt ra",
-      readingMinutes: 3,
-      body:
-        "Sự phát triển của đại công nghiệp cùng những xung đột xã hội mới làm xuất hiện nhu cầu giải thích có hệ thống về động lực vận động của xã hội, cơ chế tạo ra và chiếm hữu của cải, cũng như lực lượng xã hội có khả năng tham gia vào quá trình cải biến.",
-      sourcePages: "21–25",
-    },
-    {
-      id: "three-discoveries",
-      label: "02",
-      title: "Ba phát kiến, ba câu hỏi trung tâm",
-      readingMinutes: 7,
-      body:
-        "Ở mức nhập môn, có thể xem mỗi phát kiến như một lăng kính: chủ nghĩa duy vật lịch sử hướng tới quy luật vận động của đời sống xã hội; học thuyết giá trị thặng dư góp phần lý giải cơ chế kinh tế của sản xuất tư bản chủ nghĩa; học thuyết về sứ mệnh lịch sử của giai cấp công nhân xác định chủ thể xã hội trong tiến trình cải biến được luận giải.",
-      sourcePages: "25–32",
-    },
-    {
-      id: "systemic-connection",
-      label: "03",
-      title: "Đọc các phát kiến như một chỉnh thể",
-      readingMinutes: 4,
-      body:
-        "Mỗi phát kiến trả lời một lớp câu hỏi khác nhau. Khi được kết nối, chúng tạo nên cơ sở để chuyển từ mong muốn về một xã hội tốt đẹp sang việc phân tích điều kiện, quan hệ và chủ thể lịch sử. Đây là sơ đồ hỗ trợ đọc hiểu, không phải công thức thay thế các lập luận đầy đủ trong giáo trình.",
-      sourcePages: "32–35",
-    },
-  ],
-  visualBlocks: [
-    {
-      id: "context-to-theory",
-      type: "causal-chain",
-      overline: "Bản đồ bối cảnh",
-      title: "Từ biến đổi hiện thực đến nhu cầu lý luận",
-      description:
-        "Các mũi tên thể hiện một lối tổ chức thông tin để học; không hàm ý mọi quan hệ lịch sử đều tuyến tính.",
-      nodes: [
-        {
-          id: "industry",
-          label: "Đại công nghiệp phát triển",
-          detail: "Lực lượng sản xuất và cách tổ chức lao động có những biến đổi sâu sắc.",
-          tone: "navy",
-        },
-        {
-          id: "relations",
-          label: "Mâu thuẫn xã hội bộc lộ",
-          detail: "Những quan hệ lợi ích và vị trí xã hội cần được lý giải có hệ thống.",
-          tone: "brick",
-        },
-        {
-          id: "movement",
-          label: "Phong trào công nhân phát triển",
-          detail: "Thực tiễn đấu tranh đặt ra yêu cầu về tổ chức và lý luận.",
-          tone: "mustard",
-        },
-        {
-          id: "theory",
-          label: "Nhu cầu về một cơ sở khoa học",
-          detail: "Lý luận cần giải thích điều kiện, cơ chế và chủ thể của sự biến đổi.",
-          tone: "cyan",
-        },
-      ],
-      connections: [
-        { from: "industry", to: "relations", label: "làm biến đổi và bộc lộ" },
-        { from: "relations", to: "movement", label: "tác động tới" },
-        { from: "movement", to: "theory", label: "đặt ra yêu cầu" },
-      ],
-      sourcePages: "21–25",
-    },
-    {
-      id: "discovery-map",
-      type: "three-column",
-      overline: "Khối trực quan trọng tâm",
-      title: "Ba lăng kính lý luận",
-      description:
-        "Chọn từng thẻ để xem phát kiến đó góp phần trả lời câu hỏi nào trong toàn bộ mạch lập luận.",
-      items: [
-        {
-          id: "historical-materialism",
-          index: "I",
-          title: "Chủ nghĩa duy vật lịch sử",
-          question: "Đời sống xã hội vận động trên những cơ sở và quan hệ nào?",
-          contribution:
-            "Cung cấp một cách tiếp cận duy vật đối với lịch sử, nhấn mạnh việc phân tích những điều kiện hiện thực của đời sống xã hội.",
-          misconception:
-            "Không nên rút gọn thành ý niệm rằng mọi hiện tượng xã hội chỉ có một nguyên nhân kinh tế trực tiếp.",
-          relatedTerm: "Hình thái kinh tế – xã hội",
-          tone: "navy",
-        },
-        {
-          id: "surplus-value",
-          index: "II",
-          title: "Học thuyết giá trị thặng dư",
-          question: "Cơ chế kinh tế đặc trưng của sản xuất tư bản chủ nghĩa được lý giải ra sao?",
-          contribution:
-            "Góp phần làm rõ quan hệ giữa lao động làm thuê, giá trị mới được tạo ra và quá trình chiếm hữu trong quan hệ sản xuất tư bản chủ nghĩa.",
-          misconception:
-            "Không đồng nhất giá trị thặng dư với mọi dạng lợi nhuận quan sát được trong đời sống hằng ngày.",
-          relatedTerm: "Giá trị thặng dư",
-          tone: "brick",
-        },
-        {
-          id: "historical-mission",
-          index: "III",
-          title: "Học thuyết về sứ mệnh lịch sử của giai cấp công nhân",
-          question: "Chủ thể xã hội nào được đặt vào tiến trình cải biến và dựa trên điều kiện nào?",
-          contribution:
-            "Luận giải vai trò lịch sử của giai cấp công nhân từ địa vị kinh tế – xã hội và những điều kiện khách quan, chủ quan liên quan.",
-          misconception:
-            "Không nên hiểu sứ mệnh lịch sử như kết quả tự động, tách khỏi điều kiện, tổ chức và hoạt động thực tiễn.",
-          relatedTerm: "Sứ mệnh lịch sử",
-          tone: "mustard",
-        },
-      ],
-      sourcePages: "25–32",
-    },
-    {
-      id: "claim-evidence",
-      type: "claim-evidence",
-      overline: "Dừng lại để kiểm chứng",
-      title: "Từ dự báo đạo đức đến phân tích có cơ sở",
-      claim:
-        "Bước chuyển sang tính khoa học được giáo trình gắn với việc phát hiện và luận giải những điều kiện, quy luật, quan hệ và chủ thể của tiến trình lịch sử.",
-      evidencePrompt:
-        "Mở bản quét và đánh dấu một đoạn cho thấy vai trò của từng phát kiến trong bước chuyển này.",
-      actionLabel: "Xem nguyên văn, trang 25–35",
-      sourcePages: "25–35",
-    },
-  ],
-  takeaways: [
-    "Mỗi phát kiến giải quyết một lớp câu hỏi riêng nhưng có quan hệ với hai lớp còn lại.",
-    "Sơ đồ giúp nhận diện cấu trúc lập luận; việc hiểu đầy đủ vẫn cần đọc đoạn nguồn.",
-    "Một giải thích thận trọng cần phân biệt điều kiện lịch sử, phát kiến lý luận và ý nghĩa của chúng.",
-  ],
-  nextLesson: {
-    id: "chapter-1-module-3",
-    title: "Đối tượng, phương pháp và ý nghĩa nghiên cứu",
-    estimatedMinutes: 12,
-  },
-};
+export const chapters = learningTracks;
+export const featuredLesson = allModules[0];
+export const microQuiz = featuredLesson.quiz;
 
 export const glossary = [
   {
-    id: "scientific-socialism",
-    term: "Chủ nghĩa xã hội khoa học",
+    id: "socialist-state",
+    term: "Nhà nước xã hội chủ nghĩa",
     shortDefinition:
-      "Một trong ba bộ phận cấu thành của chủ nghĩa Mác – Lênin; nghiên cứu theo phạm vi mà giáo trình xác định về những quy luật và điều kiện của quá trình chuyển biến lên hình thái kinh tế – xã hội cộng sản chủ nghĩa.",
+      "Khái niệm được tài liệu dùng cho mô hình nhà nước hướng tới quyền làm chủ và lợi ích của giai cấp công nhân, nhân dân lao động và toàn dân tộc.",
     inContext:
-      "Trong Chương 1, thuật ngữ vừa chỉ một hệ thống lý luận, vừa là tên môn học có đối tượng và phương pháp nghiên cứu cụ thể.",
+      "Tài liệu đặt Nhà nước xã hội chủ nghĩa Việt Nam dưới sự lãnh đạo của Đảng Cộng sản Việt Nam và quy tụ thông điệp vào ba vế: của Nhân dân, do Nhân dân, vì Nhân dân.",
     commonMistake:
-      "Không nên đồng nhất toàn bộ chủ nghĩa Mác – Lênin với riêng bộ phận Chủ nghĩa xã hội khoa học.",
-    relatedConcepts: ["Triết học Mác – Lênin", "Kinh tế chính trị Mác – Lênin", "Sứ mệnh lịch sử"],
+      "Không nên biến phần giới thiệu mang tính lý luận của tài liệu thành một kết luận thực nghiệm không cần dẫn nguồn.",
+    relatedConcepts: ["Nhà nước của Nhân dân", "Quyền làm chủ", "Nhà nước pháp quyền"],
     chapterId: "chapter-1",
-    sourcePages: "11–49",
+    sourcePages: "1, 3",
   },
   {
-    id: "historical-materialism",
-    term: "Chủ nghĩa duy vật lịch sử",
+    id: "people-state",
+    term: "Nhà nước của Nhân dân, do Nhân dân, vì Nhân dân",
     shortDefinition:
-      "Cách tiếp cận duy vật đối với đời sống xã hội, nhấn mạnh vai trò của những điều kiện sinh hoạt vật chất và các quan hệ hiện thực trong sự vận động của lịch sử.",
+      "Ba vế diễn đạt chủ thể của quyền lực, cách hình thành và tham gia thực hiện quyền lực, cùng mục tiêu phục vụ lợi ích của Nhân dân.",
     inContext:
-      "Chương 1 trình bày phát kiến này như một cơ sở lý luận giúp chuyển việc nghiên cứu lịch sử và xã hội sang một cách giải thích có căn cứ khoa học.",
+      "Đây là thông điệp xuyên suốt từ bìa, lời mở đầu đến các phần về chính trị, dân chủ và mục tiêu phát triển.",
     commonMistake:
-      "Không nên hiểu đây là cách giải thích mọi biến đổi xã hội bằng một nguyên nhân kinh tế đơn lẻ.",
-    relatedConcepts: ["Hình thái kinh tế – xã hội", "Lực lượng sản xuất", "Quan hệ sản xuất"],
+      "Không học ba vế như khẩu hiệu rời nhau; cần nối mỗi vế với cơ chế tham gia, đại diện, giám sát và phục vụ.",
+    relatedConcepts: ["Quyền lực nhà nước", "Dân chủ đại diện", "Phục vụ Nhân dân"],
     chapterId: "chapter-1",
-    sourcePages: "21–35",
+    sourcePages: "1, 3–4",
   },
   {
-    id: "surplus-value",
-    term: "Giá trị thặng dư",
+    id: "socialist-market-economy",
+    term: "Kinh tế thị trường định hướng xã hội chủ nghĩa",
     shortDefinition:
-      "Phần giá trị mới do lao động làm thuê tạo ra vượt quá giá trị sức lao động và bị nhà tư bản chiếm hữu trong quan hệ sản xuất tư bản chủ nghĩa.",
+      "Mô hình kinh tế được tài liệu mô tả là vận hành theo quy luật thị trường, có sự quản lý của Nhà nước và gắn tăng trưởng với định hướng tiến bộ, công bằng xã hội.",
     inContext:
-      "Chương 1 nhắc tới học thuyết giá trị thặng dư như một cơ sở lý luận quan trọng trong quá trình hình thành Chủ nghĩa xã hội khoa học.",
+      "Trang 5 đặt cơ chế thị trường, quản lý nhà nước và lợi ích của Nhân dân trong cùng một cấu trúc.",
     commonMistake:
-      "Không dùng thuật ngữ như một từ thay thế giản đơn cho doanh thu hoặc mọi khoản lợi nhuận.",
-    relatedConcepts: ["Sức lao động", "Quan hệ sản xuất", "Phương thức sản xuất tư bản chủ nghĩa"],
+      "Không đồng nhất với kinh tế kế hoạch hóa hoàn toàn hoặc một thị trường vận hành ngoài pháp luật và quản lý công.",
+    relatedConcepts: ["Quản lý vĩ mô", "Công bằng xã hội", "Phát triển bền vững"],
     chapterId: "chapter-1",
-    sourcePages: "21–35",
+    sourcePages: "5",
   },
   {
-    id: "socio-economic-formation",
-    term: "Hình thái kinh tế – xã hội",
+    id: "social-progress",
+    term: "Tiến bộ và công bằng xã hội",
     shortDefinition:
-      "Phạm trù dùng để xem xét xã hội ở một giai đoạn lịch sử nhất định trong sự thống nhất giữa lực lượng sản xuất, quan hệ sản xuất và kiến trúc thượng tầng tương ứng.",
+      "Định hướng gắn thành quả tăng trưởng với việc mở rộng cơ hội, nâng cao chất lượng sống và phân bổ lợi ích xã hội theo mục tiêu của tài liệu.",
     inContext:
-      "Khái niệm giúp kết nối mạch giải thích lịch sử ở Chương 1 với cách trình bày về hình thái kinh tế – xã hội cộng sản chủ nghĩa ở Chương 3.",
+      "Trang 5 dùng tiến bộ và công bằng như tiêu chí cần đi cùng tăng trưởng kinh tế.",
     commonMistake:
-      "Không nên hiểu đây là một nhãn thời kỳ đơn giản, tách rời các quan hệ cấu thành.",
-    relatedConcepts: ["Lực lượng sản xuất", "Quan hệ sản xuất", "Kiến trúc thượng tầng"],
-    chapterId: "chapter-3",
-    sourcePages: "86–100",
+      "Không trình bày định hướng như bằng chứng rằng mọi chênh lệch đã được giải quyết trên thực tế.",
+    relatedConcepts: ["Tăng trưởng kinh tế", "Chất lượng cuộc sống", "Phát triển bền vững"],
+    chapterId: "chapter-1",
+    sourcePages: "5",
   },
   {
-    id: "historical-mission",
-    term: "Sứ mệnh lịch sử của giai cấp công nhân",
+    id: "human-centered-development",
+    term: "Con người là trung tâm",
     shortDefinition:
-      "Nội dung và vai trò lịch sử mà lý luận Mác – Lênin luận giải từ địa vị kinh tế – xã hội của giai cấp công nhân, được triển khai trên các phương diện kinh tế, chính trị – xã hội và văn hóa – tư tưởng.",
+      "Quan điểm xem con người đồng thời là mục tiêu được phục vụ và là động lực tạo ra tri thức, sáng tạo cùng nguồn lực phát triển.",
     inContext:
-      "Chương 2 phân tích cả nội dung sứ mệnh lẫn những điều kiện khách quan và nhân tố chủ quan liên quan đến quá trình thực hiện.",
+      "Trang 6 kết nối quan điểm này với giáo dục, văn hóa, y tế và an sinh xã hội.",
     commonMistake:
-      "Không xem sứ mệnh lịch sử là một kết quả tự phát hoặc chắc chắn diễn ra mà không cần các điều kiện thực tiễn.",
-    relatedConcepts: ["Giai cấp công nhân", "Điều kiện khách quan", "Nhân tố chủ quan"],
+      "Không rút gọn con người thành người thụ hưởng thụ động hoặc chỉ là nguồn lao động.",
+    relatedConcepts: ["Phát triển con người", "Giáo dục", "An sinh xã hội"],
+    chapterId: "chapter-1",
+    sourcePages: "6",
+  },
+  {
+    id: "people-power",
+    term: "Quyền lực nhà nước thuộc về Nhân dân",
+    shortDefinition:
+      "Nguyên tắc mà trang 4 dùng để xác định Nhân dân là chủ thể của quyền lực nhà nước, thực hiện thông qua tham gia trực tiếp và cơ chế đại diện.",
+    inContext:
+      "Quốc hội và Hội đồng nhân dân các cấp được tài liệu nêu như những cơ quan trọng tâm trong cơ chế đại diện.",
+    commonMistake:
+      "Không dừng ở tuyên bố nguyên tắc; cần hỏi tiếp quyền được thực hiện, ủy quyền và giám sát bằng cơ chế nào.",
+    relatedConcepts: ["Dân chủ trực tiếp", "Dân chủ đại diện", "Giám sát quyền lực"],
     chapterId: "chapter-2",
-    sourcePages: "51–72",
+    sourcePages: "4",
   },
   {
-    id: "dictatorship-of-proletariat",
-    term: "Chuyên chính vô sản",
+    id: "direct-democracy",
+    term: "Dân chủ trực tiếp",
     shortDefinition:
-      "Khái niệm trong lý luận Mác – Lênin về quyền lực chính trị của giai cấp công nhân và nhân dân lao động trong quá trình cải biến xã hội và xây dựng xã hội mới.",
+      "Hình thức trong đó Nhân dân trực tiếp tham gia, biểu đạt ý chí hoặc quyết định công việc chung theo các cơ chế pháp luật.",
     inContext:
-      "Khi gặp thuật ngữ trong mạch về nội dung chính trị – xã hội, cần đọc cùng bối cảnh lý luận và cách diễn giải cụ thể của giáo trình.",
+      "Catalogue minh họa bằng bầu cử, ứng cử, trưng cầu ý dân và tham gia tại cơ sở; cách phân loại này cần được đọc đúng là cách trình bày của tài liệu.",
     commonMistake:
-      "Không suy diễn nghĩa học thuật chỉ từ nghĩa thông thường của từng từ; cũng không tách thuật ngữ khỏi bối cảnh lịch sử và hệ khái niệm liên quan.",
-    relatedConcepts: ["Nhà nước", "Quyền lực chính trị", "Thời kỳ quá độ"],
+      "Không coi danh sách minh họa trong PDF là hệ phân loại duy nhất cho mọi bối cảnh pháp lý.",
+    relatedConcepts: ["Dân chủ đại diện", "Quyền làm chủ", "Trưng cầu ý dân"],
     chapterId: "chapter-2",
-    sourcePages: "61–72",
+    sourcePages: "4",
   },
   {
-    id: "transition-period",
-    term: "Thời kỳ quá độ lên chủ nghĩa xã hội",
+    id: "representative-democracy",
+    term: "Dân chủ đại diện",
     shortDefinition:
-      "Thời kỳ cải biến có tính chuyển tiếp từ xã hội cũ sang xã hội mới, trong đó những yếu tố cũ và mới còn tồn tại, tác động qua lại trên nhiều lĩnh vực.",
+      "Hình thức Nhân dân bầu và ủy quyền cho cơ quan đại diện thay mặt mình thực hiện quyền lực nhà nước.",
     inContext:
-      "Chương 3 tập trung lý giải tính tất yếu và đặc điểm lâu dài, phức tạp của quá trình này.",
+      "Trang 4 nhấn mạnh Quốc hội và Hội đồng nhân dân các cấp trong cơ chế đại diện.",
     commonMistake:
-      "Không mô tả thời kỳ quá độ như một khoảnh khắc chuyển đổi tức thời hoặc một tiến trình chỉ có một chiều.",
-    relatedConcepts: ["Tính tất yếu khách quan", "Cái cũ và cái mới", "Chủ nghĩa xã hội"],
-    chapterId: "chapter-3",
-    sourcePages: "101–111",
+      "Không hiểu ủy quyền là từ bỏ quyền giám sát hoặc trách nhiệm giải trình của cơ quan đại diện.",
+    relatedConcepts: ["Quốc hội", "Hội đồng nhân dân", "Giám sát quyền lực"],
+    chapterId: "chapter-2",
+    sourcePages: "4",
   },
   {
-    id: "skip-capitalist-regime",
-    term: "Quá độ bỏ qua chế độ tư bản chủ nghĩa",
+    id: "socialist-democracy",
+    term: "Dân chủ xã hội chủ nghĩa",
     shortDefinition:
-      "Cách diễn đạt về con đường quá độ ở Việt Nam; “bỏ qua” được hiểu theo nội dung mà giáo trình xác định, không phải phủ nhận mọi thành tựu do nhân loại đạt được trong chủ nghĩa tư bản.",
+      "Theo tài liệu, đây vừa là mục tiêu, vừa là động lực phát triển, gắn với quyền làm chủ trên các lĩnh vực chính trị, kinh tế, văn hóa và xã hội.",
     inContext:
-      "Thuật ngữ cần được đọc cùng các điều kiện lịch sử, mục tiêu phát triển lực lượng sản xuất và các phương hướng xây dựng xã hội mới ở Việt Nam.",
+      "Trang 9 mô tả các cách tham gia gồm quản lý nhà nước, quản lý xã hội, góp ý chính sách và giám sát quyền lực.",
     commonMistake:
-      "Không đồng nhất “bỏ qua chế độ” với bỏ qua yêu cầu phát triển, hiện đại hóa hoặc tiếp thu thành tựu chung của văn minh nhân loại.",
-    relatedConcepts: ["Phát triển lực lượng sản xuất", "Công nghiệp hóa, hiện đại hóa", "Thời kỳ quá độ"],
+      "Không trình bày những mục tiêu lý luận như kết quả xã hội đã được đo lường và chứng minh trong PDF.",
+    relatedConcepts: ["Quyền làm chủ", "Góp ý chính sách", "Giám sát quyền lực"],
+    chapterId: "chapter-2",
+    sourcePages: "9",
+  },
+  {
+    id: "socialist-rule-of-law-state",
+    term: "Nhà nước pháp quyền xã hội chủ nghĩa",
+    shortDefinition:
+      "Cách tài liệu gọi mô hình Nhà nước sử dụng pháp luật và thiết chế để tổ chức quyền lực, quản lý xã hội và bảo đảm các quyền dân chủ.",
+    inContext:
+      "Trang 10 đặt pháp luật làm cầu nối giữa nền tảng dân chủ và hoạt động lập pháp, hành pháp, tư pháp của Nhà nước.",
+    commonMistake:
+      "Không đồng nhất pháp quyền với việc chỉ ban hành nhiều quy định; trọng tâm còn là tổ chức, thực thi và bảo vệ quyền theo pháp luật.",
+    relatedConcepts: ["Thể chế hóa", "Lập pháp", "Hành pháp", "Tư pháp"],
+    chapterId: "chapter-2",
+    sourcePages: "10",
+  },
+  {
+    id: "domestic-function",
+    term: "Chức năng đối nội",
+    shortDefinition:
+      "Hoạt động quản lý và điều hành đời sống xã hội trong lãnh thổ quốc gia bằng pháp luật cùng các công cụ quản lý vĩ mô.",
+    inContext:
+      "Trang 7 nêu sáu lĩnh vực trọng tâm: kinh tế, giáo dục, khoa học – công nghệ, y tế, văn hóa và môi trường.",
+    commonMistake:
+      "Không thu hẹp đối nội vào duy trì trật tự; tài liệu còn nhấn mạnh vai trò xây dựng và phát triển.",
+    relatedConcepts: ["Quản lý vĩ mô", "Trật tự và kỷ cương", "Phát triển đất nước"],
     chapterId: "chapter-3",
-    sourcePages: "112–124",
+    sourcePages: "7",
+  },
+  {
+    id: "foreign-function",
+    term: "Chức năng đối ngoại",
+    shortDefinition:
+      "Hoạt động quan hệ với các quốc gia và chủ thể quốc tế nhằm hợp tác, hội nhập, bảo vệ chủ quyền và lợi ích quốc gia – dân tộc.",
+    inContext:
+      "Trang 8 đặt đối ngoại trên cơ sở luật pháp quốc tế và kết nối với hòa bình, ổn định.",
+    commonMistake:
+      "Không đồng nhất hội nhập với từ bỏ chủ quyền, hoặc bảo vệ lợi ích với tự tách khỏi hợp tác quốc tế.",
+    relatedConcepts: ["Hội nhập quốc tế", "Chủ quyền lãnh thổ", "Luật pháp quốc tế"],
+    chapterId: "chapter-3",
+    sourcePages: "8",
+  },
+  {
+    id: "sustainable-development",
+    term: "Phát triển bền vững",
+    shortDefinition:
+      "Định hướng phát triển dài hạn, xem xét đồng thời kinh tế, xã hội, văn hóa, môi trường và khả năng đáp ứng nhu cầu của con người.",
+    inContext:
+      "Trang 5 coi bền vững là một giá trị cốt lõi; trang 12 dùng nó để tổng kết định hướng xây dựng đất nước.",
+    commonMistake:
+      "Không rút gọn bền vững thành tăng trưởng kinh tế kéo dài mà bỏ qua các hệ quả xã hội và môi trường.",
+    relatedConcepts: ["Công bằng xã hội", "Môi trường", "Chất lượng cuộc sống"],
+    chapterId: "chapter-3",
+    sourcePages: "5, 12",
   },
 ];
 
-export const microQuiz = [
-  {
-    id: "featured-quiz-1",
-    order: 1,
-    type: "single-choice",
-    difficulty: "remember",
-    prompt:
-      "Phát kiến nào trực tiếp góp phần lý giải cơ chế tạo ra và chiếm hữu giá trị mới trong quan hệ sản xuất tư bản chủ nghĩa?",
-    options: [
-      { id: "a", label: "Chủ nghĩa duy vật lịch sử" },
-      { id: "b", label: "Học thuyết giá trị thặng dư" },
-      { id: "c", label: "Học thuyết về sứ mệnh lịch sử của giai cấp công nhân" },
-      { id: "d", label: "Phương pháp lịch sử và lôgic" },
-    ],
-    correctOptionId: "b",
-    explanation:
-      "Học thuyết giá trị thặng dư góp phần làm rõ cơ chế kinh tế của sản xuất tư bản chủ nghĩa. Hai phát kiến còn lại trả lời các lớp câu hỏi khác trong cùng mạch lý luận.",
-    conceptId: "surplus-value",
-    sourcePages: "25–32",
-  },
-  {
-    id: "featured-quiz-2",
-    order: 2,
-    type: "single-choice",
-    difficulty: "connect",
-    prompt: "Cách mô tả nào phù hợp nhất với quan hệ giữa ba phát kiến trong bài học?",
-    options: [
-      { id: "a", label: "Ba cách gọi khác nhau của cùng một khái niệm" },
-      { id: "b", label: "Ba kết luận độc lập, không cần đặt trong cùng hệ thống" },
-      {
-        id: "c",
-        label: "Ba lăng kính giải đáp những lớp câu hỏi khác nhau nhưng có quan hệ với nhau",
-      },
-      { id: "d", label: "Ba sự kiện lịch sử diễn ra cùng một thời điểm" },
-    ],
-    correctOptionId: "c",
-    explanation:
-      "Bài học tổ chức ba phát kiến như những lăng kính về sự vận động của xã hội, cơ chế kinh tế và chủ thể lịch sử. Cách tổ chức này giúp thấy tính hệ thống mà không xóa đi chức năng riêng của từng phát kiến.",
-    conceptId: "scientific-socialism",
-    sourcePages: "21–35",
-  },
-  {
-    id: "featured-quiz-3",
-    order: 3,
-    type: "single-choice",
-    difficulty: "apply",
-    prompt:
-      "Một bạn nói: “Chỉ cần mong muốn xã hội công bằng là đã đủ tạo nên một học thuyết khoa học.” Phản hồi nào bám sát nhất mạch bài?",
-    options: [
-      { id: "a", label: "Đồng ý, vì mong muốn đạo đức tự nó đã giải thích được lịch sử" },
-      {
-        id: "b",
-        label: "Chưa đủ; còn cần phân tích điều kiện hiện thực, quan hệ vận động và chủ thể xã hội",
-      },
-      { id: "c", label: "Không thể thảo luận vì khoa học không liên quan tới đời sống xã hội" },
-      { id: "d", label: "Chỉ cần ghi nhớ tên ba phát kiến là đủ" },
-    ],
-    correctOptionId: "b",
-    explanation:
-      "Mạch bài nhấn mạnh bước chuyển từ dự báo và khát vọng sang phân tích có cơ sở về điều kiện, cơ chế và chủ thể. Đáp án không phủ nhận giá trị của khát vọng, mà chỉ ra rằng nó chưa đủ để cấu thành một lý luận khoa học.",
-    conceptId: "scientific-socialism",
-    sourcePages: "21–35",
-  },
-];
-
-export const podcasts = [
-  {
-    id: "podcast-01",
-    episode: "TẬP 01",
-    chapterId: "chapter-1",
-    title: "Vì sao một học thuyết luôn có bối cảnh?",
-    description:
-      "Một cuộc đối thoại ngắn về cách đọc các điều kiện kinh tế – xã hội, khoa học và tư tưởng mà không biến lịch sử thành chuỗi nguyên nhân đơn tuyến.",
-    duration: "06:24",
-    format: "Đối thoại",
-    level: "Nhập môn",
-    sourcePages: "11–20",
-    transcriptPreview:
-      "Thay vì hỏi “một nguyên nhân duy nhất là gì?”, hãy thử hỏi những điều kiện nào đã cùng tạo nên khả năng xuất hiện của một hệ thống lý luận mới.",
-    status: "ready",
-    coverTone: "brick",
-  },
-  {
-    id: "podcast-02",
-    episode: "TẬP 02",
-    chapterId: "chapter-1",
-    title: "Ba phát kiến trong bảy phút",
-    description:
-      "Tóm tắt chức năng của chủ nghĩa duy vật lịch sử, học thuyết giá trị thặng dư và học thuyết về sứ mệnh lịch sử của giai cấp công nhân.",
-    duration: "07:08",
-    format: "Giải thích nhanh",
-    level: "Cốt lõi",
-    sourcePages: "21–35",
-    transcriptPreview:
-      "Ba phát kiến không phải ba khẩu hiệu đứng cạnh nhau; mỗi phát kiến mở một lớp phân tích cần thiết cho toàn bộ lập luận.",
-    status: "ready",
-    coverTone: "navy",
-  },
-  {
-    id: "podcast-03",
-    episode: "TẬP 03",
-    chapterId: "chapter-2",
-    title: "Sứ mệnh lịch sử: điều kiện hay định mệnh?",
-    description:
-      "Phân biệt địa vị kinh tế – xã hội, điều kiện khách quan và nhân tố chủ quan để tránh cách hiểu giản đơn về sứ mệnh lịch sử.",
-    duration: "08:42",
-    format: "Gỡ nhầm lẫn",
-    level: "Trung bình",
-    sourcePages: "51–72",
-    transcriptPreview:
-      "Khi một vai trò lịch sử được luận giải từ điều kiện, điều đó không có nghĩa kết quả sẽ tự động xuất hiện mà không qua hoạt động thực tiễn.",
-    status: "ready",
-    coverTone: "mustard",
-  },
-  {
-    id: "podcast-04",
-    episode: "TẬP 04",
-    chapterId: "chapter-3",
-    title: "Thời kỳ quá độ không phải một đường thẳng",
-    description:
-      "Hình dung sự đan xen của cái cũ và cái mới trên các phương diện kinh tế, chính trị, xã hội và văn hóa.",
-    duration: "09:16",
-    format: "Bài nghe sơ đồ",
-    level: "Trung bình",
-    sourcePages: "101–111",
-    transcriptPreview:
-      "Một quá trình chuyển tiếp thường đồng thời chứa những yếu tố đang hình thành, những yếu tố còn tồn tại và cả các quan hệ có thể mâu thuẫn với nhau.",
-    status: "coming-next",
-    coverTone: "cyan",
-  },
-];
+export const podcasts = learningTracks.map((track, index) => ({
+  id: `podcast-${index + 1}`,
+  episode: `TẬP 0${index + 1}`,
+  chapterId: track.id,
+  title: [
+    "Ba lớp bản chất của Nhà nước xã hội chủ nghĩa Việt Nam",
+    "Quyền lực Nhân dân đi vào thiết chế như thế nào?",
+    "Từ chức năng nhà nước đến mục tiêu phát triển",
+  ][index],
+  description: [
+    "Nghe lại mạch khái quát, kinh tế và văn hóa – xã hội với điểm quy chiếu là lợi ích và sự phát triển của con người.",
+    "Một bài nghe nối dân chủ trực tiếp, dân chủ đại diện, quyền làm chủ và vai trò bảo đảm của Nhà nước bằng pháp luật.",
+    "Phân biệt đối nội với đối ngoại, rồi quy tụ hai nhóm hoạt động về mục tiêu dân giàu, nước mạnh, dân chủ, công bằng, văn minh.",
+  ][index],
+  duration: "≈ 06 phút",
+  format: "Tóm lược có nguồn",
+  level: "Nhập môn",
+  sourcePages: track.sourcePages,
+  status: "ready",
+  coverTone: ["brick", "mustard", "navy"][index],
+}));
 
 export const games = [
   {
-    id: "history-workshop",
+    id: "knowledge-quiz",
     chapterId: "chapter-1",
-    title: "Xưởng Lịch Sử",
-    subtitle: "Lắp ráp điều kiện – tiền đề – phát kiến",
+    chapter: "TOÀN BỘ 3 TUYẾN",
+    title: "Trắc nghiệm kiến thức",
+    subtitle: "Chọn tuyến, trả lời và xem giải thích ngay",
     description:
-      "Kéo các thẻ dữ kiện vào mạng quan hệ, đặt tên cho từng mũi tên và sửa những chuỗi nhân quả bị đơn giản hóa quá mức.",
-    mission:
-      "Hoàn thiện bản đồ gồm 12 nút để giải thích vì sao Chủ nghĩa xã hội khoa học xuất hiện trong một bối cảnh lịch sử xác định.",
-    mechanics: ["Kéo thả nút", "Nối quan hệ", "Phát hiện ngộ nhận"],
-    skills: ["Tư duy nhân quả", "Đọc bối cảnh", "Kết nối luận điểm"],
-    duration: "8–10 phút",
-    difficulty: "Dễ làm quen",
-    sourcePages: "11–35",
-    accent: "brick",
-    icon: "nodes",
-  },
-  {
-    id: "mission-matrix",
-    chapterId: "chapter-2",
-    title: "Sơ Đồ Sứ Mệnh",
-    subtitle: "Ba học phần, một mạch kiến thức",
-    description:
-      "Khám phá ba học phần của Chương 2 qua sơ đồ tư duy: từ khái niệm giai cấp công nhân, nội dung sứ mệnh đến những biến đổi hiện nay và liên hệ Việt Nam.",
-    mission:
-      "Mở lần lượt ba nhánh, nhận diện các khái niệm then chốt và chọn học phần cần đọc sâu hơn.",
-    mechanics: ["Mở nhánh kiến thức", "Nối khái niệm", "Đi đến học phần"],
-    skills: ["Tư duy hệ thống", "Khái quát chương", "Kết nối học phần"],
+      "Bộ câu hỏi ngắn lấy trực tiếp từ 27 câu tự kiểm tra của chín bài học, không yêu cầu đăng nhập và không lưu dữ liệu cá nhân.",
+    mission: "Hoàn thành một lượt 5 câu và đọc phần giải thích cho mỗi đáp án.",
+    mechanics: ["Chọn đáp án", "Phản hồi tức thì", "Làm lại tự do"],
+    skills: ["Nhớ đúng khái niệm", "Đọc quan hệ", "Đối chiếu nguồn"],
     duration: "4–6 phút",
-    difficulty: "Dễ khám phá",
-    sourcePages: "51–84",
-    accent: "mustard",
-    icon: "matrix",
+    difficulty: "Tự chọn tuyến",
+    sourcePages: "3–10, 12",
+    accent: "brick",
+    icon: "quiz",
   },
   {
-    id: "transition-architecture",
-    chapterId: "chapter-3",
-    title: "Kiến Trúc Quá Độ",
-    subtitle: "Xây một hệ chuyển tiếp nhiều tầng",
+    id: "relation-builder",
+    chapterId: "chapter-2",
+    chapter: "TUYẾN 02",
+    title: "Nối quan hệ dân chủ – Nhà nước",
+    subtitle: "Ghép chủ thể, cơ chế và thiết chế",
     description:
-      "Sắp xếp các yếu tố kinh tế, chính trị, xã hội và văn hóa vào một mô hình chuyển tiếp; quan sát cách thay đổi ở một tầng tạo ra hệ quả ở các tầng khác.",
-    mission:
-      "Tạo một mô hình giữ được cân bằng giữa phát triển, ổn định và giải quyết các quan hệ đan xen của cái cũ – cái mới.",
-    mechanics: ["Mô phỏng hệ thống", "Lựa chọn đánh đổi", "Phản tư sau lượt chơi"],
-    skills: ["Tư duy hệ thống", "Nhận diện quan hệ", "Đánh giá hệ quả"],
-    duration: "10–12 phút",
-    difficulty: "Thử thách",
-    sourcePages: "101–124",
+      "Nhận diện quan hệ giữa Nhân dân, dân chủ trực tiếp, dân chủ đại diện, pháp luật và hoạt động của Nhà nước.",
+    mission: "Nối đúng các mắt xích để hoàn thành sơ đồ quyền làm chủ.",
+    mechanics: ["Ghép quan hệ", "Giải thích lựa chọn", "Mở bài liên quan"],
+    skills: ["Tư duy hệ thống", "Phân biệt cơ chế", "Giải thích quan hệ"],
+    duration: "5–7 phút",
+    difficulty: "Trung bình",
+    sourcePages: "4, 9–10",
+    accent: "mustard",
+    icon: "network",
+  },
+  {
+    id: "function-sort",
+    chapterId: "chapter-3",
+    chapter: "TUYẾN 03",
+    title: "Phân loại chức năng",
+    subtitle: "Đối nội, đối ngoại hay mục tiêu chung?",
+    description:
+      "Đặt mỗi hoạt động vào đúng nhóm chức năng và nhận ra những nội dung thuộc đích phát triển chung.",
+    mission: "Phân loại chính xác 12 thẻ nội dung và giải thích ít nhất một lựa chọn.",
+    mechanics: ["Phân loại thẻ", "Nhận phản hồi", "Xem nguồn PDF"],
+    skills: ["Phân loại", "Khái quát", "Đọc có căn cứ"],
+    duration: "5–7 phút",
+    difficulty: "Trung bình",
+    sourcePages: "7–8, 12",
     accent: "cyan",
     icon: "layers",
   },
@@ -766,6 +263,7 @@ export const learningContent = {
   microQuiz,
   podcasts,
   games,
+  sourceDocument,
 };
 
 export default learningContent;

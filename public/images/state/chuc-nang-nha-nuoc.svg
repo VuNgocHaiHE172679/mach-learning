@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Sơ đồ chức năng đối nội và đối ngoại</title>
+  <desc id="desc">Hai nhóm chức năng đối nội và đối ngoại cùng hướng tới phục vụ Nhân dân, bảo vệ Tổ quốc và phát triển đất nước.</desc>
+  <rect width="1600" height="1000" fill="#0d2e46"/>
+  <g opacity=".18" stroke="#f3ede1" stroke-width="2">
+    <path d="M0 125h1600M0 250h1600M0 375h1600M0 500h1600M0 625h1600M0 750h1600M0 875h1600"/>
+    <path d="M200 0v1000M400 0v1000M600 0v1000M800 0v1000M1000 0v1000M1200 0v1000M1400 0v1000"/>
+  </g>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="530" y="70" width="540" height="190" rx="95" fill="#f3bd24"/>
+    <text x="800" y="145" font-size="34" font-weight="700" fill="#5d090c">NHÀ NƯỚC</text>
+    <text x="800" y="210" font-size="52" font-weight="900" fill="#5d090c">VẬN HÀNH BẰNG PHÁP LUẬT</text>
+    <path d="M800 260v120M800 380H390v90M800 380h410v90" fill="none" stroke="#f3bd24" stroke-width="14"/>
+    <rect x="100" y="450" width="580" height="300" rx="18" fill="#f3ede1" stroke="#f3bd24" stroke-width="10"/>
+    <text x="390" y="535" font-size="54" font-weight="900" fill="#9f1115">ĐỐI NỘI</text>
+    <text x="390" y="600" font-size="30" font-weight="700" fill="#2d2925">Quản lý và phát triển đất nước</text>
+    <text x="390" y="660" font-size="25" fill="#2d2925">Kinh tế · giáo dục · khoa học · y tế</text>
+    <text x="390" y="705" font-size="25" fill="#2d2925">Văn hóa · môi trường</text>
+    <rect x="920" y="450" width="580" height="300" rx="18" fill="#9f1115" stroke="#f3bd24" stroke-width="10"/>
+    <text x="1210" y="535" font-size="54" font-weight="900" fill="#f3bd24">ĐỐI NGOẠI</text>
+    <text x="1210" y="600" font-size="30" font-weight="700" fill="#fffaf0">Hội nhập và bảo vệ Tổ quốc</text>
+    <text x="1210" y="660" font-size="25" fill="#fffaf0">Hợp tác · chủ quyền · hòa bình</text>
+    <text x="1210" y="705" font-size="25" fill="#fffaf0">Lợi ích quốc gia - dân tộc</text>
+    <path d="M390 750v85h820v-85" fill="none" stroke="#f3bd24" stroke-width="14"/>
+    <rect x="350" y="820" width="900" height="120" rx="60" fill="#f3bd24"/>
+    <text x="800" y="895" font-size="39" font-weight="900" fill="#5d090c">PHỤC VỤ NHÂN DÂN · PHÁT TRIỂN ĐẤT NƯỚC</text>
+  </g>
+</svg>

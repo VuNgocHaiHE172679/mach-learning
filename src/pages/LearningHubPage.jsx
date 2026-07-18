@@ -68,15 +68,16 @@ export default function LearningHubPage({ navigate }) {
             <p className="eyebrow light">KHO TRI THỨC / BẢN ĐỒ KIẾN THỨC</p>
             <h1>Chọn một mạch.<br />Đi đến tận bản chất.</h1>
             <p>
-              9 học phần được nối thành ba tuyến kiến thức. Mỗi điểm dừng có
-              nội dung, sơ đồ và câu hỏi ngắn riêng để người xem đọc theo đúng mạch.
+              9 chuyên đề được nối thành ba tuyến: bản chất, quyền làm chủ và
+              chức năng của Nhà nước. Mỗi điểm dừng có nội dung, sơ đồ, bài
+              nghe và ba câu tự kiểm tra riêng.
             </p>
           </div>
           <div className="hub-score">
             <div className="library-seal">
               <span>
                 <strong>03</strong>
-                chương cốt lõi
+                tuyến kiến thức
               </span>
             </div>
             <div>
@@ -84,7 +85,7 @@ export default function LearningHubPage({ navigate }) {
                 <BookOpen size={16} /> 9 mô-đun kiến thức
               </span>
               <span>
-                <Sparkles size={16} /> 8 thuật ngữ trọng tâm
+                <Sparkles size={16} /> 13 thuật ngữ trọng tâm
               </span>
             </div>
           </div>
@@ -96,6 +97,7 @@ export default function LearningHubPage({ navigate }) {
           <label className="search-field">
             <Search size={18} />
             <input
+              id="knowledge-search"
               type="search"
               placeholder="Tìm khái niệm hoặc bài học..."
               aria-label="Tìm bài học"
@@ -133,23 +135,25 @@ export default function LearningHubPage({ navigate }) {
         {filtersOpen && (
           <div className="hub-filter-panel" id="hub-filter-panel">
             <fieldset>
-              <legend>Lọc theo chương</legend>
+              <legend>Lọc theo tuyến</legend>
               <div>
                 <button
                   type="button"
                   className={chapterFilter === "all" ? "active" : ""}
+                  aria-pressed={chapterFilter === "all"}
                   onClick={() => setChapterFilter("all")}
                 >
-                  Tất cả chương
+                  Tất cả tuyến
                 </button>
                 {chapters.map((chapter) => (
                   <button
                     type="button"
                     className={chapterFilter === chapter.id ? "active" : ""}
                     key={chapter.id}
+                    aria-pressed={chapterFilter === chapter.id}
                     onClick={() => setChapterFilter(chapter.id)}
                   >
-                    Chương {Number(chapter.number)}
+                    Tuyến {Number(chapter.number)}
                   </button>
                 ))}
               </div>
@@ -162,6 +166,7 @@ export default function LearningHubPage({ navigate }) {
                     type="button"
                     className={durationFilter === filter.id ? "active" : ""}
                     key={filter.id}
+                    aria-pressed={durationFilter === filter.id}
                     onClick={() => setDurationFilter(filter.id)}
                   >
                     {filter.label}
@@ -214,14 +219,21 @@ export default function LearningHubPage({ navigate }) {
                   <p>
                     {chapter.kicker ??
                       chapter.shortTitle ??
-                      ["NGUỒN GỐC", "CHỦ THỂ", "CHUYỂN TIẾP"][chapterIndex]}
+                      ["BẢN CHẤT", "DÂN CHỦ", "CHỨC NĂNG"][chapterIndex]}
                   </p>
                   <h2>{chapter.title}</h2>
                 </div>
                 <span className="track-status">
                   TR. {chapter.sourcePages}
                 </span>
-                <figure className="track-illustration">
+                <figure
+                  className={`track-illustration${
+                    (chapterHistoryFeatures[chapter.id]?.image ?? chapter.illustration.src)
+                      .endsWith(".svg")
+                      ? " is-diagram"
+                      : ""
+                  }`}
+                >
                   <img
                     src={
                       chapterHistoryFeatures[chapter.id]?.image ??
@@ -305,6 +317,57 @@ export default function LearningHubPage({ navigate }) {
           })}
         </div>
 
+        {!hasActiveFilters && (
+          <section className="state-mindmap" aria-labelledby="state-mindmap-title">
+            <header>
+              <div>
+                <p className="eyebrow">SƠ ĐỒ TƯ DUY TỔNG QUAN</p>
+                <h2 id="state-mindmap-title">Một trung tâm, ba tuyến, chín chuyên đề</h2>
+              </div>
+              <p>
+                Chọn một nhánh để đi thẳng tới bài học. Các đường nối thể hiện
+                cấu trúc biên tập của website, không phải sơ đồ nguyên bản trong PDF.
+              </p>
+            </header>
+            <div className="state-mindmap-canvas">
+              <div className="state-mindmap-core">
+                <Network size={28} />
+                <span>TRUNG TÂM</span>
+                <strong>NHÀ NƯỚC XHCN<br />VIỆT NAM</strong>
+              </div>
+              <div className="state-mindmap-branches">
+                {chapters.map((chapter, chapterIndex) => (
+                  <article
+                    className={`state-mindmap-branch branch-${chapterIndex + 1}`}
+                    key={`mindmap-${chapter.id}`}
+                  >
+                    <div className="state-mindmap-branch-head">
+                      <span>{chapter.number}</span>
+                      <div>
+                        <small>TUYẾN KIẾN THỨC</small>
+                        <h3>{chapter.shortTitle}</h3>
+                      </div>
+                    </div>
+                    <div className="state-mindmap-lessons">
+                      {chapter.modules.map((module) => (
+                        <button
+                          type="button"
+                          key={`mindmap-${module.id}`}
+                          onClick={() => navigate("lesson", module.id)}
+                        >
+                          <span>{module.number}</span>
+                          <strong>{module.title}</strong>
+                          <ChevronRight size={16} />
+                        </button>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {resultCount === 0 && (
           <div className="hub-empty-state">
             <Search size={28} />
@@ -329,26 +392,33 @@ export default function LearningHubPage({ navigate }) {
                 Mở bản đồ khái niệm để nhìn toàn bộ quan hệ trước khi chọn một
                 tuyến học.
               </p>
-              <button type="button" className="text-link">
-                Khám phá 42 khái niệm <ArrowRight size={16} />
+              <button
+                type="button"
+                className="text-link"
+                onClick={() => navigate("lesson", chapters[0].modules[0].id)}
+              >
+                Khám phá 13 khái niệm <ArrowRight size={16} />
               </button>
             </div>
             <div className="mini-map" aria-hidden="true">
               <i className="map-line line-1" />
               <i className="map-line line-2" />
               <i className="map-line line-3" />
-              <span className="map-dot dot-1">GC</span>
-              <span className="map-dot dot-2">SM</span>
-              <span className="map-dot dot-3">QĐ</span>
-              <span className="map-dot dot-4">KT</span>
+              <span className="map-dot dot-1">BC</span>
+              <span className="map-dot dot-2">DC</span>
+              <span className="map-dot dot-3">NN</span>
+              <span className="map-dot dot-4">MT</span>
             </div>
           </article>
           <article className="study-tip">
             <Sparkles size={20} />
             <div>
               <p className="eyebrow light">GỢI Ý ĐỌC</p>
-              <h3>Bắt đầu từ hoàn cảnh lịch sử để hiểu vì sao lý luận ra đời.</h3>
-              <button type="button" onClick={() => navigate("lesson")}>
+              <h3>Bắt đầu từ thông điệp “của Nhân dân, do Nhân dân, vì Nhân dân”.</h3>
+              <button
+                type="button"
+                onClick={() => navigate("lesson", chapters[0].modules[0].id)}
+              >
                 Mở chuyên đề <ArrowRight size={16} />
               </button>
             </div>

@@ -30,7 +30,7 @@ export function getQuizAssessment(score, total) {
     return {
       percentage,
       label: "Nắm chắc mạch kiến thức",
-      message: "Bạn đã nhận diện tốt các khái niệm và quan hệ chính của chương.",
+      message: "Bạn đã nhận diện tốt các khái niệm và quan hệ chính của tuyến kiến thức.",
     };
   }
   if (percentage >= 60) {

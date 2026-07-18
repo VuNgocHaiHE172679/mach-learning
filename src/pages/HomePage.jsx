@@ -13,6 +13,7 @@ import { chapters, podcasts } from "../data/learningContent";
 import { lessonAudioScripts } from "../data/lessonAudioScripts";
 import { chapterHistoryFeatures } from "../data/lessonCoreContent";
 
+const FEATURED_MODULE = chapters[1].modules[2];
 const FEATURED_AUDIO_SCRIPT = lessonAudioScripts["chapter-1-module-1"];
 const FEATURED_HOME_AUDIO = {
   ...podcasts[0],
@@ -21,45 +22,37 @@ const FEATURED_HOME_AUDIO = {
   wordCount: FEATURED_AUDIO_SCRIPT?.wordCount,
 };
 
-export default function HomePage({
-  navigate,
-  openTerm,
-  playAudio,
-}) {
-  const nextAudio = FEATURED_HOME_AUDIO;
-
+export default function HomePage({ navigate, openTerm, playAudio }) {
   return (
     <div className="page home-page">
       <section className="hero section-shell">
         <div className="hero-copy">
           <div className="status-pill">
             <span className="status-dot" />
-            KHÔNG GIAN TRIẾT HỌC SỐ · 03 CHƯƠNG
+            KHÔNG GIAN TRIẾT HỌC SỐ · 03 TUYẾN KIẾN THỨC
           </div>
           <h1>
-            Từ hiện thực
-            <span>đến hệ thống lý luận.</span>
+            Từ quyền làm chủ
+            <span>đến Nhà nước phục vụ.</span>
           </h1>
           <p className="hero-description">
-            Khám phá Chủ nghĩa xã hội khoa học qua bối cảnh lịch sử, những mâu
-            thuẫn hiện thực, hệ thống khái niệm và quy luật vận động.
+            Khám phá Nhà nước xã hội chủ nghĩa Việt Nam qua bản chất, quyền lực
+            của Nhân dân, chức năng đối nội – đối ngoại và mục tiêu phát triển.
           </p>
           <div className="hero-actions">
             <button
               type="button"
               className="button primary large"
-              onClick={() => navigate("lesson")}
+              onClick={() => navigate("lesson", chapters[0].modules[0].id)}
             >
-              Bắt đầu khám phá
-              <ArrowRight size={18} />
+              Bắt đầu khám phá <ArrowRight size={18} />
             </button>
             <button
               type="button"
               className="button ghost large"
               onClick={() => navigate("hub")}
             >
-              <Network size={18} />
-              Xem bản đồ tri thức
+              <Network size={18} /> Xem bản đồ tri thức
             </button>
           </div>
           <div className="hero-proof">
@@ -69,38 +62,38 @@ export default function HomePage({
               <span>03</span>
             </div>
             <p>
-              <strong>24 chuyên đề tương tác</strong>
-              <span>Hiện thực · Khái niệm · Vận động</span>
+              <strong>9 chuyên đề có đối chiếu nguồn</strong>
+              <span>Bản chất · Dân chủ · Chức năng</span>
             </p>
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Bản đồ ba chương">
+        <div className="hero-visual" aria-label="Bản đồ ba tuyến kiến thức">
           <div className="construct-grid" />
-          <div className="visual-label label-top">SƠ ĐỒ BIỆN CHỨNG / 001</div>
+          <div className="visual-label label-top">SƠ ĐỒ QUAN HỆ / 001</div>
           <div className="visual-sun" />
           <div className="visual-axis axis-one" />
           <div className="visual-axis axis-two" />
           <div className="chapter-orbit orbit-one">
             <span>01</span>
-            <strong>THỰC TIỄN</strong>
+            <strong>BẢN CHẤT</strong>
           </div>
           <div className="chapter-orbit orbit-two">
             <span>02</span>
-            <strong>KHÁI NIỆM</strong>
+            <strong>DÂN CHỦ</strong>
           </div>
           <div className="chapter-orbit orbit-three">
             <span>03</span>
-            <strong>CHUYỂN BIẾN</strong>
+            <strong>CHỨC NĂNG</strong>
           </div>
           <div className="visual-core">
-            <small>PHƯƠNG PHÁP</small>
-            <strong>BIỆN</strong>
-            <span>CHỨNG</span>
+            <small>TRUNG TÂM</small>
+            <strong>NHÂN</strong>
+            <span>DÂN</span>
           </div>
           <div className="visual-caption">
             <Sparkles size={16} />
-            <span>Đọc sự vật trong quan hệ, vận động và phát triển</span>
+            <span>Của Nhân dân · Do Nhân dân · Vì Nhân dân</span>
           </div>
         </div>
       </section>
@@ -112,16 +105,18 @@ export default function HomePage({
           </div>
           <div className="resume-copy">
             <span>CHUYÊN ĐỀ NỔI BẬT</span>
-            <strong>1.2 · Ba phát kiến vĩ đại của Mác và Ăngghen</strong>
+            <strong>{FEATURED_MODULE.number} · {FEATURED_MODULE.title}</strong>
           </div>
           <div className="resume-meta">
             <span>THỜI LƯỢNG ĐỌC</span>
-            <strong>16 phút · Trang 21–35</strong>
+            <strong>
+              {FEATURED_MODULE.estimatedMinutes} phút · Trang {FEATURED_MODULE.sourcePages}
+            </strong>
           </div>
           <button
             type="button"
             className="round-arrow"
-            onClick={() => navigate("lesson")}
+            onClick={() => navigate("lesson", FEATURED_MODULE.id)}
             aria-label="Mở chuyên đề nổi bật"
           >
             <ArrowRight size={20} />
@@ -134,20 +129,20 @@ export default function HomePage({
           <div className="thesis-copy">
             <p className="eyebrow">LUẬN ĐỀ TRUNG TÂM</p>
             <h2>
-              Lý luận bắt đầu từ hiện thực và trở lại soi sáng thực tiễn.
+              Quyền lực thuộc về Nhân dân chỉ rõ khi đi vào cơ chế và thiết chế.
             </h2>
             <p>
-              Group 2 tổ chức mỗi bài học như một quá trình tư duy: nhận diện điều
-              kiện, hình thành khái niệm, phát hiện quan hệ và thử vận dụng để
-              giải thích một vấn đề mới.
+              Group 2 tổ chức nội dung theo một mạch thống nhất: nhận diện bản
+              chất, xác định chủ thể quyền lực, phân tích chức năng và đối chiếu
+              mọi hoạt động với mục tiêu phục vụ Nhân dân.
             </p>
           </div>
-          <div className="thesis-flow" aria-label="Bốn bước tư duy triết học">
+          <div className="thesis-flow" aria-label="Bốn lớp của hệ thống kiến thức">
             {[
-              ["01", "HIỆN THỰC"],
-              ["02", "MÂU THUẪN"],
-              ["03", "KHÁI NIỆM"],
-              ["04", "VẬN DỤNG"],
+              ["01", "BẢN CHẤT"],
+              ["02", "QUYỀN LỰC"],
+              ["03", "CHỨC NĂNG"],
+              ["04", "MỤC TIÊU"],
             ].map(([number, label], index) => (
               <div className="thesis-node" key={number}>
                 <span>{number}</span>
@@ -163,11 +158,11 @@ export default function HomePage({
         <div className="section-heading split-heading">
           <div>
             <p className="eyebrow">BA TUYẾN TRI THỨC</p>
-            <h2>Một hệ thống, ba câu hỏi lớn</h2>
+            <h2>Một tài liệu, ba câu hỏi lớn</h2>
           </div>
           <p>
-            Đi theo lộ trình chuẩn hoặc bắt đầu từ câu hỏi khiến bạn tò mò
-            nhất.
+            Đi theo lộ trình từ nền tảng đến mục tiêu hoặc bắt đầu ở câu hỏi
+            khiến bạn quan tâm nhất.
           </p>
         </div>
 
@@ -178,20 +173,19 @@ export default function HomePage({
                 <span className="chapter-number">
                   {String(chapter.number ?? index + 1).padStart(2, "0")}
                 </span>
-                <span className="chapter-pages">
-                  TR. {chapter.pageRange ?? chapter.pages ?? chapter.sourcePages}
-                </span>
+                <span className="chapter-pages">TR. {chapter.sourcePages}</span>
               </div>
-              <figure className="chapter-card-figure">
+              <figure
+                className={`chapter-card-figure${
+                  (chapterHistoryFeatures[chapter.id]?.image ?? chapter.illustration.src)
+                    .endsWith(".svg")
+                    ? " is-diagram"
+                    : ""
+                }`}
+              >
                 <img
-                  src={
-                    chapterHistoryFeatures[chapter.id]?.image ??
-                    chapter.illustration.src
-                  }
-                  alt={
-                    chapterHistoryFeatures[chapter.id]?.alt ??
-                    chapter.illustration.alt
-                  }
+                  src={chapterHistoryFeatures[chapter.id]?.image ?? chapter.illustration.src}
+                  alt={chapterHistoryFeatures[chapter.id]?.alt ?? chapter.illustration.alt}
                   width="1400"
                   height="933"
                   loading="lazy"
@@ -204,37 +198,26 @@ export default function HomePage({
                 />
                 <figcaption>
                   <span>{chapterHistoryFeatures[chapter.id]?.year}</span>
-                  {chapterHistoryFeatures[chapter.id]?.title ??
-                    chapter.illustration.caption}
+                  {chapterHistoryFeatures[chapter.id]?.title ?? chapter.illustration.caption}
                 </figcaption>
               </figure>
               <div className="chapter-line" />
-              <p className="chapter-kicker">
-                {chapter.kicker ??
-                  chapter.shortTitle ??
-                  ["NGUỒN GỐC", "CHỦ THỂ", "CHUYỂN TIẾP"][index]}
-              </p>
+              <p className="chapter-kicker">{chapter.kicker ?? chapter.shortTitle}</p>
               <h3>{chapter.title}</h3>
-              <p>{chapter.summary ?? chapter.description}</p>
+              <p>{chapter.description}</p>
               <div className="chapter-meta">
                 <span>
-                  <Clock3 size={15} />
-                  {chapter.duration ??
-                    `${chapter.estimatedMinutes ?? 45} phút`}
+                  <Clock3 size={15} /> {chapter.estimatedMinutes} phút
                 </span>
                 <span>
-                  <Zap size={15} />
-                  {chapter.modules?.length ?? 3} cụm bài
+                  <Zap size={15} /> {chapter.modules.length} chuyên đề
                 </span>
               </div>
               <button
                 type="button"
-                onClick={() =>
-                  navigate("lesson", chapter.modules?.[0]?.id)
-                }
+                onClick={() => navigate("lesson", chapter.modules[0].id)}
               >
-                Khám phá chương
-                <ArrowRight size={17} />
+                Khám phá tuyến <ArrowRight size={17} />
               </button>
             </article>
           ))}
@@ -244,28 +227,28 @@ export default function HomePage({
       <section className="section-shell daily-grid">
         <article className="concept-card">
           <div className="card-label">
-            <Sparkles size={15} /> KHÁI NIỆM HÔM NAY
+            <Sparkles size={15} /> KHÁI NIỆM TRỌNG TÂM
           </div>
           <div className="concept-content">
-            <p>KHÁI NIỆM / 02.04</p>
-            <h2>Hình thái kinh tế–xã hội</h2>
+            <p>KHÁI NIỆM / 02.01</p>
+            <h2>Quyền lực nhà nước thuộc về Nhân dân</h2>
             <p>
-              Đừng chỉ học thuộc định nghĩa. Hãy nhìn khái niệm như một cấu
-              trúc gồm các thành tố có quan hệ với nhau.
+              Đừng dừng ở nguyên tắc. Hãy nối chủ thể quyền lực với tham gia
+              trực tiếp, cơ chế đại diện và giám sát quyền lực.
             </p>
             <button
               type="button"
               className="text-link"
-              onClick={() => openTerm("Hình thái kinh tế - xã hội")}
+              onClick={() => openTerm("Quyền lực nhà nước thuộc về Nhân dân")}
             >
-              Mở Term Lens <ArrowRight size={16} />
+              Mở giải thích thuật ngữ <ArrowRight size={16} />
             </button>
           </div>
           <div className="concept-radar" aria-hidden="true">
             <span />
             <span />
             <span />
-            <i>HT</i>
+            <i>ND</i>
           </div>
         </article>
 
@@ -273,20 +256,16 @@ export default function HomePage({
           <div className="audio-cover">
             <span className="vertical-word">BÀI NGHE</span>
             <Headphones size={36} />
-            <strong>{nextAudio?.duration ?? "≈ 08 phút"}</strong>
+            <strong>{FEATURED_HOME_AUDIO?.duration ?? "≈ 06 phút"}</strong>
           </div>
           <div className="audio-copy">
-            <p className="eyebrow light">BÀI NGHE CHUYÊN ĐỀ · BẢN ĐẦY ĐỦ</p>
-            <h2>{nextAudio?.title ?? "Từ không tưởng đến khoa học"}</h2>
-            <p>
-              {nextAudio?.summary ??
-                nextAudio?.description ??
-                "Nghe lại mạch chuyển biến của tư tưởng xã hội chủ nghĩa bằng một cuộc đối thoại ngắn."}
-            </p>
+            <p className="eyebrow light">BÀI NGHE CHUYÊN ĐỀ · CÓ ĐỐI CHIẾU</p>
+            <h2>{FEATURED_HOME_AUDIO?.title}</h2>
+            <p>{FEATURED_HOME_AUDIO?.description}</p>
             <button
               type="button"
               className="audio-play"
-              onClick={() => playAudio(nextAudio)}
+              onClick={() => playAudio(FEATURED_HOME_AUDIO)}
             >
               <span>
                 <Play size={17} fill="currentColor" />
@@ -299,29 +278,29 @@ export default function HomePage({
 
       <section className="section-shell game-teaser">
         <div className="teaser-copy">
-          <p className="eyebrow light">THỬ THÁCH TƯ DUY / 03 PHÚT</p>
-          <h2>Bạn có dựng đúng mạch lịch sử?</h2>
+          <p className="eyebrow light">TỰ KIỂM TRA / 05 PHÚT</p>
+          <h2>Bạn có nối đúng bản chất, cơ chế và mục tiêu?</h2>
           <p>
-            Sắp xếp các điều kiện kinh tế–xã hội, phong trào thực tiễn và phát
-            kiến lý luận vào đúng quan hệ.
+            Chọn một tuyến kiến thức, trả lời câu hỏi ngắn và xem giải thích có
+            liên kết về đúng trang tài liệu nguồn.
           </p>
           <button
             type="button"
             className="button mustard"
             onClick={() => navigate("games")}
           >
-            Vào xưởng lịch sử <ArrowRight size={18} />
+            Bắt đầu trả lời <ArrowRight size={18} />
           </button>
         </div>
         <div className="teaser-board" aria-hidden="true">
           <div className="board-node complete">
-            <CheckCircle2 size={18} /> Đại công nghiệp
+            <CheckCircle2 size={18} /> Quyền lực thuộc về Nhân dân
           </div>
           <span className="board-link link-a" />
-          <div className="board-node active">Mâu thuẫn xã hội</div>
+          <div className="board-node active">Dân chủ và Nhà nước</div>
           <span className="board-link link-b" />
-          <div className="board-node">Phong trào công nhân</div>
-          <div className="board-stamp">DỰNG MẠCH LẬP LUẬN</div>
+          <div className="board-node">Mục tiêu phát triển</div>
+          <div className="board-stamp">NỐI MẠCH KIẾN THỨC</div>
         </div>
       </section>
     </div>

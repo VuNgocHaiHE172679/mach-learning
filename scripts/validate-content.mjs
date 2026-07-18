@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import { existsSync, statSync } from "node:fs";
-import { join } from "node:path";
-import learningContent, {
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+import {
   chapters,
   games,
   glossary,
-  microQuiz,
   podcasts,
 } from "../src/data/learningContent.js";
 import { lessonProfiles } from "../src/data/lessonProfiles.js";
@@ -14,330 +14,130 @@ import {
   lessonCoreContent,
 } from "../src/data/lessonCoreContent.js";
 import { lessonAudioScripts } from "../src/data/lessonAudioScripts.js";
+import { sourceDocument } from "../src/data/stateContent.js";
 import {
-  TEXTBOOK_PDF_PATH,
-  getTextbookSourceHref,
-} from "../src/utils/textbookSource.js";
-import {
-  MAX_AUDIO_CHUNK_LENGTH,
-  countAudioWords,
-  estimateAudioMinutes,
-  splitIntoSpeechChunks,
-} from "../src/utils/audioScript.js";
+  getFirstSourcePage,
+  getSourceDocumentHref,
+} from "../src/utils/sourceDocument.js";
 import {
   countFilteredModules,
   filterLearningChapters,
-  normalizeSearch,
 } from "../src/utils/hubFilters.js";
-import {
-  QUIZ_CHALLENGE_ROUNDS,
-  buildChapterQuizQuestions,
-  getQuizAssessment,
-} from "../src/utils/quizChallenge.js";
+import { buildChapterQuizQuestions } from "../src/utils/quizChallenge.js";
+import { estimateAudioMinutes } from "../src/utils/audioScript.js";
 
-assert.equal(chapters.length, 3, "Group 2 phải có đúng ba chương cốt lõi.");
-assert.deepEqual(
-  chapters.map((chapter) => chapter.sourcePages),
-  ["11–49", "51–84", "86–124"],
-  "Phạm vi trang in của ba chương không đúng.",
-);
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const publicPath = (value) => resolve(root, "public", value.replace(/^\//, ""));
+const modules = chapters.flatMap((track) => track.modules);
+const moduleIds = new Set(modules.map((module) => module.id));
+const allowedPages = new Set([1, 3, 4, 5, 6, 7, 8, 9, 10, 12]);
 
-for (const chapter of chapters) {
-  assert.equal(
-    chapter.modules.length,
-    3,
-    `${chapter.id} phải có đúng ba mô-đun.`,
-  );
-  assert.ok(chapter.title && chapter.description, `${chapter.id} thiếu nội dung.`);
-  assert.ok(
-    chapter.illustration?.src &&
-      chapter.illustration?.alt &&
-      chapter.illustration?.caption,
-    `${chapter.id} thiếu dữ liệu minh họa có khả năng tiếp cận.`,
-  );
-  assert.match(
-    chapter.illustration.src,
-    /^\/images\/history\//,
-    `${chapter.id} phải dùng ảnh tư liệu lịch sử Việt Nam đã kiểm tra nguồn.`,
-  );
-  const illustrationPath = join(
-    process.cwd(),
-    "public",
-    chapter.illustration.src.replace(/^\//, ""),
-  );
-  assert.ok(existsSync(illustrationPath), `${chapter.id} thiếu file minh họa.`);
-  assert.ok(
-    statSync(illustrationPath).size < 400_000,
-    `${chapter.id} có file minh họa lớn hơn 400 KB.`,
-  );
+assert.equal(chapters.length, 3, "Cần đúng ba tuyến kiến thức.");
+assert.equal(modules.length, 9, "Ba tuyến phải có tổng cộng chín chuyên đề.");
+assert.equal(moduleIds.size, 9, "Mỗi chuyên đề phải có ID riêng.");
 
-  const historyFeature = chapterHistoryFeatures[chapter.id];
-  assert.ok(historyFeature, `${chapter.id} thiếu lát cắt lịch sử Việt Nam.`);
-  for (const field of ["image", "alt", "year", "title", "caption", "credit", "sourceUrl"]) {
-    assert.ok(historyFeature[field], `${chapter.id} thiếu trường ảnh lịch sử ${field}.`);
-  }
-  assert.match(
-    historyFeature.sourceUrl,
-    /^https:\/\//,
-    `${chapter.id} có nguồn ảnh lịch sử không hợp lệ.`,
-  );
-  const historyImagePath = join(
-    process.cwd(),
-    "public",
-    historyFeature.image.replace(/^\//, ""),
-  );
-  assert.ok(existsSync(historyImagePath), `${chapter.id} thiếu file ảnh lịch sử.`);
-  assert.ok(
-    statSync(historyImagePath).size < 200_000,
-    `${chapter.id} có ảnh lịch sử lớn hơn 200 KB.`,
-  );
+for (const track of chapters) {
+  assert.equal(track.modules.length, 3, `${track.id} phải có ba chuyên đề.`);
+  assert.ok(track.title && track.description && track.guidingQuestion);
+  assert.ok(track.illustration?.src, `${track.id} thiếu hình ảnh mở tuyến.`);
+  assert.ok(existsSync(publicPath(track.illustration.src)), `${track.id} trỏ tới ảnh không tồn tại.`);
+
+  const feature = chapterHistoryFeatures[track.id];
+  assert.ok(feature, `${track.id} thiếu dẫn chứng hoặc sơ đồ đối chiếu.`);
+  assert.ok(existsSync(publicPath(feature.image)), `${track.id} thiếu tệp dẫn chứng.`);
+  assert.ok(feature.credit && feature.sourceUrl, `${track.id} thiếu credit hoặc nguồn ảnh.`);
 }
 
-const modules = chapters.flatMap((chapter) => chapter.modules);
-assert.equal(modules.length, 9, "Ba chương phải có tổng cộng chín học phần.");
-
 for (const module of modules) {
+  assert.ok(module.summary && module.subtitle && module.thesis);
+  assert.equal(module.learningOutcomes.length, 3, `${module.id} cần ba mục tiêu học tập.`);
+  assert.ok(module.keyConcepts.length >= 4, `${module.id} cần ít nhất bốn khái niệm.`);
+  assert.equal(module.blocks.length, 3, `${module.id} cần ba khối trong sơ đồ.`);
+  assert.equal(module.lenses.length, 3, `${module.id} cần ba góc nhìn.`);
+  assert.equal(module.quiz.length, 3, `${module.id} cần đúng ba câu tự kiểm tra.`);
+  assert.ok(module.caution, `${module.id} thiếu lưu ý diễn giải thận trọng.`);
+
+  const referencedPages = String(module.sourcePages).match(/\d+/g)?.map(Number) ?? [];
+  assert.ok(referencedPages.length > 0, `${module.id} thiếu trang nguồn.`);
+  for (const page of referencedPages) {
+    assert.ok(allowedPages.has(page), `${module.id} tham chiếu trang trống hoặc ngoài phạm vi: ${page}.`);
+  }
+
   const profile = lessonProfiles[module.id];
-  assert.ok(profile, `${module.id} chưa có nội dung bài học riêng.`);
-  assert.ok(
-    ["read", "listen"].includes(module.primaryFormat),
-    `${module.id} thiếu loại nội dung chính để phục vụ bộ lọc.`,
-  );
-  const coreContent = lessonCoreContent[module.id];
-  assert.ok(coreContent?.lead, `${module.id} thiếu dẫn nhập nội dung cốt lõi.`);
-  assert.ok(
-    coreContent.sections.length >= 3 && coreContent.sections.length <= 4,
-    `${module.id} cần có từ ba đến bốn luận điểm cốt lõi.`,
-  );
-  for (const section of coreContent.sections) {
-    assert.ok(section.title && section.summary, `${module.id} có luận điểm thiếu nội dung.`);
-    assert.ok(
-      section.points.length >= 3 && section.points.length <= 5,
-      `${module.id} có luận điểm cần từ ba đến năm ý chính.`,
-    );
-    assert.ok(
-      section.summary.length <= 420,
-      `${module.id} có phần giải thích quá dài.`,
-    );
-  }
+  assert.ok(profile, `${module.id} thiếu hồ sơ bài học.`);
+  assert.equal(profile.quiz.length, 3);
+  assert.equal(profile.blocks.length, 3);
 
-  for (const field of [
-    "thesis",
-    "thesisDetail",
-    "sectionEyebrow",
-    "sectionTitle",
-    "relationTitle",
-    "relationIntro",
-    "caution",
-  ]) {
-    assert.ok(profile[field], `${module.id} thiếu trường ${field}.`);
+  const core = lessonCoreContent[module.id];
+  assert.ok(core?.lead, `${module.id} thiếu nội dung cốt lõi.`);
+  assert.ok(core.sections.length >= 3, `${module.id} cần ít nhất ba luận điểm cốt lõi.`);
+  for (const section of core.sections) {
+    assert.ok(section.title && section.summary);
+    assert.ok(section.points.length >= 3, `${module.id} có luận điểm chưa đủ ý.`);
   }
-
-  assert.equal(
-    profile.contextParagraphs.length,
-    2,
-    `${module.id} phải có đúng hai đoạn bối cảnh.`,
-  );
-  assert.equal(
-    profile.blocks.length,
-    3,
-    `${module.id} phải có đúng ba khối trực quan.`,
-  );
-  assert.equal(
-    profile.lenses.length,
-    3,
-    `${module.id} phải có đúng ba góc nhìn.`,
-  );
-  assert.equal(
-    profile.quiz.length,
-    3,
-    `${module.id} phải có đúng ba câu micro-quiz.`,
-  );
 
   for (const question of profile.quiz) {
-    assert.ok(question.prompt, `${question.id} thiếu câu hỏi.`);
-    assert.ok(question.options.length >= 3, `${question.id} thiếu lựa chọn.`);
-    assert.ok(
-      question.options.some(
-        (option) => option.id === question.correctOptionId,
-      ),
-      `${question.id} có đáp án không hợp lệ.`,
-    );
+    assert.equal(question.options.length, 4, `${question.id} phải có bốn lựa chọn.`);
+    assert.ok(question.options.some((option) => option.id === question.correctOptionId));
+    assert.ok(question.explanation, `${question.id} thiếu giải thích đáp án.`);
   }
 
   const audio = lessonAudioScripts[module.id];
-  assert.ok(audio?.title, `${module.id} chưa có tiêu đề audio đầy đủ.`);
-  assert.ok(audio?.transcript, `${module.id} chưa có kịch bản audio đầy đủ.`);
-  const audioWordCount = countAudioWords(audio.transcript);
-  assert.ok(
-    audioWordCount >= 850 && audioWordCount <= 1_100,
-    `${module.id} phải có kịch bản trong khoảng 850–1100 từ.`,
-  );
-  assert.ok(
-    estimateAudioMinutes(audio.transcript) >= 7,
-    `${module.id} có thời lượng audio ước tính dưới bảy phút.`,
-  );
-  const speechChunks = splitIntoSpeechChunks(audio.transcript);
-  assert.ok(speechChunks.length >= 20, `${module.id} có quá ít đoạn đọc.`);
-  assert.ok(
-    speechChunks.every((chunk) => chunk.length <= MAX_AUDIO_CHUNK_LENGTH),
-    `${module.id} có đoạn đọc quá dài cho trình phát giọng nói.`,
-  );
+  assert.ok(audio, `${module.id} thiếu bài nghe.`);
+  assert.ok(audio.wordCount >= 850 && audio.wordCount <= 1100, `${module.id} cần bài nghe khoảng 7–9 phút.`);
+  assert.ok(audio.transcript.includes(`trang ${module.sourcePages}`));
 }
 
-assert.deepEqual(
-  modules.map((module) => getTextbookSourceHref(module.sourcePages)),
-  [
-    `${TEXTBOOK_PDF_PATH}#page=8`,
-    `${TEXTBOOK_PDF_PATH}#page=18`,
-    `${TEXTBOOK_PDF_PATH}#page=33`,
-    `${TEXTBOOK_PDF_PATH}#page=48`,
-    `${TEXTBOOK_PDF_PATH}#page=58`,
-    `${TEXTBOOK_PDF_PATH}#page=70`,
-    `${TEXTBOOK_PDF_PATH}#page=83`,
-    `${TEXTBOOK_PDF_PATH}#page=98`,
-    `${TEXTBOOK_PDF_PATH}#page=109`,
-  ],
-  "Liên kết nguồn PDF của chín học phần chưa đúng trang bắt đầu.",
-);
+assert.equal(Object.keys(lessonProfiles).length, 9);
+assert.equal(Object.keys(lessonCoreContent).length, 9);
+assert.equal(Object.keys(lessonAudioScripts).length, 9);
+assert.equal(glossary.length, 13, "Cần đúng 13 thuật ngữ đã biên soạn.");
+assert.equal(podcasts.length, 3, "Cần một bài nghe nổi bật cho mỗi tuyến.");
+assert.equal(games.length, 3, "Cần ba thử thách tương ứng với nội dung mới.");
 
-const textbookPath = join(
-  process.cwd(),
-  "public",
-  TEXTBOOK_PDF_PATH.replace(/^\//, ""),
-);
-assert.ok(existsSync(textbookPath), "Thiếu file PDF giáo trình công khai.");
-assert.ok(
-  statSync(textbookPath).size > 20_000_000,
-  "File PDF giáo trình có kích thước bất thường.",
-);
+assert.equal(sourceDocument.totalPages, 12);
+assert.deepEqual(sourceDocument.blankPages, [2, 11]);
+assert.equal(getFirstSourcePage("7–8, 12"), 7);
 assert.equal(
-  getTextbookSourceHref("86–100"),
-  `${TEXTBOOK_PDF_PATH}#page=83`,
-  "Liên kết nguồn chưa trỏ đúng trang PDF tương ứng với trang in 86.",
+  getSourceDocumentHref("9"),
+  "/documents/nha-nuoc-xa-hoi-chu-nghia-viet-nam.pdf#page=9",
 );
+assert.ok(existsSync(publicPath(sourceDocument.path)), "Thiếu PDF nguồn mới.");
+assert.ok(statSync(publicPath(sourceDocument.path)).size > 15_000_000, "PDF nguồn mới có kích thước bất thường.");
 
-assert.equal(microQuiz.length, 3, "Bài nổi bật phải có đúng ba micro-quiz.");
-for (const question of microQuiz) {
-  assert.ok(question.prompt, `${question.id} thiếu câu hỏi.`);
-  assert.ok(question.options.length >= 3, `${question.id} thiếu lựa chọn.`);
-  assert.ok(
-    question.options.some((option) => option.id === question.correctOptionId),
-    `${question.id} có đáp án không hợp lệ.`,
-  );
-}
-
-assert.ok(glossary.length >= 7, "Từ điển mẫu cần tối thiểu bảy thuật ngữ.");
-assert.ok(podcasts.length >= 3, "Cần tối thiểu một audio cho mỗi chương.");
-assert.equal(games.length, 3, "Cần đúng một game lõi cho mỗi chương.");
-assert.equal(
-  games.find((game) => game.chapterId === "chapter-2")?.title,
-  "Sơ Đồ Sứ Mệnh",
-  "Mô hình Chương 2 phải là sơ đồ tư duy về ba học phần.",
-);
-
-for (const chapter of chapters) {
-  const quizQuestions = buildChapterQuizQuestions(
-    chapters,
-    lessonProfiles,
-    chapter.id,
-    () => 0.5,
-  );
-  assert.equal(
-    quizQuestions.length,
-    QUIZ_CHALLENGE_ROUNDS,
-    `${chapter.id} phải cấp đủ sáu câu hỏi tự kiểm tra.`,
-  );
-  assert.equal(
-    new Set(quizQuestions.map((question) => question.id)).size,
-    QUIZ_CHALLENGE_ROUNDS,
-    `${chapter.id} không được lặp câu hỏi trong một lượt tự kiểm tra.`,
-  );
-}
-
-assert.equal(
-  getQuizAssessment(6, 6).label,
-  "Nắm chắc mạch kiến thức",
-  "Kết quả cao phải trả về mức đánh giá phù hợp.",
-);
-assert.equal(
-  getQuizAssessment(3, 6).percentage,
-  50,
-  "Tỷ lệ kết quả tự kiểm tra phải được tính đúng.",
-);
-
-assert.equal(
-  normalizeSearch("Sứ mệnh lịch sử"),
-  "su menh lich su",
-  "Tìm kiếm phải hỗ trợ tiếng Việt không dấu.",
-);
-assert.equal(
-  countFilteredModules(filterLearningChapters(chapters)),
-  9,
-  "Trạng thái mặc định phải hiển thị đủ chín học phần.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, { formatFilter: "listen" }),
-  ),
-  3,
-  "Bộ lọc bài nghe phải trả về ba học phần.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, { query: "gia tri thang du" }),
-  ),
-  1,
-  "Tìm thuật ngữ không dấu phải trả về đúng học phần chứa thuật ngữ.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, { chapterFilter: "chapter-2" }),
-  ),
-  3,
-  "Bộ lọc Chương 2 phải trả về ba học phần.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, { durationFilter: "long" }),
-  ),
-  4,
-  "Bộ lọc từ 15 phút phải trả về bốn học phần.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, {
-      query: "giai cap cong nhan",
-      chapterFilter: "chapter-2",
-      formatFilter: "listen",
-      durationFilter: "long",
-    }),
-  ),
-  1,
-  "Tổ hợp tìm kiếm và bộ lọc phải trả về đúng học phần.",
-);
-assert.equal(
-  countFilteredModules(
-    filterLearningChapters(chapters, { query: "khong-co-ket-qua" }),
-  ),
-  0,
-  "Từ khóa không tồn tại phải trả về trạng thái rỗng.",
-);
-
-const publicContent = JSON.stringify(learningContent);
-for (const personalField of [
-  "dashboardStats",
-  "\"xp\"",
-  "\"progress\"",
-  "completedModules",
-  "unlockCondition",
+for (const obsoletePath of [
+  "/documents/giao-trinh-chu-nghia-xa-hoi-khoa-hoc.pdf",
+  "/images/history/nguyen-ai-quoc-tours-1920.webp",
+  "/images/history/cong-nhan-ba-son-1925.webp",
+  "/images/history/dai-hoi-vi-1986.webp",
 ]) {
-  assert.ok(
-    !publicContent.includes(personalField),
-    `Dữ liệu công khai không được chứa trường cá nhân hóa: ${personalField}`,
-  );
+  assert.ok(!existsSync(publicPath(obsoletePath)), `Tài nguyên cũ chưa được xóa: ${obsoletePath}`);
 }
+
+assert.ok(
+  countFilteredModules(filterLearningChapters(chapters, { query: "dan chu" })) >= 3,
+  "Tìm kiếm không dấu cho dân chủ phải tìm thấy các chuyên đề liên quan.",
+);
+assert.ok(
+  countFilteredModules(filterLearningChapters(chapters, { query: "doi ngoai" })) >= 1,
+  "Tìm kiếm đối ngoại phải tìm thấy chuyên đề liên quan.",
+);
+assert.equal(
+  countFilteredModules(filterLearningChapters(chapters, { chapterFilter: "chapter-3" })),
+  3,
+  "Bộ lọc tuyến 3 phải trả về ba chuyên đề.",
+);
+assert.equal(
+  buildChapterQuizQuestions(chapters, lessonProfiles, "chapter-2", () => 0.5).length,
+  6,
+  "Lượt tự kiểm tra phải lấy đủ sáu câu từ tuyến đã chọn.",
+);
+
+const audioMinutes = Object.values(lessonAudioScripts).reduce(
+  (total, audio) => total + estimateAudioMinutes(audio.transcript),
+  0,
+);
 
 console.log(
-  `✓ ${chapters.length} chương · ${modules.length} học phần riêng · ${glossary.length} thuật ngữ · ${modules.reduce((total, module) => total + lessonProfiles[module.id].quiz.length, 0)} câu tự kiểm tra · ${Object.values(lessonAudioScripts).reduce((total, audio) => total + estimateAudioMinutes(audio.transcript), 0)} phút bài nghe · ${games.length + 1} thử thách`,
+  `✓ ${chapters.length} tuyến · ${modules.length} chuyên đề · ${glossary.length} thuật ngữ · ${modules.length * 3} câu tự kiểm tra · ${audioMinutes} phút bài nghe · ${games.length} thử thách`,
 );

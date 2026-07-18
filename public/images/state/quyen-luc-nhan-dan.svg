@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Sơ đồ quyền lực của Nhân dân</title>
+  <desc id="desc">Nhân dân ở trung tâm, kết nối với dân chủ trực tiếp, dân chủ đại diện, góp ý chính sách và giám sát quyền lực.</desc>
+  <rect width="1600" height="1000" fill="#f3ede1"/>
+  <path d="M0 0h520L0 520z" fill="#9f1115"/>
+  <path d="M1600 1000h-560l560-560z" fill="#0d2e46"/>
+  <g fill="none" stroke="#9f1115" stroke-width="10" stroke-linecap="round">
+    <path d="M800 500 430 280"/>
+    <path d="M800 500 1170 280"/>
+    <path d="M800 500 430 730"/>
+    <path d="M800 500 1170 730"/>
+  </g>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <circle cx="800" cy="500" r="180" fill="#f3bd24" stroke="#9f1115" stroke-width="16"/>
+    <text x="800" y="470" font-size="38" font-weight="700" fill="#5d090c">TRUNG TÂM</text>
+    <text x="800" y="535" font-size="64" font-weight="900" fill="#5d090c">NHÂN DÂN</text>
+    <g font-size="38" font-weight="800">
+      <rect x="175" y="150" width="510" height="180" rx="14" fill="#fffaf0" stroke="#9f1115" stroke-width="8"/>
+      <text x="430" y="225" fill="#9f1115">DÂN CHỦ TRỰC TIẾP</text>
+      <text x="430" y="278" font-size="27" font-weight="500" fill="#2d2925">Tham gia và biểu đạt ý chí</text>
+      <rect x="915" y="150" width="510" height="180" rx="14" fill="#0d2e46" stroke="#f3bd24" stroke-width="8"/>
+      <text x="1170" y="225" fill="#f3bd24">DÂN CHỦ ĐẠI DIỆN</text>
+      <text x="1170" y="278" font-size="27" font-weight="500" fill="#fffaf0">Quốc hội và Hội đồng nhân dân</text>
+      <rect x="175" y="670" width="510" height="180" rx="14" fill="#0d2e46" stroke="#f3bd24" stroke-width="8"/>
+      <text x="430" y="745" fill="#f3bd24">GÓP Ý CHÍNH SÁCH</text>
+      <text x="430" y="798" font-size="27" font-weight="500" fill="#fffaf0">Đóng góp vào quyết định chung</text>
+      <rect x="915" y="670" width="510" height="180" rx="14" fill="#fffaf0" stroke="#9f1115" stroke-width="8"/>
+      <text x="1170" y="745" fill="#9f1115">GIÁM SÁT QUYỀN LỰC</text>
+      <text x="1170" y="798" font-size="27" font-weight="500" fill="#2d2925">Theo dõi việc thực thi quyền lực</text>
+    </g>
+  </g>
+</svg>

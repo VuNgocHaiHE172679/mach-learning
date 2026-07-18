@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ExternalLink,
   Network,
@@ -6,28 +6,55 @@ import {
   X,
 } from "lucide-react";
 import {
-  getFirstPrintedPage,
-  getTextbookSourceHref,
-} from "../utils/textbookSource";
+  getFirstSourcePage,
+  getSourceDocumentHref,
+} from "../utils/sourceDocument";
 
 export default function TermDrawer({
   term,
   onClose,
 }) {
   const closeButtonRef = useRef(null);
+  const drawerRef = useRef(null);
+  const previousFocusRef = useRef(null);
+  const [selectedPrompt, setSelectedPrompt] = useState(null);
+
+  useEffect(() => {
+    setSelectedPrompt(null);
+  }, [term]);
 
   useEffect(() => {
     if (!term) return undefined;
     const previousOverflow = document.body.style.overflow;
+    previousFocusRef.current = document.activeElement;
     document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusable = drawerRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      previousFocusRef.current?.focus?.();
     };
   }, [onClose, term]);
 
@@ -42,10 +69,12 @@ export default function TermDrawer({
   const source =
     term.source ??
     term.sourcePage ??
-    (term.sourcePages ? `Giáo trình, tr. ${term.sourcePages}` : "Giáo trình, bản in");
+    (term.sourcePages
+      ? `Nhà nước xã hội chủ nghĩa Việt Nam, tr. ${term.sourcePages}`
+      : "Tài liệu Nhà nước xã hội chủ nghĩa Việt Nam");
   const sourceLocator = term.sourcePages ?? term.sourcePage ?? term.source;
-  const sourceHref = getTextbookSourceHref(sourceLocator);
-  const hasVerifiedSourcePage = Boolean(getFirstPrintedPage(sourceLocator));
+  const sourceHref = getSourceDocumentHref(sourceLocator);
+  const hasVerifiedSourcePage = Boolean(getFirstSourcePage(sourceLocator));
   const sourceContent = (
     <>
       <span className="source-icon" aria-hidden="true">
@@ -56,7 +85,7 @@ export default function TermDrawer({
         <strong>{source}</strong>
         {hasVerifiedSourcePage && (
           <span className="source-file-meta">
-            PDF · 29,6 MB · mở tại trang trích dẫn
+            PDF · mở tại trang trích dẫn
           </span>
         )}
       </div>
@@ -65,6 +94,29 @@ export default function TermDrawer({
       )}
     </>
   );
+  const promptOptions = [
+    {
+      id: "example",
+      label: "Cho tôi một ví dụ dễ hình dung",
+      response:
+        context ?? `Có thể bắt đầu từ cách hiểu ngắn gọn này: ${definition}`,
+    },
+    {
+      id: "compare",
+      label: "So sánh với khái niệm gần nhất",
+      response: related.length
+        ? `${name} cần được phân biệt nhưng đồng thời đặt trong quan hệ với ${related.join(", ")}.`
+        : `${name} nên được so sánh theo phạm vi, chủ thể và mục tiêu được nêu trong tài liệu nguồn.`,
+    },
+    {
+      id: "map",
+      label: "Vẽ thành sơ đồ quan hệ",
+      response: related.length
+        ? `${name} là nút trung tâm; các nút liên quan gồm: ${related.join(" · ")}.`
+        : `${name} → nội dung cốt lõi → ngữ cảnh vận dụng → trang tài liệu đối chiếu.`,
+    },
+  ];
+  const activePrompt = promptOptions.find((item) => item.id === selectedPrompt);
 
   return (
     <div className="drawer-layer" role="presentation">
@@ -75,6 +127,7 @@ export default function TermDrawer({
         onClick={onClose}
       />
       <aside
+        ref={drawerRef}
         className="term-drawer"
         role="dialog"
         aria-modal="true"
@@ -114,7 +167,7 @@ export default function TermDrawer({
               href={sourceHref}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Mở ${source} trong giáo trình PDF ở thẻ mới`}
+              aria-label={`Mở ${source} trong tài liệu PDF ở thẻ mới`}
             >
               {sourceContent}
             </a>
@@ -139,9 +192,22 @@ export default function TermDrawer({
 
           <section className="drawer-section prompt-section">
             <h3>Thử một cách giải thích khác</h3>
-            <button type="button">Cho tôi một ví dụ dễ hình dung</button>
-            <button type="button">So sánh với khái niệm gần nhất</button>
-            <button type="button">Vẽ thành sơ đồ quan hệ</button>
+            {promptOptions.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className={selectedPrompt === item.id ? "active" : ""}
+                aria-pressed={selectedPrompt === item.id}
+                onClick={() => setSelectedPrompt(item.id)}
+              >
+                {item.label}
+              </button>
+            ))}
+            {activePrompt && (
+              <p className="prompt-response" aria-live="polite">
+                {activePrompt.response}
+              </p>
+            )}
           </section>
         </div>
 

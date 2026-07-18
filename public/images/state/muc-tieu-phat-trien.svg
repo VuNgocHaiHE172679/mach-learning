@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Năm mục tiêu phát triển</title>
+  <desc id="desc">Năm mục tiêu: dân giàu, nước mạnh, dân chủ, công bằng và văn minh.</desc>
+  <rect width="1600" height="1000" fill="#f3ede1"/>
+  <path d="M0 0h1600v125H0z" fill="#9f1115"/>
+  <path d="M0 875h1600v125H0z" fill="#0d2e46"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="800" y="80" font-size="42" font-weight="900" fill="#fffaf0">ĐÍCH HƯỚNG TỚI</text>
+    <circle cx="800" cy="500" r="145" fill="#9f1115" stroke="#f3bd24" stroke-width="18"/>
+    <text x="800" y="480" font-size="31" font-weight="700" fill="#f3bd24">PHỤC VỤ</text>
+    <text x="800" y="535" font-size="48" font-weight="900" fill="#fffaf0">NHÂN DÂN</text>
+    <g font-size="37" font-weight="900">
+      <rect x="100" y="220" width="390" height="150" rx="75" fill="#f3bd24"/>
+      <text x="295" y="315" fill="#5d090c">DÂN GIÀU</text>
+      <rect x="1110" y="220" width="390" height="150" rx="75" fill="#0d2e46"/>
+      <text x="1305" y="315" fill="#fffaf0">NƯỚC MẠNH</text>
+      <rect x="75" y="630" width="390" height="150" rx="75" fill="#0d2e46"/>
+      <text x="270" y="725" fill="#fffaf0">DÂN CHỦ</text>
+      <rect x="1135" y="630" width="390" height="150" rx="75" fill="#9f1115"/>
+      <text x="1330" y="725" fill="#fffaf0">VĂN MINH</text>
+      <rect x="605" y="730" width="390" height="150" rx="75" fill="#f3bd24"/>
+      <text x="800" y="825" fill="#5d090c">CÔNG BẰNG</text>
+    </g>
+    <g fill="none" stroke="#9f1115" stroke-width="10">
+      <path d="M690 405 470 340M910 405l220-65M675 580 455 665M925 580l220 85M800 645v85"/>
+    </g>
+    <text x="800" y="952" font-size="30" font-weight="700" fill="#fffaf0">PHÁT HUY QUYỀN LÀM CHỦ · PHÁT TRIỂN BỀN VỮNG</text>
+  </g>
+</svg>
