@@ -1,12 +1,14 @@
 import { useMemo, useState } from "react";
 import {
   ArrowRight,
+  BookOpen,
   BrainCircuit,
   Check,
   CheckCircle2,
   Clock3,
   Flag,
   Gamepad2,
+  Headphones,
   Network,
   Play,
   RotateCcw,
@@ -32,10 +34,14 @@ const SEQUENCE = [
 ];
 
 const SHUFFLED = [SEQUENCE[2], SEQUENCE[0], SEQUENCE[3], SEQUENCE[1]];
+const MISSION_CHAPTER = chapters.find((chapter) => chapter.id === "chapter-2");
 
 export default function GameArenaPage({ navigate }) {
   const [selected, setSelected] = useState([]);
   const [result, setResult] = useState(null);
+  const [activeMindModuleId, setActiveMindModuleId] = useState(
+    MISSION_CHAPTER?.modules[0]?.id,
+  );
   const [raceChapterId, setRaceChapterId] = useState(chapters[0].id);
   const [playerDuckId, setPlayerDuckId] = useState(DUCK_RACERS[0].id);
   const [raceStatus, setRaceStatus] = useState("setup");
@@ -53,6 +59,10 @@ export default function GameArenaPage({ navigate }) {
 
   const raceChapter =
     chapters.find((chapter) => chapter.id === raceChapterId) ?? chapters[0];
+  const activeMindModule =
+    MISSION_CHAPTER?.modules.find(
+      (module) => module.id === activeMindModuleId,
+    ) ?? MISSION_CHAPTER?.modules[0];
   const currentRaceQuestion = raceQuestions[raceQuestionIndex];
   const raceRanking = useMemo(
     () => rankDuckRacers(raceProgress),
@@ -196,7 +206,7 @@ export default function GameArenaPage({ navigate }) {
               <div className="game-card-visual">
                 <span>0{index + 1}</span>
                 <div className="game-glyph" aria-hidden="true">
-                  {index === 0 ? "↗" : index === 1 ? "×" : "⇄"}
+                  {index === 0 ? "↗" : index === 1 ? "✣" : "⇄"}
                 </div>
               </div>
               <div className="game-card-copy">
@@ -216,11 +226,17 @@ export default function GameArenaPage({ navigate }) {
                   type="button"
                   onClick={() =>
                     document
-                      .getElementById("active-challenge")
+                      .getElementById(
+                        game.id === "mission-matrix"
+                          ? "mission-mindmap"
+                          : "active-challenge",
+                      )
                       ?.scrollIntoView({ behavior: "smooth", block: "start" })
                   }
                 >
-                  Khám phá mô hình
+                  {game.id === "mission-matrix"
+                    ? "Mở sơ đồ tư duy"
+                    : "Khám phá mô hình"}
                   <ArrowRight size={17} />
                 </button>
               </div>
@@ -228,6 +244,86 @@ export default function GameArenaPage({ navigate }) {
           ))}
         </div>
       </section>
+
+      {MISSION_CHAPTER && activeMindModule && (
+        <section
+          className="section-shell mission-map-section"
+          id="mission-mindmap"
+        >
+          <header className="mission-map-header">
+            <div>
+              <p className="eyebrow">CHƯƠNG 2 / SƠ ĐỒ TƯ DUY TƯƠNG TÁC</p>
+              <h2>Ba học phần, một mạch sứ mệnh</h2>
+            </div>
+            <p>
+              Bấm vào từng nhánh để xem luận điểm trung tâm, khái niệm then chốt
+              và đi thẳng đến học phần cần đọc sâu.
+            </p>
+          </header>
+
+          <div className="mission-map-canvas">
+            <div className="mission-map-center">
+              <span>CHỦ ĐỀ TRUNG TÂM</span>
+              <Network size={28} aria-hidden="true" />
+              <strong>{MISSION_CHAPTER.title}</strong>
+              <small>Trang {MISSION_CHAPTER.sourcePages}</small>
+            </div>
+
+            <div className="mission-map-branches" aria-label="Ba học phần Chương 2">
+              {MISSION_CHAPTER.modules.map((module, index) => {
+                const isActive = module.id === activeMindModule.id;
+                const FormatIcon =
+                  module.primaryFormat === "listen" ? Headphones : BookOpen;
+
+                return (
+                  <button
+                    type="button"
+                    className={isActive ? "active" : ""}
+                    aria-pressed={isActive}
+                    key={module.id}
+                    onClick={() => setActiveMindModuleId(module.id)}
+                  >
+                    <span className="mission-branch-number">0{index + 1}</span>
+                    <span className="mission-branch-copy">
+                      <small>{module.number} · {module.estimatedMinutes} PHÚT</small>
+                      <strong>{module.title}</strong>
+                      <em>
+                        <FormatIcon size={14} aria-hidden="true" />
+                        {module.keyConcepts.slice(0, 2).join(" · ")}
+                      </em>
+                    </span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <article className="mission-map-detail" aria-live="polite">
+            <div className="mission-map-detail-index">
+              <span>{activeMindModule.number}</span>
+              <small>NHÁNH ĐANG MỞ</small>
+            </div>
+            <div className="mission-map-detail-copy">
+              <p>{activeMindModule.subtitle}</p>
+              <h3>{activeMindModule.title}</h3>
+              <p>{activeMindModule.summary}</p>
+              <div className="mission-map-concepts">
+                {activeMindModule.keyConcepts.map((concept) => (
+                  <span key={concept}>{concept}</span>
+                ))}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate("lesson", activeMindModule.id)}
+            >
+              Vào học phần
+              <ArrowRight size={17} />
+            </button>
+          </article>
+        </section>
+      )}
 
       <section className="section-shell duck-race-section" id="duck-race">
         <header className="duck-race-header">

@@ -228,6 +228,11 @@ for (const question of microQuiz) {
 assert.ok(glossary.length >= 7, "Từ điển mẫu cần tối thiểu bảy thuật ngữ.");
 assert.ok(podcasts.length >= 3, "Cần tối thiểu một audio cho mỗi chương.");
 assert.equal(games.length, 3, "Cần đúng một game lõi cho mỗi chương.");
+assert.equal(
+  games.find((game) => game.chapterId === "chapter-2")?.title,
+  "Sơ Đồ Sứ Mệnh",
+  "Mô hình Chương 2 phải là sơ đồ tư duy về ba học phần.",
+);
 
 for (const chapter of chapters) {
   const raceQuestions = buildDuckRaceQuestions(
