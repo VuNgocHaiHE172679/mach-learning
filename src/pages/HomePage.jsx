@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { chapters, podcasts } from "../data/learningContent";
 import { lessonAudioScripts } from "../data/lessonAudioScripts";
+import { chapterHistoryFeatures } from "../data/lessonCoreContent";
 
 const FEATURED_AUDIO_SCRIPT = lessonAudioScripts["chapter-1-module-1"];
 const FEATURED_HOME_AUDIO = {
@@ -183,15 +184,29 @@ export default function HomePage({
               </div>
               <figure className="chapter-card-figure">
                 <img
-                  src={chapter.illustration.src}
-                  alt={chapter.illustration.alt}
+                  src={
+                    chapterHistoryFeatures[chapter.id]?.image ??
+                    chapter.illustration.src
+                  }
+                  alt={
+                    chapterHistoryFeatures[chapter.id]?.alt ??
+                    chapter.illustration.alt
+                  }
                   width="1400"
                   height="933"
                   loading="lazy"
                   decoding="async"
-                  style={{ objectPosition: chapter.illustration.focalPoint }}
+                  style={{
+                    objectPosition:
+                      chapterHistoryFeatures[chapter.id]?.focalPoint ??
+                      chapter.illustration.focalPoint,
+                  }}
                 />
-                <figcaption>{chapter.illustration.caption}</figcaption>
+                <figcaption>
+                  <span>{chapterHistoryFeatures[chapter.id]?.year}</span>
+                  {chapterHistoryFeatures[chapter.id]?.title ??
+                    chapter.illustration.caption}
+                </figcaption>
               </figure>
               <div className="chapter-line" />
               <p className="chapter-kicker">

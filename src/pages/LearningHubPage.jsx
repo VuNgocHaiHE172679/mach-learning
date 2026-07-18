@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { chapters } from "../data/learningContent";
+import { chapterHistoryFeatures } from "../data/lessonCoreContent";
 
 export default function LearningHubPage({ navigate }) {
   return (
@@ -86,16 +87,29 @@ export default function LearningHubPage({ navigate }) {
                 <span className="track-status">
                   TR. {chapter.sourcePages}
                 </span>
-                <figure className="track-illustration" aria-hidden="true">
+                <figure className="track-illustration">
                   <img
-                    src={chapter.illustration.src}
-                    alt=""
+                    src={
+                      chapterHistoryFeatures[chapter.id]?.image ??
+                      chapter.illustration.src
+                    }
+                    alt={
+                      chapterHistoryFeatures[chapter.id]?.alt ??
+                      chapter.illustration.alt
+                    }
                     width="1400"
                     height="933"
                     loading="lazy"
                     decoding="async"
-                    style={{ objectPosition: chapter.illustration.focalPoint }}
+                    style={{
+                      objectPosition:
+                        chapterHistoryFeatures[chapter.id]?.focalPoint ??
+                        chapter.illustration.focalPoint,
+                    }}
                   />
+                  <figcaption>
+                    {chapterHistoryFeatures[chapter.id]?.year}
+                  </figcaption>
                 </figure>
               </header>
 

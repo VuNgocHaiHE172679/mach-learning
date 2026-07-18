@@ -649,6 +649,18 @@ h3,
   line-height: 1.5;
 }
 
+.chapter-card-figure figcaption span {
+  display: block;
+  width: max-content;
+  margin-bottom: 5px;
+  padding: 3px 6px;
+  color: #5f1200;
+  background: var(--mustard);
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 900;
+}
+
 .chapter-card:hover .chapter-card-figure img {
   filter: saturate(1) contrast(1.04);
   transform: scale(1.035);
@@ -930,6 +942,18 @@ h3,
   height: 100%;
   object-fit: cover;
   filter: saturate(0.78) contrast(1.06);
+}
+
+.track-illustration figcaption {
+  position: absolute;
+  right: 7px;
+  bottom: 6px;
+  padding: 3px 6px;
+  color: #5f1200;
+  background: var(--mustard);
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  font-weight: 900;
 }
 
 .track-header h2 {
