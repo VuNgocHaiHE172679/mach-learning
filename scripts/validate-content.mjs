@@ -24,6 +24,11 @@ import {
   estimateAudioMinutes,
   splitIntoSpeechChunks,
 } from "../src/utils/audioScript.js";
+import {
+  countFilteredModules,
+  filterLearningChapters,
+  normalizeSearch,
+} from "../src/utils/hubFilters.js";
 
 assert.equal(chapters.length, 3, "Group 2 phải có đúng ba chương cốt lõi.");
 assert.deepEqual(
@@ -84,6 +89,10 @@ assert.equal(modules.length, 9, "Ba chương phải có tổng cộng chín họ
 for (const module of modules) {
   const profile = lessonProfiles[module.id];
   assert.ok(profile, `${module.id} chưa có nội dung bài học riêng.`);
+  assert.ok(
+    ["read", "listen"].includes(module.primaryFormat),
+    `${module.id} thiếu loại nội dung chính để phục vụ bộ lọc.`,
+  );
   const coreContent = lessonCoreContent[module.id];
   assert.ok(coreContent?.lead, `${module.id} thiếu dẫn nhập nội dung cốt lõi.`);
   assert.ok(
@@ -211,6 +220,64 @@ for (const question of microQuiz) {
 assert.ok(glossary.length >= 7, "Từ điển mẫu cần tối thiểu bảy thuật ngữ.");
 assert.ok(podcasts.length >= 3, "Cần tối thiểu một audio cho mỗi chương.");
 assert.equal(games.length, 3, "Cần đúng một game lõi cho mỗi chương.");
+
+assert.equal(
+  normalizeSearch("Sứ mệnh lịch sử"),
+  "su menh lich su",
+  "Tìm kiếm phải hỗ trợ tiếng Việt không dấu.",
+);
+assert.equal(
+  countFilteredModules(filterLearningChapters(chapters)),
+  9,
+  "Trạng thái mặc định phải hiển thị đủ chín học phần.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, { formatFilter: "listen" }),
+  ),
+  3,
+  "Bộ lọc bài nghe phải trả về ba học phần.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, { query: "gia tri thang du" }),
+  ),
+  1,
+  "Tìm thuật ngữ không dấu phải trả về đúng học phần chứa thuật ngữ.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, { chapterFilter: "chapter-2" }),
+  ),
+  3,
+  "Bộ lọc Chương 2 phải trả về ba học phần.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, { durationFilter: "long" }),
+  ),
+  4,
+  "Bộ lọc từ 15 phút phải trả về bốn học phần.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, {
+      query: "giai cap cong nhan",
+      chapterFilter: "chapter-2",
+      formatFilter: "listen",
+      durationFilter: "long",
+    }),
+  ),
+  1,
+  "Tổ hợp tìm kiếm và bộ lọc phải trả về đúng học phần.",
+);
+assert.equal(
+  countFilteredModules(
+    filterLearningChapters(chapters, { query: "khong-co-ket-qua" }),
+  ),
+  0,
+  "Từ khóa không tồn tại phải trả về trạng thái rỗng.",
+);
 
 const publicContent = JSON.stringify(learningContent);
 for (const personalField of [

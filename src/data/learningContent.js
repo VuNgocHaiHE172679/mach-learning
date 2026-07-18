@@ -56,6 +56,7 @@ export const chapters = [
           "Tiền đề khoa học tự nhiên",
           "Tiền đề tư tưởng lý luận",
         ],
+        primaryFormat: "read",
         visualType: "causal-chain",
       },
       {
@@ -77,6 +78,7 @@ export const chapters = [
           "Học thuyết giá trị thặng dư",
           "Học thuyết về sứ mệnh lịch sử của giai cấp công nhân",
         ],
+        primaryFormat: "listen",
         visualType: "discovery-map",
       },
       {
@@ -99,6 +101,7 @@ export const chapters = [
           "Phương pháp lịch sử và lôgic",
           "Ý nghĩa phương pháp luận",
         ],
+        primaryFormat: "read",
         visualType: "scope-map",
       },
     ],
@@ -152,6 +155,7 @@ export const chapters = [
           "Tính tổ chức",
           "Tính xã hội hóa của sản xuất",
         ],
+        primaryFormat: "read",
         visualType: "dual-lens",
       },
       {
@@ -174,6 +178,7 @@ export const chapters = [
           "Nội dung văn hóa – tư tưởng",
           "Đảng Cộng sản",
         ],
+        primaryFormat: "listen",
         visualType: "three-lens-matrix",
       },
       {
@@ -196,6 +201,7 @@ export const chapters = [
           "Giai cấp công nhân Việt Nam",
           "Công nghiệp hóa, hiện đại hóa",
         ],
+        primaryFormat: "read",
         visualType: "continuity-change",
       },
     ],
@@ -249,6 +255,7 @@ export const chapters = [
           "Đặc trưng bản chất",
           "Phát triển con người",
         ],
+        primaryFormat: "read",
         visualType: "layer-system",
       },
       {
@@ -271,6 +278,7 @@ export const chapters = [
           "Cái cũ và cái mới",
           "Tính lâu dài, phức tạp",
         ],
+        primaryFormat: "listen",
         visualType: "transition-layers",
       },
       {
@@ -293,6 +301,7 @@ export const chapters = [
           "Công nghiệp hóa, hiện đại hóa",
           "Phương hướng xây dựng",
         ],
+        primaryFormat: "read",
         visualType: "roadmap",
       },
     ],
