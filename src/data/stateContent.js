@@ -532,7 +532,7 @@ export const learningTracks = [
           "Dân chủ cần thiết chế để trở thành quyền có thể thực hiện; Nhà nước cần sự tham gia và giám sát để quyền lực hướng về Nhân dân.",
         thesisDetail:
           "Mối quan hệ được trình bày theo hai chiều: dân chủ cung cấp nền tảng xã hội và chính trị; Nhà nước sử dụng pháp luật cùng hoạt động lập pháp, hành pháp, tư pháp để bảo đảm thực hiện.",
-        sectionEyebrow: "Quan hệ hữu cơ",
+        sectionEyebrow: "Mối quan hệ giữa dân chủ XHCN và Nhà nước XHCN",
         sectionTitle: "Không thể tách mục tiêu dân chủ khỏi công cụ thể chế",
         contextParagraphs: [
           "Nếu chỉ nhìn dân chủ như một tuyên bố giá trị, ta bỏ qua câu hỏi quyền được xác định, tổ chức và bảo vệ bằng cách nào. Nếu chỉ nhìn Nhà nước như bộ máy, ta bỏ qua câu hỏi quyền lực bắt nguồn từ đâu và chịu sự giám sát của ai.",
@@ -543,7 +543,7 @@ export const learningTracks = [
           { title: "Nhà nước thể chế hóa", text: "Quyền và cơ chế thực hiện được xác lập trong pháp luật và thiết chế công." },
           { title: "Quyền làm chủ được thực hiện", text: "Lập pháp, hành pháp và tư pháp cùng tham gia bảo đảm khuôn khổ dân chủ." },
         ],
-        relationTitle: "Một vòng quan hệ hai chiều",
+        relationTitle: "Mối quan hệ hữu cơ gắn bó mật thiết",
         relationIntro:
           "Dân chủ không chỉ đi vào Nhà nước; Nhà nước cũng phải trở lại tạo điều kiện để Nhân dân thực hiện quyền, tham gia và giám sát.",
         lenses: [
